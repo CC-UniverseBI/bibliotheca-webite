@@ -16,9 +16,8 @@ import ResourceExchangeAbi from '~/abi/NiftyswapExchange20.json'
 
 // ADDRESS CONSTS
 import exchangeAddress from '~/constant/exchangeAddress'
-import resourceTokens from '~/constant/resourceTokens'
+import resourceTokens from '~/constant/erc1155Tokens'
 import erc20Tokens from '~/constant/erc20Tokens'
-import erc1155Tokens from '~/constant/erc1155Tokens'
 
 const { BigNumber } = ethers
 
@@ -242,7 +241,7 @@ async function getLiquidityTokenSupply(network, resourceId) {
   )
 
   const supply = await exchange.getTotalSupply([resourceId])
-  return supply[0]
+  return parseInt(ethers.utils.formatEther(supply[0])).toFixed(2)
 }
 
 async function getLiquidityBalance(network, resourceId) {
@@ -259,7 +258,7 @@ async function getLiquidityBalance(network, resourceId) {
   const liquidityBal = await exchange.balanceOf(await signer.getAddress(), [
     resourceId,
   ])
-  return liquidityBal
+  return parseInt(ethers.utils.formatEther(liquidityBal)).toFixed(2)
 }
 
 async function getBuyPrices(network, resourceIds, amounts) {
@@ -274,7 +273,7 @@ async function getBuyPrices(network, resourceIds, amounts) {
   )
 
   const prices = await exchange.getPrice_currencyToToken(resourceIds, amounts)
-  return prices
+  return ethers.utils.formatEther(prices)
 }
 
 // MARKET OPERATIONS
@@ -457,7 +456,7 @@ async function validateAndApproveERC1155(network, key, spender) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)
   const signer = provider.getSigner()
 
-  const address = erc1155Tokens[network].getTokenByKey(key).address
+  const address = resourceTokens[network].getTokenByKey(key).address
   const erc1155 = new ethers.Contract(address, ResourceTokensAbi.abi, signer)
 
   const isAllowed = await erc1155.isApprovedForAll(

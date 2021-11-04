@@ -1,12 +1,47 @@
 <template>
-  <div class="flex bg-gray-900 justify-between p-4 rounded-2xl w-full">
+  <div class="flex bg-gray-900 justify-between p-4 rounded-2xl w-full mb-4">
     <div class="w-full pr-9">
-      <div class="bg-gray-700 p-2 rounded-xl font-display text-xl">Gold</div>
-      <div class="mt-2 text-sm">Balance:</div>
+      <div
+        :class="resource.colourClass"
+        class="
+          bg-gray-700
+          p-3
+          rounded-xl
+          font-display
+          text-xl
+          bg-opacity-75
+          border
+        "
+      >
+        {{ resource.trait }}
+      </div>
+      <div class="mt-2 text-sm text-gray-400">Balance:</div>
     </div>
-    <div class="flex flex-col justify-between">
-      <div class="text-2xl">0.0</div>
-      <div class="text-sm">remove</div>
+    <div class="flex flex-col justify-between w-1/3">
+      <div class="text-2xl mt-2 flex ml-auto">
+        <input
+          min="0"
+          class="
+            text-right
+            appearance-none
+            bg-transparent
+            w-full
+            focus:border-none
+          "
+          type="number"
+          placeholder="0"
+          @change.prevent="$emit('amount-changed', $event)"
+        />
+      </div>
+      <div class="text-sm ml-auto">
+        <button
+          class="hover:bg-gray-800 rounded px-2"
+          type="button"
+          @click="$emit('x-click')"
+        >
+          remove
+        </button>
+      </div>
     </div>
   </div>
 </template>

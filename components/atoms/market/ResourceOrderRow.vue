@@ -11,8 +11,8 @@
       <input
         class="text-right appearance-none rounded-2xl bg-gray-1000 w-3/4 p-1"
         type="number"
-        @change.prevent="$emit('amount-changed', $event)"
         placeholder="0"
+        @change.prevent="$emit('amount-changed', $event)"
       />
     </td>
     <td>
@@ -34,6 +34,7 @@ export default defineComponent({
     LoadingDots,
     Close,
   },
+  fetchOnServer: false,
   props: {
     resource: {
       type: Object,
