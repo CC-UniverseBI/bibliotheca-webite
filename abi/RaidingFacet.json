@@ -1,9 +1,15 @@
 {
-  "address": "0x51625BcA34826ceA1501A51470A0bB5B8c864c68",
+  "address": "0xaF2929Ccb660f6d715893C8B2199E0ca28Da1c1c",
   "abi": [
     {
       "anonymous": false,
       "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "raidResult",
+          "type": "uint256"
+        },
         {
           "indexed": false,
           "internalType": "uint256",
@@ -63,6 +69,30 @@
       "type": "event"
     },
     {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_attackingTokenId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_defendingTokenId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getChance",
+      "outputs": [
+        {
+          "internalType": "uint32",
+          "name": "",
+          "type": "uint32"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "inputs": [],
       "name": "pickWinner",
       "outputs": [
@@ -94,27 +124,27 @@
       "type": "function"
     }
   ],
-  "transactionHash": "0x426191995af25a0410391bcbf71951654a5d520fddaad6604e9c2679ac248465",
+  "transactionHash": "0x96d344b0abbefe4ec110b79dffab7f6e17d75e3cc8025e64db3973d3f5e17d80",
   "receipt": {
     "to": null,
     "from": "0xF3a8b033c2572A2887c507aa92eD134B29620245",
-    "contractAddress": "0x51625BcA34826ceA1501A51470A0bB5B8c864c68",
+    "contractAddress": "0xaF2929Ccb660f6d715893C8B2199E0ca28Da1c1c",
     "transactionIndex": 0,
-    "gasUsed": "47892432",
+    "gasUsed": "66086733",
     "logsBloom": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
-    "blockHash": "0xd8e0088ef68cdea369488d914bcdbb4b64d504bc5c0532a7801772b4dc10c1f0",
-    "transactionHash": "0x426191995af25a0410391bcbf71951654a5d520fddaad6604e9c2679ac248465",
+    "blockHash": "0x66b6e2449f83b70858691808b68f22026a69f8b20895b3c1ffb44d6d5ac640c6",
+    "transactionHash": "0x96d344b0abbefe4ec110b79dffab7f6e17d75e3cc8025e64db3973d3f5e17d80",
     "logs": [],
-    "blockNumber": 5982994,
-    "cumulativeGasUsed": "37219512",
+    "blockNumber": 6156694,
+    "cumulativeGasUsed": "51508873",
     "status": 1,
     "byzantium": true
   },
   "args": [],
-  "solcInputHash": "98b0a17bb6e063f274fd2fdf87a19c52",
-  "metadata": "{\"compiler\":{\"version\":\"0.8.3+commit.8d00100c\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"attackingRealm\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"defendingRealm\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"attackerAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"defenderAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"raidingUnitsLost\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"defendingUnitsLost\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"resourcesIdsPillaged\",\"type\":\"uint256[]\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"resourcesValuesPillaged\",\"type\":\"uint256[]\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"unitsCaptured\",\"type\":\"uint256\"}],\"name\":\"RaidResult\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"pickWinner\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_attackingTokenId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_defendingTokenId\",\"type\":\"uint256\"}],\"name\":\"raidRealm\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/settling/facets/RaidingFacet.sol\":\"RaidingFacet\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/token/ERC721/IERC721.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\nimport \\\"../../utils/introspection/IERC165.sol\\\";\\n\\n/**\\n * @dev Required interface of an ERC721 compliant contract.\\n */\\ninterface IERC721 is IERC165 {\\n    /**\\n     * @dev Emitted when `tokenId` token is transferred from `from` to `to`.\\n     */\\n    event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);\\n\\n    /**\\n     * @dev Emitted when `owner` enables `approved` to manage the `tokenId` token.\\n     */\\n    event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);\\n\\n    /**\\n     * @dev Emitted when `owner` enables or disables (`approved`) `operator` to manage all of its assets.\\n     */\\n    event ApprovalForAll(address indexed owner, address indexed operator, bool approved);\\n\\n    /**\\n     * @dev Returns the number of tokens in ``owner``'s account.\\n     */\\n    function balanceOf(address owner) external view returns (uint256 balance);\\n\\n    /**\\n     * @dev Returns the owner of the `tokenId` token.\\n     *\\n     * Requirements:\\n     *\\n     * - `tokenId` must exist.\\n     */\\n    function ownerOf(uint256 tokenId) external view returns (address owner);\\n\\n    /**\\n     * @dev Safely transfers `tokenId` token from `from` to `to`, checking first that contract recipients\\n     * are aware of the ERC721 protocol to prevent tokens from being forever locked.\\n     *\\n     * Requirements:\\n     *\\n     * - `from` cannot be the zero address.\\n     * - `to` cannot be the zero address.\\n     * - `tokenId` token must exist and be owned by `from`.\\n     * - If the caller is not `from`, it must be have been allowed to move this token by either {approve} or {setApprovalForAll}.\\n     * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function safeTransferFrom(\\n        address from,\\n        address to,\\n        uint256 tokenId\\n    ) external;\\n\\n    /**\\n     * @dev Transfers `tokenId` token from `from` to `to`.\\n     *\\n     * WARNING: Usage of this method is discouraged, use {safeTransferFrom} whenever possible.\\n     *\\n     * Requirements:\\n     *\\n     * - `from` cannot be the zero address.\\n     * - `to` cannot be the zero address.\\n     * - `tokenId` token must be owned by `from`.\\n     * - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transferFrom(\\n        address from,\\n        address to,\\n        uint256 tokenId\\n    ) external;\\n\\n    /**\\n     * @dev Gives permission to `to` to transfer `tokenId` token to another account.\\n     * The approval is cleared when the token is transferred.\\n     *\\n     * Only a single account can be approved at a time, so approving the zero address clears previous approvals.\\n     *\\n     * Requirements:\\n     *\\n     * - The caller must own the token or be an approved operator.\\n     * - `tokenId` must exist.\\n     *\\n     * Emits an {Approval} event.\\n     */\\n    function approve(address to, uint256 tokenId) external;\\n\\n    /**\\n     * @dev Returns the account approved for `tokenId` token.\\n     *\\n     * Requirements:\\n     *\\n     * - `tokenId` must exist.\\n     */\\n    function getApproved(uint256 tokenId) external view returns (address operator);\\n\\n    /**\\n     * @dev Approve or remove `operator` as an operator for the caller.\\n     * Operators can call {transferFrom} or {safeTransferFrom} for any token owned by the caller.\\n     *\\n     * Requirements:\\n     *\\n     * - The `operator` cannot be the caller.\\n     *\\n     * Emits an {ApprovalForAll} event.\\n     */\\n    function setApprovalForAll(address operator, bool _approved) external;\\n\\n    /**\\n     * @dev Returns if the `operator` is allowed to manage all of the assets of `owner`.\\n     *\\n     * See {setApprovalForAll}\\n     */\\n    function isApprovedForAll(address owner, address operator) external view returns (bool);\\n\\n    /**\\n     * @dev Safely transfers `tokenId` token from `from` to `to`.\\n     *\\n     * Requirements:\\n     *\\n     * - `from` cannot be the zero address.\\n     * - `to` cannot be the zero address.\\n     * - `tokenId` token must exist and be owned by `from`.\\n     * - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.\\n     * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function safeTransferFrom(\\n        address from,\\n        address to,\\n        uint256 tokenId,\\n        bytes calldata data\\n    ) external;\\n}\\n\",\"keccak256\":\"0xf101e8720213560fab41104d53b3cc7ba0456ef3a98455aa7f022391783144a0\",\"license\":\"MIT\"},\"@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @title ERC721 token receiver interface\\n * @dev Interface for any contract that wants to support safeTransfers\\n * from ERC721 asset contracts.\\n */\\ninterface IERC721Receiver {\\n    /**\\n     * @dev Whenever an {IERC721} `tokenId` token is transferred to this contract via {IERC721-safeTransferFrom}\\n     * by `operator` from `from`, this function is called.\\n     *\\n     * It must return its Solidity selector to confirm the token transfer.\\n     * If any other value is returned or the interface is not implemented by the recipient, the transfer will be reverted.\\n     *\\n     * The selector can be obtained in Solidity with `IERC721.onERC721Received.selector`.\\n     */\\n    function onERC721Received(\\n        address operator,\\n        address from,\\n        uint256 tokenId,\\n        bytes calldata data\\n    ) external returns (bytes4);\\n}\\n\",\"keccak256\":\"0xd9517254724276e2e8de3769183c1f738f445f0095c26fd9b86d3c6687e887b9\",\"license\":\"MIT\"},\"@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\nimport \\\"../IERC721.sol\\\";\\n\\n/**\\n * @title ERC-721 Non-Fungible Token Standard, optional enumeration extension\\n * @dev See https://eips.ethereum.org/EIPS/eip-721\\n */\\ninterface IERC721Enumerable is IERC721 {\\n    /**\\n     * @dev Returns the total amount of tokens stored by the contract.\\n     */\\n    function totalSupply() external view returns (uint256);\\n\\n    /**\\n     * @dev Returns a token ID owned by `owner` at a given `index` of its token list.\\n     * Use along with {balanceOf} to enumerate all of ``owner``'s tokens.\\n     */\\n    function tokenOfOwnerByIndex(address owner, uint256 index) external view returns (uint256 tokenId);\\n\\n    /**\\n     * @dev Returns a token ID at a given `index` of all the tokens stored by the contract.\\n     * Use along with {totalSupply} to enumerate all tokens.\\n     */\\n    function tokenByIndex(uint256 index) external view returns (uint256);\\n}\\n\",\"keccak256\":\"0xa69205e5009601cf13be78b1e2f500e1e3b1d8012f22d966e63975273f602038\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/introspection/IERC165.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Interface of the ERC165 standard, as defined in the\\n * https://eips.ethereum.org/EIPS/eip-165[EIP].\\n *\\n * Implementers can declare support of contract interfaces, which can then be\\n * queried by others ({ERC165Checker}).\\n *\\n * For an implementation, see {ERC165}.\\n */\\ninterface IERC165 {\\n    /**\\n     * @dev Returns true if this contract implements the interface defined by\\n     * `interfaceId`. See the corresponding\\n     * https://eips.ethereum.org/EIPS/eip-165#how-interfaces-are-identified[EIP section]\\n     * to learn more about how these ids are created.\\n     *\\n     * This function call must use less than 30 000 gas.\\n     */\\n    function supportsInterface(bytes4 interfaceId) external view returns (bool);\\n}\\n\",\"keccak256\":\"0xa28007762d9da9db878dd421960c8cb9a10471f47ab5c1b3309bfe48e9e79ff4\",\"license\":\"MIT\"},\"contracts/settling/facets/RaidingFacet.sol\":{\"content\":\"// StakingFacet-License-Identifier: MIT\\npragma solidity ^0.8.2;\\nimport \\\"../../shared/interfaces/SRealmsToken.sol\\\";\\nimport \\\"../../shared/interfaces/RealmsToken.sol\\\";\\nimport \\\"../../shared/interfaces/ResourcesIERC1155MintBurn.sol\\\";\\nimport \\\"../libraries/ResourceUtils.sol\\\";\\n\\n//____|#|_|#|____RAIDING FACET____|#|_|#|____//\\n// Allows one Realm to raid another\\n// Gives outcome based of Realm statistics plus a diceroll\\n// Burns some resources\\n// If raid is succesful buildings are Razed and vault is plundered\\n\\ncontract RaidingFacet is ResourceUtils {\\n    event RaidResult(\\n        uint256 attackingRealm,\\n        uint256 defendingRealm,\\n        address attackerAddress,\\n        address defenderAddress,\\n        uint256 raidingUnitsLost,\\n        uint256 defendingUnitsLost,\\n        uint256[] resourcesIdsPillaged,\\n        uint256[] resourcesValuesPillaged,\\n        uint256 unitsCaptured\\n    );\\n\\n    function raidRealm(uint256 _attackingTokenId, uint256 _defendingTokenId)\\n        public\\n        checkSRealmOwner(_attackingTokenId)\\n    {\\n        bool raidSuccessful;\\n        uint256 raidSuccessRatio;\\n        uint32 knightsCaptured;\\n\\n        SRealmsToken sRealmstoken = SRealmsToken(s.sRealms);\\n\\n        address defendersAddress = sRealmstoken.ownerOf(_defendingTokenId);\\n\\n        (raidSuccessful, raidSuccessRatio, knightsCaptured) = _calculateOutcome(\\n            _attackingTokenId,\\n            _defendingTokenId\\n        );\\n\\n        if (raidSuccessful) {\\n            RealmInfo storage defendingRealmInfo = s.realmInfo[\\n                _defendingTokenId\\n            ];\\n            // calculate pillaged resource values\\n            uint256[] memory dRealmResourceIds = new uint256[](\\n                defendingRealmInfo.resourceIds.length\\n            );\\n            uint256[] memory dRealmResourceValues = new uint256[](\\n                defendingRealmInfo.resourceIds.length\\n            );\\n\\n            (dRealmResourceIds, dRealmResourceValues) = _pillagedResources(\\n                _defendingTokenId,\\n                50\\n            ); // currently set at 50\\n\\n            _mintResources(msg.sender, dRealmResourceIds, dRealmResourceValues);\\n            emit RaidResult(\\n                _attackingTokenId,\\n                _defendingTokenId,\\n                msg.sender,\\n                defendersAddress,\\n                knightsCaptured,\\n                knightsCaptured,\\n                dRealmResourceIds,\\n                dRealmResourceValues,\\n                knightsCaptured\\n            );\\n        } else {\\n            RaidingArmy storage defendingArmy = s.raidingArmy[\\n                _defendingTokenId\\n            ];\\n            defendingArmy.knightsTrained += knightsCaptured;\\n\\n            emit RaidResult(\\n                _attackingTokenId,\\n                _defendingTokenId,\\n                msg.sender,\\n                defendersAddress,\\n                knightsCaptured,\\n                knightsCaptured,\\n                new uint256[](0),\\n                new uint256[](0),\\n                knightsCaptured\\n            );\\n        }\\n    }\\n\\n    function _calculateOutcome(\\n        uint256 _attackingTokenId,\\n        uint256 _defendingTokenId\\n    )\\n        internal\\n        returns (\\n            bool,\\n            uint256,\\n            uint32\\n        )\\n    {\\n        // Attacking Realm\\n        RaidingArmy storage raidingArmy = s.raidingArmy[_attackingTokenId];\\n        uint32 unfinishedKnights;\\n\\n        for (\\n            uint32 i = raidingArmy.knightsTrained;\\n            i < raidingArmy.knightsTrained - raidingArmy.knightsSlayed;\\n            i--\\n        ) {\\n            if (raidingArmy.knights[i].unitFinished < block.timestamp) {\\n                break;\\n            } else {\\n                unfinishedKnights++;\\n            }\\n        }\\n\\n        uint32 totalKnights = raidingArmy.knightsTrained -\\n            raidingArmy.knightsSlayed -\\n            unfinishedKnights;\\n\\n        // Defending Realm\\n        RealmInfo storage defendingRealm = s.realmInfo[_defendingTokenId];\\n\\n        uint32 defendersChance = (uint32(defendingRealm.realmDefence * 100) /\\n            (uint32(defendingRealm.realmDefence) + totalKnights));\\n\\n        if (_pickWinner() > defendersChance) {\\n            return (true, defendersChance, 0);\\n        } else {\\n            raidingArmy.knightsTrained -= totalKnights;\\n            return (false, defendersChance, totalKnights); // send knights to attacker\\n        }\\n    }\\n\\n    function _pickWinner() private view returns (uint256) {\\n        return _random() % 100;\\n    }\\n\\n    function pickWinner() public view returns (uint256) {\\n        return _pickWinner();\\n    }\\n\\n    function _random() private view returns (uint256) {\\n        return\\n            uint256(\\n                keccak256(\\n                    abi.encodePacked(\\n                        block.difficulty,\\n                        block.timestamp,\\n                        uint8(100)\\n                    )\\n                )\\n            );\\n    }\\n\\n    function _pillagedResources(uint256 _tokenId, uint256 _percentage)\\n        private\\n        returns (\\n            uint256[] memory _ids,\\n            uint256[] memory _realmsResourcesOutputs\\n        )\\n    {\\n        RealmInfo storage realmInfo = s.realmInfo[_tokenId];\\n\\n        uint256[] memory resourcesProduction = new uint256[](\\n            realmInfo.resourceIds.length\\n        );\\n        _realmsResourcesOutputs = new uint256[](realmInfo.resourceIds.length);\\n\\n        // calculate the resources on the realm and the levels they are at\\n        for (uint256 i = 0; i < realmInfo.resourceIds.length; i++) {\\n            resourcesProduction[i] = realmInfo\\n                .resourceInfo[realmInfo.resourceIds[i]]\\n                .production;\\n        }\\n\\n        uint256 total = _getAvailableVaultResources(\\n            realmInfo.vestedTimeUpdatedAt\\n        );\\n        uint256 happiness = _getHappiness(_tokenId);\\n        // Calculate total output of the Realm\\n        for (uint256 i = 0; i < realmInfo.resourceIds.length; i++) {\\n            _realmsResourcesOutputs[i] =\\n                ((((resourcesProduction[i] * total) * _percentage) / 100) *\\n                    happiness) /\\n                100; // replace with resourcesAvailable\\n        }\\n\\n        realmInfo.lastUpdateAt = _returnPillagedTime(\\n            realmInfo.lastUpdateAt,\\n            _getAvailableResources(realmInfo.lastUpdateAt),\\n            _percentage\\n        );\\n\\n        realmInfo.vestedTimeUpdatedAt = _returnPillagedTime(\\n            realmInfo.vestedTimeUpdatedAt,\\n            _getAvailableVestedResources(realmInfo.vestedTimeUpdatedAt),\\n            _percentage\\n        );\\n\\n        return (realmInfo.resourceIds, _realmsResourcesOutputs);\\n    }\\n\\n    function _returnPillagedTime(\\n        uint256 _lastUpdate,\\n        uint256 _resourcesAvailable,\\n        uint256 _percentage\\n    ) internal pure returns (uint256) {\\n        return\\n            _lastUpdate + ((_resourcesAvailable * 1 hours) * _percentage) / 100;\\n    }\\n\\n    function _getAvailableVaultResources(uint256 _vestedTimeUpdatedAt)\\n        internal\\n        view\\n        returns (uint256)\\n    {\\n        return (block.timestamp - _vestedTimeUpdatedAt) / (1 hours);\\n    }\\n}\\n\",\"keccak256\":\"0xb021e3a0ab9e1f5642b5fe74a2f2f2dfbd8aa960271ef73ae4a6ec8ea4f8ae03\"},\"contracts/settling/libraries/LibAppStorage.sol\":{\"content\":\"pragma solidity ^0.8.2;\\n\\nstruct AppStorage {\\n    mapping(uint256 => RealmInfo) realmInfo;\\n    address sRealms;\\n    address realms;\\n    address realmsStorage;\\n    address treasury;\\n    address resources;\\n    address oracle;\\n    address lords;\\n    mapping(uint256 => LevelProduction) levelProduction;\\n    mapping(uint256 => UpgradeCosts) upgradeCosts;\\n    mapping(uint256 => BuildingUpgradeCosts) buildingUpgradeCosts;\\n    mapping(uint256 => BuildingCosts) buildingCosts;\\n    mapping(uint256 => TheAges) theAges;\\n    uint256 genesisTime;\\n    mapping(uint256 => Raiding) raiding;\\n    mapping(uint256 => RaidingArmy) raidingArmy;\\n    mapping(uint256 => DefendingArmy) defendingArmy;\\n    mapping(uint256 => ArmyUnit) armyUnit;\\n}\\n\\nstruct TheAges {\\n    uint256 settledRealms;\\n    uint256 ageStart;\\n    uint256 ageFinish;\\n}\\n\\nstruct RealmInfo {\\n    string name;\\n    uint256 lastUpdateAt;\\n    uint256 vestedTimeUpdatedAt;\\n    uint256 ageSettled;\\n    uint256 ageClaimed;\\n    uint256[] resourceIds;\\n    uint8 cities;\\n    uint8 harbours;\\n    uint8 rivers;\\n    uint8 regions;\\n    uint8 wonders;\\n    uint8 orderOf;\\n    uint8 aquaducts;\\n    uint8 temples;\\n    uint8 castles;\\n    uint8 markets;\\n    uint8 ports;\\n    uint8 barracks;\\n    uint8 farms;\\n    uint8 shipyard;\\n    uint8 fishingVillage;\\n    int32 realmDefence;\\n    int32 realmOffence;\\n    int32 realmMagic;\\n    int32 foodSupply;\\n    int32 population;\\n    mapping(uint256 => ResourceInfo) resourceInfo;\\n}\\n\\nstruct ResourceInfo {\\n    uint8 id;\\n    uint8 level; // level of resource production\\n    uint8 production;\\n}\\n\\nstruct BuildingCosts {\\n    string name;\\n    uint32[] resourceIds;\\n    uint32[] resourceValues;\\n    uint32[] requirements;\\n    int32 defence;\\n    int32 offence;\\n    int32 magic;\\n    int32 population;\\n    int32 food;\\n}\\n\\nstruct BuildingUpgradeCosts {\\n    uint8[] realmBuildings;\\n    mapping(uint256 => BuildingCosts) buildingCosts;\\n}\\n\\nstruct LevelProduction {\\n    uint8 output;\\n}\\nstruct UpgradeCosts {\\n    uint8[] resourceIds;\\n    mapping(uint256 => UpgradeCostLevels) upgradeCostLevels;\\n}\\n\\nstruct UpgradeCostLevels {\\n    uint256[] value;\\n}\\nstruct Raiding {\\n    uint256 coolDownTime;\\n    uint256 totalRaids;\\n    uint256 successfulRaids;\\n}\\n\\nstruct RaidingArmy {\\n    uint32 knightsTrained;\\n    uint32 knightsSlayed;\\n    uint32 footSoldiersTrained;\\n    uint32 footSoldiersSlayed;\\n    mapping(uint256 => TrainedArmyUnit) knights;\\n    mapping(uint256 => TrainedArmyUnit) footSoldiers;\\n}\\n\\nstruct DefendingArmy {\\n    uint32 trebuchetsTrained;\\n    uint32 trebuchetsSlayed;\\n    uint32 scorpionsTrained;\\n    uint32 scorpionsSlayed;\\n    mapping(uint256 => TrainedArmyUnit) trebuchets;\\n    mapping(uint256 => TrainedArmyUnit) scorpions;\\n}\\n\\nstruct TrainedArmyUnit {\\n    bool destroyed;\\n    uint256 unitFinished;\\n}\\n\\nstruct ArmyUnit {\\n    string name;\\n    uint256 timeToTrain;\\n    uint32 offence;\\n    uint32 defence;\\n    uint256[] resourceIds;\\n    uint256[] resourceValues;\\n}\\n\\nlibrary LibAppStorage {\\n    function diamondStorage() internal pure returns (AppStorage storage ds) {\\n        assembly {\\n            ds.slot := 0\\n        }\\n    }\\n\\n    function abs(int256 x) internal pure returns (uint256) {\\n        return uint256(x >= 0 ? x : -x);\\n    }\\n}\\n\",\"keccak256\":\"0xdf4eaff003a64be8c2fe375e99c6b5464c22c235404aaa429c2917a21babbac4\"},\"contracts/settling/libraries/Modifiers.sol\":{\"content\":\"import \\\"../../shared/interfaces/RealmsToken.sol\\\";\\nimport \\\"../../shared/interfaces/SRealmsToken.sol\\\";\\nimport \\\"../libraries/LibAppStorage.sol\\\";\\n\\ncontract Modifiers {\\n    AppStorage internal s;\\n    modifier checkSRealmOwner(uint256 _tokenId) {\\n        SRealmsToken sRealmstoken = SRealmsToken(s.sRealms);\\n        require(\\n            msg.sender == sRealmstoken.ownerOf(_tokenId),\\n            \\\"You do not own this Realm\\\"\\n        );\\n        _;\\n    }\\n    modifier checkRealmOwner(uint256 _tokenId) {\\n        RealmsToken realmstoken = RealmsToken(s.realms);\\n        require(\\n            msg.sender == realmstoken.ownerOf(_tokenId),\\n            \\\"You do not own this Realm\\\"\\n        );\\n        _;\\n    }\\n}\\n\",\"keccak256\":\"0x6a04f22a363dcf5c72fd36e2eb64c03f7bbed1d0d098311e2727c992890b4718\"},\"contracts/settling/libraries/ResourceUtils.sol\":{\"content\":\"import \\\"../../shared/interfaces/RealmsToken.sol\\\";\\nimport \\\"../../shared/interfaces/SRealmsToken.sol\\\";\\nimport \\\"../libraries/LibAppStorage.sol\\\";\\nimport \\\"../libraries/Modifiers.sol\\\";\\nimport \\\"../../shared/interfaces/ResourcesIERC1155MintBurn.sol\\\";\\nimport \\\"@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol\\\";\\n\\ncontract ResourceUtils is Modifiers {\\n    function _mintResources(\\n        address _minter,\\n        uint256[] memory _resourceIds,\\n        uint256[] memory _resourceValues\\n    ) internal {\\n        ResourcesIERC1155MintBurn resourceTokens = ResourcesIERC1155MintBurn(\\n            s.resources\\n        );\\n        resourceTokens.resourceMinting(\\n            _minter,\\n            _resourceIds,\\n            _resourceValues,\\n            \\\"0x\\\"\\n        );\\n    }\\n\\n    function _batchTransferResources(\\n        address _from,\\n        address _to,\\n        uint256[] memory _resourceIds,\\n        uint256[] memory _resourceValues\\n    ) internal {\\n        ResourcesIERC1155MintBurn resourceTokens = ResourcesIERC1155MintBurn(\\n            s.resources\\n        );\\n        resourceTokens.safeBatchTransferFrom(\\n            _from,\\n            _to,\\n            _resourceIds,\\n            _resourceValues,\\n            \\\"0x\\\"\\n        );\\n    }\\n\\n    function _batchBurnResources(\\n        address _from,\\n        uint256[] memory _resourceIds,\\n        uint256[] memory _resourceValues\\n    ) internal {\\n        ResourcesIERC1155MintBurn resourceTokens = ResourcesIERC1155MintBurn(\\n            s.resources\\n        );\\n        resourceTokens.batchBurnResources(_from, _resourceIds, _resourceValues);\\n    }\\n\\n    function _getHappiness(uint256 _realmId) internal view returns (uint32) {\\n        RealmInfo storage realmInfo = s.realmInfo[_realmId];\\n        int32 food;\\n\\n        if (realmInfo.foodSupply < 0) {\\n            food = ((100 * realmInfo.foodSupply) * 20) / 1000;\\n        } else {\\n            food = 0;\\n        }\\n        int32 happiness = 100 +\\n            ((100 * (realmInfo.population * 4)) / 1000) +\\n            food;\\n\\n        return uint32(happiness);\\n    }\\n\\n    function _returnTime(uint256 _lastUpdate, uint256 _resourcesAvailable)\\n        internal\\n        pure\\n        returns (uint256)\\n    {\\n        return _lastUpdate + _resourcesAvailable * 1 hours;\\n    }\\n\\n    function _getAvailableResources(uint256 _lastUpdate)\\n        internal\\n        view\\n        returns (uint256)\\n    {\\n        return (block.timestamp - _lastUpdate) / 1 hours;\\n    }\\n\\n    function _getAvailableVestedResources(uint256 _vestedTimeUpdatedAt)\\n        internal\\n        view\\n        returns (uint256)\\n    {\\n        uint256 vested;\\n        vested = (block.timestamp - _vestedTimeUpdatedAt) / (1 hours);\\n        if (vested > 14) {\\n            return vested;\\n        } else {\\n            return 0;\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x194b53dbb1e3ab2086de4432fef34c728b0f47d3c66d275594da87a74a2d147c\"},\"contracts/shared/interfaces/IERC1155.sol\":{\"content\":\"// SPDX-License-Identifier: Apache-2.0\\npragma solidity ^0.8.2;\\n\\ninterface IERC1155 {\\n    /****************************************|\\n  |                 Events                 |\\n  |_______________________________________*/\\n\\n    /**\\n     * @dev Either TransferSingle or TransferBatch MUST emit when tokens are transferred, including zero amount transfers as well as minting or burning\\n     *   Operator MUST be msg.sender\\n     *   When minting/creating tokens, the `_from` field MUST be set to `0x0`\\n     *   When burning/destroying tokens, the `_to` field MUST be set to `0x0`\\n     *   The total amount transferred from address 0x0 minus the total amount transferred to 0x0 may be used by clients and exchanges to be added to the \\\"circulating supply\\\" for a given token ID\\n     *   To broadcast the existence of a token ID with no initial balance, the contract SHOULD emit the TransferSingle event from `0x0` to `0x0`, with the token creator as `_operator`, and a `_amount` of 0\\n     */\\n    event TransferSingle(\\n        address indexed _operator,\\n        address indexed _from,\\n        address indexed _to,\\n        uint256 _id,\\n        uint256 _amount\\n    );\\n\\n    /**\\n     * @dev Either TransferSingle or TransferBatch MUST emit when tokens are transferred, including zero amount transfers as well as minting or burning\\n     *   Operator MUST be msg.sender\\n     *   When minting/creating tokens, the `_from` field MUST be set to `0x0`\\n     *   When burning/destroying tokens, the `_to` field MUST be set to `0x0`\\n     *   The total amount transferred from address 0x0 minus the total amount transferred to 0x0 may be used by clients and exchanges to be added to the \\\"circulating supply\\\" for a given token ID\\n     *   To broadcast the existence of multiple token IDs with no initial balance, this SHOULD emit the TransferBatch event from `0x0` to `0x0`, with the token creator as `_operator`, and a `_amount` of 0\\n     */\\n    event TransferBatch(\\n        address indexed _operator,\\n        address indexed _from,\\n        address indexed _to,\\n        uint256[] _ids,\\n        uint256[] _amounts\\n    );\\n\\n    /**\\n     * @dev MUST emit when an approval is updated\\n     */\\n    event ApprovalForAll(\\n        address indexed _owner,\\n        address indexed _operator,\\n        bool _approved\\n    );\\n\\n    /****************************************|\\n  |                Functions               |\\n  |_______________________________________*/\\n\\n    /**\\n     * @notice Transfers amount of an _id from the _from address to the _to address specified\\n     * @dev MUST emit TransferSingle event on success\\n     * Caller must be approved to manage the _from account's tokens (see isApprovedForAll)\\n     * MUST throw if `_to` is the zero address\\n     * MUST throw if balance of sender for token `_id` is lower than the `_amount` sent\\n     * MUST throw on any other error\\n     * When transfer is complete, this function MUST check if `_to` is a smart contract (code size > 0). If so, it MUST call `onERC1155Received` on `_to` and revert if the return amount is not `bytes4(keccak256(\\\"onERC1155Received(address,address,uint256,uint256,bytes)\\\"))`\\n     * @param _from    Source address\\n     * @param _to      Target address\\n     * @param _id      ID of the token type\\n     * @param _amount  Transfered amount\\n     * @param _data    Additional data with no specified format, sent in call to `_to`\\n     */\\n    function safeTransferFrom(\\n        address _from,\\n        address _to,\\n        uint256 _id,\\n        uint256 _amount,\\n        bytes calldata _data\\n    ) external;\\n\\n    /**\\n     * @notice Send multiple types of Tokens from the _from address to the _to address (with safety call)\\n     * @dev MUST emit TransferBatch event on success\\n     * Caller must be approved to manage the _from account's tokens (see isApprovedForAll)\\n     * MUST throw if `_to` is the zero address\\n     * MUST throw if length of `_ids` is not the same as length of `_amounts`\\n     * MUST throw if any of the balance of sender for token `_ids` is lower than the respective `_amounts` sent\\n     * MUST throw on any other error\\n     * When transfer is complete, this function MUST check if `_to` is a smart contract (code size > 0). If so, it MUST call `onERC1155BatchReceived` on `_to` and revert if the return amount is not `bytes4(keccak256(\\\"onERC1155BatchReceived(address,address,uint256[],uint256[],bytes)\\\"))`\\n     * Transfers and events MUST occur in the array order they were submitted (_ids[0] before _ids[1], etc)\\n     * @param _from     Source addresses\\n     * @param _to       Target addresses\\n     * @param _ids      IDs of each token type\\n     * @param _amounts  Transfer amounts per token type\\n     * @param _data     Additional data with no specified format, sent in call to `_to`\\n     */\\n    function safeBatchTransferFrom(\\n        address _from,\\n        address _to,\\n        uint256[] calldata _ids,\\n        uint256[] calldata _amounts,\\n        bytes calldata _data\\n    ) external;\\n\\n    /**\\n     * @notice Get the balance of an account's Tokens\\n     * @param _owner  The address of the token holder\\n     * @param _id     ID of the Token\\n     * @return        The _owner's balance of the Token type requested\\n     */\\n    function balanceOf(address _owner, uint256 _id)\\n        external\\n        view\\n        returns (uint256);\\n\\n    /**\\n     * @notice Get the balance of multiple account/token pairs\\n     * @param _owners The addresses of the token holders\\n     * @param _ids    ID of the Tokens\\n     * @return        The _owner's balance of the Token types requested (i.e. balance for each (owner, id) pair)\\n     */\\n    function balanceOfBatch(address[] calldata _owners, uint256[] calldata _ids)\\n        external\\n        view\\n        returns (uint256[] memory);\\n\\n    /**\\n     * @notice Enable or disable approval for a third party (\\\"operator\\\") to manage all of caller's tokens\\n     * @dev MUST emit the ApprovalForAll event on success\\n     * @param _operator  Address to add to the set of authorized operators\\n     * @param _approved  True if the operator is approved, false to revoke approval\\n     */\\n    function setApprovalForAll(address _operator, bool _approved) external;\\n\\n    /**\\n     * @notice Queries the approval status of an operator for a given owner\\n     * @param _owner     The owner of the Tokens\\n     * @param _operator  Address of authorized operator\\n     * @return isOperator True if the operator is approved, false if not\\n     */\\n    function isApprovedForAll(address _owner, address _operator)\\n        external\\n        view\\n        returns (bool isOperator);\\n}\\n\",\"keccak256\":\"0xa71395b6df4a2d78d7d9a4e42e9411e44f1933f2190ebb59e93d46957cca1622\",\"license\":\"Apache-2.0\"},\"contracts/shared/interfaces/RealmsToken.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.2;\\n\\nimport \\\"@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol\\\";\\n\\n/**\\n * @dev Required interface of an ERC721 compliant contract.\\n */\\ninterface RealmsToken is IERC721Enumerable {\\n\\n}\\n\",\"keccak256\":\"0x029f5860d9ba6e170c4578b2ae6660dd85a0f0347655b9f70b094a11084cabc0\",\"license\":\"MIT\"},\"contracts/shared/interfaces/ResourcesIERC1155MintBurn.sol\":{\"content\":\"// SPDX-License-Identifier: Apache-2.0\\npragma solidity ^0.8.2;\\n\\nimport \\\"./IERC1155.sol\\\";\\n\\n/**\\n * Recommended interface for public facing minting and burning functions.\\n * These public methods should have restricted access.\\n */\\ninterface ResourcesIERC1155MintBurn is IERC1155 {\\n    /***************************************|\\n  |        Public Minting Functions       |\\n  |______________________________________*/\\n\\n    /**\\n     * @dev Mint _amount of tokens of a given id if not frozen and if max supply not exceeded\\n     * @param _to     The address to mint tokens to.\\n     * @param _id     Token id to mint\\n     * @param _amount The amount to be minted\\n     * @param _data   Byte array of data to pass to recipient if it's a contract\\n     */\\n    function mint(\\n        address _to,\\n        uint256 _id,\\n        uint256 _amount,\\n        bytes calldata _data\\n    ) external;\\n\\n    /**\\n     * @dev Mint tokens for each ids in _ids\\n     * @param _to      The address to mint tokens to.\\n     * @param _ids     Array of ids to mint\\n     * @param _amounts Array of amount of tokens to mint per id\\n     * @param _data    Byte array of data to pass to recipient if it's a contract\\n     */\\n    function batchMint(\\n        address _to,\\n        uint256[] calldata _ids,\\n        uint256[] calldata _amounts,\\n        bytes calldata _data\\n    ) external;\\n\\n    /***************************************|\\n  |        Public Minting Functions       |\\n  |______________________________________*/\\n\\n    /**\\n     * @notice Burn _amount of tokens of a given token id\\n     * @param _from    The address to burn tokens from\\n     * @param _id      Token id to burn\\n     * @param _amount  The amount to be burned\\n     */\\n    function burn(\\n        address _from,\\n        uint256 _id,\\n        uint256 _amount\\n    ) external;\\n\\n    /**\\n     * @notice Burn tokens of given token id for each (_ids[i], _amounts[i]) pair\\n     * @param _from     The address to burn tokens from\\n     * @param _ids      Array of token ids to burn\\n     * @param _amounts  Array of the amount to be burned\\n     */\\n    function batchBurn(\\n        address _from,\\n        uint256[] calldata _ids,\\n        uint256[] calldata _amounts\\n    ) external;\\n\\n    function resourceMinting(\\n        address _to,\\n        uint256[] memory _ids,\\n        uint256[] memory _amounts,\\n        bytes memory _data\\n    ) external;\\n\\n    function batchResourceMinting(\\n        address _to,\\n        uint256[] memory _ids,\\n        uint256[] memory _amounts,\\n        bytes memory _data\\n    ) external;\\n\\n    function batchBurnResources(\\n        address _from,\\n        uint256[] memory _ids,\\n        uint256[] memory _amounts\\n    ) external;\\n}\\n\",\"keccak256\":\"0x827b22a96beba7f58adf4ea7cdbc774d885adb2cd76831688b78884778f39dc0\",\"license\":\"Apache-2.0\"},\"contracts/shared/interfaces/SRealmsToken.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.2;\\n\\nimport \\\"@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol\\\";\\n\\ninterface SRealmsToken is IERC721Enumerable {\\n    function changeDiamondAddress(address _newDiamondAddress) external;\\n\\n    function mintFromStakingContract(address to, uint256 tokenId) external;\\n\\n    function burn(uint256 tokenId) external;\\n}\\n\",\"keccak256\":\"0x721727d42568f1b4735d518e01aaa23f2cb6fe590009dcb402a63e9105c034df\",\"license\":\"MIT\"}},\"version\":1}",
-  "bytecode": "0x608060405234801561001057600080fd5b5061171b806100206000396000f3fe608060405234801561001057600080fd5b50600436106100365760003560e01c80630f3c92f51461003b5780635d495aea14610057575b600080fd5b61005560048036038101906100509190610df8565b610075565b005b61005f610572565b60405161006c919061100f565b60405180910390f35b8160008060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1690508073ffffffffffffffffffffffffffffffffffffffff16636352211e836040518263ffffffff1660e01b81526004016100d8919061100f565b60206040518083038186803b1580156100f057600080fd5b505afa158015610104573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906101289190610dcf565b73ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614610195576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161018c90610fef565b60405180910390fd5b600080600080600060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905060008173ffffffffffffffffffffffffffffffffffffffff16636352211e896040518263ffffffff1660e01b81526004016101fe919061100f565b60206040518083038186803b15801561021657600080fd5b505afa15801561022a573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061024e9190610dcf565b905061025a8989610581565b80955081965082975050505084156103e65760008060000160008a815260200190815260200160002090506000816005018054905067ffffffffffffffff8111156102ce577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6040519080825280602002602001820160405280156102fc5781602001602082028036833780820191505090505b5090506000826005018054905067ffffffffffffffff811115610348577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6040519080825280602002602001820160405280156103765781602001602082028036833780820191505090505b5090506103848b6032610787565b8092508193505050610397338383610b24565b7f6678e7114f44f87317726cb728842e4eef1b40c5b2ece628d335360c8c6e52588c8c33878a8b88888e6040516103d69998979695949392919061102a565b60405180910390a1505050610567565b600080600f0160008a81526020019081526020016000209050838160000160008282829054906101000a900463ffffffff1661042291906111ee565b92506101000a81548163ffffffff021916908363ffffffff1602179055507f6678e7114f44f87317726cb728842e4eef1b40c5b2ece628d335360c8c6e52588a8a33858889600067ffffffffffffffff8111156104a8577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6040519080825280602002602001820160405280156104d65781602001602082028036833780820191505090505b50600067ffffffffffffffff811115610518577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6040519080825280602002602001820160405280156105465781602001602082028036833780820191505090505b508c60405161055d9998979695949392919061102a565b60405180910390a1505b505050505050505050565b600061057c610bc2565b905090565b6000806000806000600f01600087815260200190815260200160002090506000808260000160009054906101000a900463ffffffff1690505b8260000160049054906101000a900463ffffffff168360000160009054906101000a900463ffffffff166105ee9190611461565b63ffffffff168163ffffffff16101561064d57428360010160008363ffffffff16815260200190815260200160002060010154101561062c5761064d565b818061063790611580565b92505080806106459061150d565b9150506105ba565b506000818360000160049054906101000a900463ffffffff168460000160009054906101000a900463ffffffff166106859190611461565b61068f9190611461565b90506000806000016000898152602001908152602001600020905060008282600601600f9054906101000a900460030b6106c991906111ee565b606483600601600f9054906101000a900460030b6106e791906112f4565b6106f191906112c3565b90508063ffffffff16610702610bc2565b11156107265760018160008163ffffffff1691509750975097505050505050610780565b828560000160008282829054906101000a900463ffffffff166107499190611461565b92506101000a81548163ffffffff021916908363ffffffff160217905550600081848163ffffffff16915097509750975050505050505b9250925092565b606080600080600001600086815260200190815260200160002090506000816005018054905067ffffffffffffffff8111156107ec577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b60405190808252806020026020018201604052801561081a5781602001602082028036833780820191505090505b509050816005018054905067ffffffffffffffff811115610864577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6040519080825280602002602001820160405280156108925781602001602082028036833780820191505090505b50925060005b826005018054905081101561096e578260080160008460050183815481106108e9577f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b9060005260206000200154815260200190815260200160002060000160029054906101000a900460ff1660ff1682828151811061094f577f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b602002602001018181525050808061096690611537565b915050610898565b50600061097e8360020154610bdd565b9050600061098b88610bff565b63ffffffff16905060005b8460050180549050811015610a775760648260648a868886815181106109e5577f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b60200260200101516109f791906113d3565b610a0191906113d3565b610a0b9190611292565b610a1591906113d3565b610a1f9190611292565b868281518110610a58577f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b6020026020010181815250508080610a6f90611537565b915050610996565b50610a938460010154610a8d8660010154610cd7565b89610cf9565b8460010181905550610ab68460020154610ab08660020154610d34565b89610cf9565b8460020181905550836005018581805480602002602001604051908101604052809291908181526020018280548015610b0e57602002820191906000526020600020905b815481526020019060010190808311610afa575b5050505050915095509550505050509250929050565b60008060050160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1690508073ffffffffffffffffffffffffffffffffffffffff16638edf55bf8585856040518463ffffffff1660e01b8152600401610b8a93929190610f97565b600060405180830381600087803b158015610ba457600080fd5b505af1158015610bb8573d6000803e3d6000fd5b5050505050505050565b60006064610bce610d6f565b610bd891906115c9565b905090565b6000610e108242610bee919061142d565b610bf89190611292565b9050919050565b600080600080016000848152602001908152602001600020905060008082600601601b9054906101000a900460030b60030b1215610c75576103e8601483600601601b9054906101000a900460030b6064610c5a91906112f4565b610c6491906112f4565b610c6e9190611228565b9050610c7a565b600090505b6000816103e860048560070160009054906101000a900460030b610c9e91906112f4565b6064610caa91906112f4565b610cb49190611228565b6064610cc09190611120565b610cca9190611120565b9050809350505050919050565b6000610e108242610ce8919061142d565b610cf29190611292565b9050919050565b6000606482610e1085610d0c91906113d3565b610d1691906113d3565b610d209190611292565b84610d2b9190611198565b90509392505050565b600080610e108342610d46919061142d565b610d509190611292565b9050600e811115610d645780915050610d6a565b60009150505b919050565b600044426064604051602001610d8793929190610f5a565b6040516020818303038152906040528051906020012060001c905090565b600081519050610db4816116b7565b92915050565b600081359050610dc9816116ce565b92915050565b600060208284031215610de157600080fd5b6000610def84828501610da5565b91505092915050565b60008060408385031215610e0b57600080fd5b6000610e1985828601610dba565b9250506020610e2a85828601610dba565b9150509250929050565b6000610e408383610eff565b60208301905092915050565b610e5581611495565b82525050565b6000610e66826110d5565b610e7081856110ed565b9350610e7b836110c5565b8060005b83811015610eac578151610e938882610e34565b9750610e9e836110e0565b925050600181019050610e7f565b5085935050505092915050565b6000610ec66002836110fe565b9150610ed182611665565b602082019050919050565b6000610ee960198361110f565b9150610ef48261168e565b602082019050919050565b610f08816114d4565b82525050565b610f17816114d4565b82525050565b610f2e610f29826114d4565b6115ad565b82525050565b610f3d816114fb565b82525050565b610f54610f4f826114ee565b6115b7565b82525050565b6000610f668286610f1d565b602082019150610f768285610f1d565b602082019150610f868284610f43565b600182019150819050949350505050565b6000608082019050610fac6000830186610e4c565b8181036020830152610fbe8185610e5b565b90508181036040830152610fd28184610e5b565b90508181036060830152610fe581610eb9565b9050949350505050565b6000602082019050818103600083015261100881610edc565b9050919050565b60006020820190506110246000830184610f0e565b92915050565b600061012082019050611040600083018c610f0e565b61104d602083018b610f0e565b61105a604083018a610e4c565b6110676060830189610e4c565b6110746080830188610f34565b61108160a0830187610f34565b81810360c08301526110938186610e5b565b905081810360e08301526110a78185610e5b565b90506110b7610100830184610f34565b9a9950505050505050505050565b6000819050602082019050919050565b600081519050919050565b6000602082019050919050565b600082825260208201905092915050565b600082825260208201905092915050565b600082825260208201905092915050565b600061112b826114a7565b9150611136836114a7565b925081637fffffff03831360008312151615611155576111546115fa565b5b817fffffffffffffffffffffffffffffffffffffffffffffffffffffffff8000000003831260008312161561118d5761118c6115fa565b5b828201905092915050565b60006111a3826114d4565b91506111ae836114d4565b9250827fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff038211156111e3576111e26115fa565b5b828201905092915050565b60006111f9826114de565b9150611204836114de565b92508263ffffffff0382111561121d5761121c6115fa565b5b828201905092915050565b6000611233826114a7565b915061123e836114a7565b92508261124e5761124d611629565b5b600160000383147fffffffffffffffffffffffffffffffffffffffffffffffffffffffff8000000083141615611287576112866115fa565b5b828205905092915050565b600061129d826114d4565b91506112a8836114d4565b9250826112b8576112b7611629565b5b828204905092915050565b60006112ce826114de565b91506112d9836114de565b9250826112e9576112e8611629565b5b828204905092915050565b60006112ff826114a7565b915061130a836114a7565b925082637fffffff048211600084136000841316161561132d5761132c6115fa565b5b817fffffffffffffffffffffffffffffffffffffffffffffffffffffffff80000000058312600084126000841316161561136a576113696115fa565b5b827fffffffffffffffffffffffffffffffffffffffffffffffffffffffff8000000005821260008413600084121616156113a7576113a66115fa565b5b82637fffffff05821260008412600084121616156113c8576113c76115fa565b5b828202905092915050565b60006113de826114d4565b91506113e9836114d4565b9250817fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0483118215151615611422576114216115fa565b5b828202905092915050565b6000611438826114d4565b9150611443836114d4565b925082821015611456576114556115fa565b5b828203905092915050565b600061146c826114de565b9150611477836114de565b92508282101561148a576114896115fa565b5b828203905092915050565b60006114a0826114b4565b9050919050565b60008160030b9050919050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b6000819050919050565b600063ffffffff82169050919050565b600060ff82169050919050565b6000611506826114de565b9050919050565b6000611518826114de565b9150600082141561152c5761152b6115fa565b5b600182039050919050565b6000611542826114d4565b91507fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff821415611575576115746115fa565b5b600182019050919050565b600061158b826114de565b915063ffffffff8214156115a2576115a16115fa565b5b600182019050919050565b6000819050919050565b60006115c282611658565b9050919050565b60006115d4826114d4565b91506115df836114d4565b9250826115ef576115ee611629565b5b828206905092915050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601260045260246000fd5b60008160f81b9050919050565b7f3078000000000000000000000000000000000000000000000000000000000000600082015250565b7f596f7520646f206e6f74206f776e2074686973205265616c6d00000000000000600082015250565b6116c081611495565b81146116cb57600080fd5b50565b6116d7816114d4565b81146116e257600080fd5b5056fea264697066735822122051a6f38aa04ba3bddcac8ececbdd87afca8b98d730a850b920e3abe99f0d079864736f6c63430008030033",
-  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100365760003560e01c80630f3c92f51461003b5780635d495aea14610057575b600080fd5b61005560048036038101906100509190610df8565b610075565b005b61005f610572565b60405161006c919061100f565b60405180910390f35b8160008060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1690508073ffffffffffffffffffffffffffffffffffffffff16636352211e836040518263ffffffff1660e01b81526004016100d8919061100f565b60206040518083038186803b1580156100f057600080fd5b505afa158015610104573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906101289190610dcf565b73ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614610195576040517f08c379a000000000000000000000000000000000000000000000000000000000815260040161018c90610fef565b60405180910390fd5b600080600080600060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905060008173ffffffffffffffffffffffffffffffffffffffff16636352211e896040518263ffffffff1660e01b81526004016101fe919061100f565b60206040518083038186803b15801561021657600080fd5b505afa15801561022a573d6000803e3d6000fd5b505050506040513d601f19601f8201168201806040525081019061024e9190610dcf565b905061025a8989610581565b80955081965082975050505084156103e65760008060000160008a815260200190815260200160002090506000816005018054905067ffffffffffffffff8111156102ce577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6040519080825280602002602001820160405280156102fc5781602001602082028036833780820191505090505b5090506000826005018054905067ffffffffffffffff811115610348577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6040519080825280602002602001820160405280156103765781602001602082028036833780820191505090505b5090506103848b6032610787565b8092508193505050610397338383610b24565b7f6678e7114f44f87317726cb728842e4eef1b40c5b2ece628d335360c8c6e52588c8c33878a8b88888e6040516103d69998979695949392919061102a565b60405180910390a1505050610567565b600080600f0160008a81526020019081526020016000209050838160000160008282829054906101000a900463ffffffff1661042291906111ee565b92506101000a81548163ffffffff021916908363ffffffff1602179055507f6678e7114f44f87317726cb728842e4eef1b40c5b2ece628d335360c8c6e52588a8a33858889600067ffffffffffffffff8111156104a8577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6040519080825280602002602001820160405280156104d65781602001602082028036833780820191505090505b50600067ffffffffffffffff811115610518577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6040519080825280602002602001820160405280156105465781602001602082028036833780820191505090505b508c60405161055d9998979695949392919061102a565b60405180910390a1505b505050505050505050565b600061057c610bc2565b905090565b6000806000806000600f01600087815260200190815260200160002090506000808260000160009054906101000a900463ffffffff1690505b8260000160049054906101000a900463ffffffff168360000160009054906101000a900463ffffffff166105ee9190611461565b63ffffffff168163ffffffff16101561064d57428360010160008363ffffffff16815260200190815260200160002060010154101561062c5761064d565b818061063790611580565b92505080806106459061150d565b9150506105ba565b506000818360000160049054906101000a900463ffffffff168460000160009054906101000a900463ffffffff166106859190611461565b61068f9190611461565b90506000806000016000898152602001908152602001600020905060008282600601600f9054906101000a900460030b6106c991906111ee565b606483600601600f9054906101000a900460030b6106e791906112f4565b6106f191906112c3565b90508063ffffffff16610702610bc2565b11156107265760018160008163ffffffff1691509750975097505050505050610780565b828560000160008282829054906101000a900463ffffffff166107499190611461565b92506101000a81548163ffffffff021916908363ffffffff160217905550600081848163ffffffff16915097509750975050505050505b9250925092565b606080600080600001600086815260200190815260200160002090506000816005018054905067ffffffffffffffff8111156107ec577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b60405190808252806020026020018201604052801561081a5781602001602082028036833780820191505090505b509050816005018054905067ffffffffffffffff811115610864577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6040519080825280602002602001820160405280156108925781602001602082028036833780820191505090505b50925060005b826005018054905081101561096e578260080160008460050183815481106108e9577f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b9060005260206000200154815260200190815260200160002060000160029054906101000a900460ff1660ff1682828151811061094f577f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b602002602001018181525050808061096690611537565b915050610898565b50600061097e8360020154610bdd565b9050600061098b88610bff565b63ffffffff16905060005b8460050180549050811015610a775760648260648a868886815181106109e5577f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b60200260200101516109f791906113d3565b610a0191906113d3565b610a0b9190611292565b610a1591906113d3565b610a1f9190611292565b868281518110610a58577f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b6020026020010181815250508080610a6f90611537565b915050610996565b50610a938460010154610a8d8660010154610cd7565b89610cf9565b8460010181905550610ab68460020154610ab08660020154610d34565b89610cf9565b8460020181905550836005018581805480602002602001604051908101604052809291908181526020018280548015610b0e57602002820191906000526020600020905b815481526020019060010190808311610afa575b5050505050915095509550505050509250929050565b60008060050160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1690508073ffffffffffffffffffffffffffffffffffffffff16638edf55bf8585856040518463ffffffff1660e01b8152600401610b8a93929190610f97565b600060405180830381600087803b158015610ba457600080fd5b505af1158015610bb8573d6000803e3d6000fd5b5050505050505050565b60006064610bce610d6f565b610bd891906115c9565b905090565b6000610e108242610bee919061142d565b610bf89190611292565b9050919050565b600080600080016000848152602001908152602001600020905060008082600601601b9054906101000a900460030b60030b1215610c75576103e8601483600601601b9054906101000a900460030b6064610c5a91906112f4565b610c6491906112f4565b610c6e9190611228565b9050610c7a565b600090505b6000816103e860048560070160009054906101000a900460030b610c9e91906112f4565b6064610caa91906112f4565b610cb49190611228565b6064610cc09190611120565b610cca9190611120565b9050809350505050919050565b6000610e108242610ce8919061142d565b610cf29190611292565b9050919050565b6000606482610e1085610d0c91906113d3565b610d1691906113d3565b610d209190611292565b84610d2b9190611198565b90509392505050565b600080610e108342610d46919061142d565b610d509190611292565b9050600e811115610d645780915050610d6a565b60009150505b919050565b600044426064604051602001610d8793929190610f5a565b6040516020818303038152906040528051906020012060001c905090565b600081519050610db4816116b7565b92915050565b600081359050610dc9816116ce565b92915050565b600060208284031215610de157600080fd5b6000610def84828501610da5565b91505092915050565b60008060408385031215610e0b57600080fd5b6000610e1985828601610dba565b9250506020610e2a85828601610dba565b9150509250929050565b6000610e408383610eff565b60208301905092915050565b610e5581611495565b82525050565b6000610e66826110d5565b610e7081856110ed565b9350610e7b836110c5565b8060005b83811015610eac578151610e938882610e34565b9750610e9e836110e0565b925050600181019050610e7f565b5085935050505092915050565b6000610ec66002836110fe565b9150610ed182611665565b602082019050919050565b6000610ee960198361110f565b9150610ef48261168e565b602082019050919050565b610f08816114d4565b82525050565b610f17816114d4565b82525050565b610f2e610f29826114d4565b6115ad565b82525050565b610f3d816114fb565b82525050565b610f54610f4f826114ee565b6115b7565b82525050565b6000610f668286610f1d565b602082019150610f768285610f1d565b602082019150610f868284610f43565b600182019150819050949350505050565b6000608082019050610fac6000830186610e4c565b8181036020830152610fbe8185610e5b565b90508181036040830152610fd28184610e5b565b90508181036060830152610fe581610eb9565b9050949350505050565b6000602082019050818103600083015261100881610edc565b9050919050565b60006020820190506110246000830184610f0e565b92915050565b600061012082019050611040600083018c610f0e565b61104d602083018b610f0e565b61105a604083018a610e4c565b6110676060830189610e4c565b6110746080830188610f34565b61108160a0830187610f34565b81810360c08301526110938186610e5b565b905081810360e08301526110a78185610e5b565b90506110b7610100830184610f34565b9a9950505050505050505050565b6000819050602082019050919050565b600081519050919050565b6000602082019050919050565b600082825260208201905092915050565b600082825260208201905092915050565b600082825260208201905092915050565b600061112b826114a7565b9150611136836114a7565b925081637fffffff03831360008312151615611155576111546115fa565b5b817fffffffffffffffffffffffffffffffffffffffffffffffffffffffff8000000003831260008312161561118d5761118c6115fa565b5b828201905092915050565b60006111a3826114d4565b91506111ae836114d4565b9250827fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff038211156111e3576111e26115fa565b5b828201905092915050565b60006111f9826114de565b9150611204836114de565b92508263ffffffff0382111561121d5761121c6115fa565b5b828201905092915050565b6000611233826114a7565b915061123e836114a7565b92508261124e5761124d611629565b5b600160000383147fffffffffffffffffffffffffffffffffffffffffffffffffffffffff8000000083141615611287576112866115fa565b5b828205905092915050565b600061129d826114d4565b91506112a8836114d4565b9250826112b8576112b7611629565b5b828204905092915050565b60006112ce826114de565b91506112d9836114de565b9250826112e9576112e8611629565b5b828204905092915050565b60006112ff826114a7565b915061130a836114a7565b925082637fffffff048211600084136000841316161561132d5761132c6115fa565b5b817fffffffffffffffffffffffffffffffffffffffffffffffffffffffff80000000058312600084126000841316161561136a576113696115fa565b5b827fffffffffffffffffffffffffffffffffffffffffffffffffffffffff8000000005821260008413600084121616156113a7576113a66115fa565b5b82637fffffff05821260008412600084121616156113c8576113c76115fa565b5b828202905092915050565b60006113de826114d4565b91506113e9836114d4565b9250817fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0483118215151615611422576114216115fa565b5b828202905092915050565b6000611438826114d4565b9150611443836114d4565b925082821015611456576114556115fa565b5b828203905092915050565b600061146c826114de565b9150611477836114de565b92508282101561148a576114896115fa565b5b828203905092915050565b60006114a0826114b4565b9050919050565b60008160030b9050919050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b6000819050919050565b600063ffffffff82169050919050565b600060ff82169050919050565b6000611506826114de565b9050919050565b6000611518826114de565b9150600082141561152c5761152b6115fa565b5b600182039050919050565b6000611542826114d4565b91507fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff821415611575576115746115fa565b5b600182019050919050565b600061158b826114de565b915063ffffffff8214156115a2576115a16115fa565b5b600182019050919050565b6000819050919050565b60006115c282611658565b9050919050565b60006115d4826114d4565b91506115df836114d4565b9250826115ef576115ee611629565b5b828206905092915050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601260045260246000fd5b60008160f81b9050919050565b7f3078000000000000000000000000000000000000000000000000000000000000600082015250565b7f596f7520646f206e6f74206f776e2074686973205265616c6d00000000000000600082015250565b6116c081611495565b81146116cb57600080fd5b50565b6116d7816114d4565b81146116e257600080fd5b5056fea264697066735822122051a6f38aa04ba3bddcac8ececbdd87afca8b98d730a850b920e3abe99f0d079864736f6c63430008030033",
+  "solcInputHash": "d36a8d5db2338d7140f13eb951632a77",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.3+commit.8d00100c\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"raidResult\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"attackingRealm\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"defendingRealm\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"attackerAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"defenderAddress\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"raidingUnitsLost\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"defendingUnitsLost\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"resourcesIdsPillaged\",\"type\":\"uint256[]\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"resourcesValuesPillaged\",\"type\":\"uint256[]\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"unitsCaptured\",\"type\":\"uint256\"}],\"name\":\"RaidResult\",\"type\":\"event\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_attackingTokenId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_defendingTokenId\",\"type\":\"uint256\"}],\"name\":\"getChance\",\"outputs\":[{\"internalType\":\"uint32\",\"name\":\"\",\"type\":\"uint32\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"pickWinner\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_attackingTokenId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"_defendingTokenId\",\"type\":\"uint256\"}],\"name\":\"raidRealm\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/settling/facets/RaidingFacet.sol\":\"RaidingFacet\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/token/ERC721/IERC721.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\nimport \\\"../../utils/introspection/IERC165.sol\\\";\\n\\n/**\\n * @dev Required interface of an ERC721 compliant contract.\\n */\\ninterface IERC721 is IERC165 {\\n    /**\\n     * @dev Emitted when `tokenId` token is transferred from `from` to `to`.\\n     */\\n    event Transfer(address indexed from, address indexed to, uint256 indexed tokenId);\\n\\n    /**\\n     * @dev Emitted when `owner` enables `approved` to manage the `tokenId` token.\\n     */\\n    event Approval(address indexed owner, address indexed approved, uint256 indexed tokenId);\\n\\n    /**\\n     * @dev Emitted when `owner` enables or disables (`approved`) `operator` to manage all of its assets.\\n     */\\n    event ApprovalForAll(address indexed owner, address indexed operator, bool approved);\\n\\n    /**\\n     * @dev Returns the number of tokens in ``owner``'s account.\\n     */\\n    function balanceOf(address owner) external view returns (uint256 balance);\\n\\n    /**\\n     * @dev Returns the owner of the `tokenId` token.\\n     *\\n     * Requirements:\\n     *\\n     * - `tokenId` must exist.\\n     */\\n    function ownerOf(uint256 tokenId) external view returns (address owner);\\n\\n    /**\\n     * @dev Safely transfers `tokenId` token from `from` to `to`, checking first that contract recipients\\n     * are aware of the ERC721 protocol to prevent tokens from being forever locked.\\n     *\\n     * Requirements:\\n     *\\n     * - `from` cannot be the zero address.\\n     * - `to` cannot be the zero address.\\n     * - `tokenId` token must exist and be owned by `from`.\\n     * - If the caller is not `from`, it must be have been allowed to move this token by either {approve} or {setApprovalForAll}.\\n     * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function safeTransferFrom(\\n        address from,\\n        address to,\\n        uint256 tokenId\\n    ) external;\\n\\n    /**\\n     * @dev Transfers `tokenId` token from `from` to `to`.\\n     *\\n     * WARNING: Usage of this method is discouraged, use {safeTransferFrom} whenever possible.\\n     *\\n     * Requirements:\\n     *\\n     * - `from` cannot be the zero address.\\n     * - `to` cannot be the zero address.\\n     * - `tokenId` token must be owned by `from`.\\n     * - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function transferFrom(\\n        address from,\\n        address to,\\n        uint256 tokenId\\n    ) external;\\n\\n    /**\\n     * @dev Gives permission to `to` to transfer `tokenId` token to another account.\\n     * The approval is cleared when the token is transferred.\\n     *\\n     * Only a single account can be approved at a time, so approving the zero address clears previous approvals.\\n     *\\n     * Requirements:\\n     *\\n     * - The caller must own the token or be an approved operator.\\n     * - `tokenId` must exist.\\n     *\\n     * Emits an {Approval} event.\\n     */\\n    function approve(address to, uint256 tokenId) external;\\n\\n    /**\\n     * @dev Returns the account approved for `tokenId` token.\\n     *\\n     * Requirements:\\n     *\\n     * - `tokenId` must exist.\\n     */\\n    function getApproved(uint256 tokenId) external view returns (address operator);\\n\\n    /**\\n     * @dev Approve or remove `operator` as an operator for the caller.\\n     * Operators can call {transferFrom} or {safeTransferFrom} for any token owned by the caller.\\n     *\\n     * Requirements:\\n     *\\n     * - The `operator` cannot be the caller.\\n     *\\n     * Emits an {ApprovalForAll} event.\\n     */\\n    function setApprovalForAll(address operator, bool _approved) external;\\n\\n    /**\\n     * @dev Returns if the `operator` is allowed to manage all of the assets of `owner`.\\n     *\\n     * See {setApprovalForAll}\\n     */\\n    function isApprovedForAll(address owner, address operator) external view returns (bool);\\n\\n    /**\\n     * @dev Safely transfers `tokenId` token from `from` to `to`.\\n     *\\n     * Requirements:\\n     *\\n     * - `from` cannot be the zero address.\\n     * - `to` cannot be the zero address.\\n     * - `tokenId` token must exist and be owned by `from`.\\n     * - If the caller is not `from`, it must be approved to move this token by either {approve} or {setApprovalForAll}.\\n     * - If `to` refers to a smart contract, it must implement {IERC721Receiver-onERC721Received}, which is called upon a safe transfer.\\n     *\\n     * Emits a {Transfer} event.\\n     */\\n    function safeTransferFrom(\\n        address from,\\n        address to,\\n        uint256 tokenId,\\n        bytes calldata data\\n    ) external;\\n}\\n\",\"keccak256\":\"0xf101e8720213560fab41104d53b3cc7ba0456ef3a98455aa7f022391783144a0\",\"license\":\"MIT\"},\"@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @title ERC721 token receiver interface\\n * @dev Interface for any contract that wants to support safeTransfers\\n * from ERC721 asset contracts.\\n */\\ninterface IERC721Receiver {\\n    /**\\n     * @dev Whenever an {IERC721} `tokenId` token is transferred to this contract via {IERC721-safeTransferFrom}\\n     * by `operator` from `from`, this function is called.\\n     *\\n     * It must return its Solidity selector to confirm the token transfer.\\n     * If any other value is returned or the interface is not implemented by the recipient, the transfer will be reverted.\\n     *\\n     * The selector can be obtained in Solidity with `IERC721.onERC721Received.selector`.\\n     */\\n    function onERC721Received(\\n        address operator,\\n        address from,\\n        uint256 tokenId,\\n        bytes calldata data\\n    ) external returns (bytes4);\\n}\\n\",\"keccak256\":\"0xd9517254724276e2e8de3769183c1f738f445f0095c26fd9b86d3c6687e887b9\",\"license\":\"MIT\"},\"@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\nimport \\\"../IERC721.sol\\\";\\n\\n/**\\n * @title ERC-721 Non-Fungible Token Standard, optional enumeration extension\\n * @dev See https://eips.ethereum.org/EIPS/eip-721\\n */\\ninterface IERC721Enumerable is IERC721 {\\n    /**\\n     * @dev Returns the total amount of tokens stored by the contract.\\n     */\\n    function totalSupply() external view returns (uint256);\\n\\n    /**\\n     * @dev Returns a token ID owned by `owner` at a given `index` of its token list.\\n     * Use along with {balanceOf} to enumerate all of ``owner``'s tokens.\\n     */\\n    function tokenOfOwnerByIndex(address owner, uint256 index) external view returns (uint256 tokenId);\\n\\n    /**\\n     * @dev Returns a token ID at a given `index` of all the tokens stored by the contract.\\n     * Use along with {totalSupply} to enumerate all tokens.\\n     */\\n    function tokenByIndex(uint256 index) external view returns (uint256);\\n}\\n\",\"keccak256\":\"0xa69205e5009601cf13be78b1e2f500e1e3b1d8012f22d966e63975273f602038\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/introspection/IERC165.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Interface of the ERC165 standard, as defined in the\\n * https://eips.ethereum.org/EIPS/eip-165[EIP].\\n *\\n * Implementers can declare support of contract interfaces, which can then be\\n * queried by others ({ERC165Checker}).\\n *\\n * For an implementation, see {ERC165}.\\n */\\ninterface IERC165 {\\n    /**\\n     * @dev Returns true if this contract implements the interface defined by\\n     * `interfaceId`. See the corresponding\\n     * https://eips.ethereum.org/EIPS/eip-165#how-interfaces-are-identified[EIP section]\\n     * to learn more about how these ids are created.\\n     *\\n     * This function call must use less than 30 000 gas.\\n     */\\n    function supportsInterface(bytes4 interfaceId) external view returns (bool);\\n}\\n\",\"keccak256\":\"0xa28007762d9da9db878dd421960c8cb9a10471f47ab5c1b3309bfe48e9e79ff4\",\"license\":\"MIT\"},\"contracts/settling/facets/RaidingFacet.sol\":{\"content\":\"// StakingFacet-License-Identifier: MIT\\npragma solidity ^0.8.2;\\npragma experimental ABIEncoderV2;\\nimport \\\"../../shared/interfaces/SRealmsToken.sol\\\";\\nimport \\\"../../shared/interfaces/RealmsToken.sol\\\";\\nimport \\\"../../shared/interfaces/ResourcesIERC1155MintBurn.sol\\\";\\nimport \\\"../libraries/ResourceUtils.sol\\\";\\n\\n//____|#|_|#|____RAIDING FACET____|#|_|#|____//\\n// Allows one Realm to raid another\\n// Gives outcome based of Realm statistics plus a diceroll\\n// Burns some resources\\n// If raid is succesful buildings are Razed and vault is plundered\\n\\ncontract RaidingFacet is ResourceUtils {\\n    event RaidResult(\\n        uint256 raidResult,\\n        uint256 attackingRealm,\\n        uint256 defendingRealm,\\n        address attackerAddress,\\n        address defenderAddress,\\n        uint256 raidingUnitsLost,\\n        uint256 defendingUnitsLost,\\n        uint256[] resourcesIdsPillaged,\\n        uint256[] resourcesValuesPillaged,\\n        uint256 unitsCaptured\\n    );\\n\\n    function raidRealm(uint256 _attackingTokenId, uint256 _defendingTokenId)\\n        public\\n        checkSRealmOwner(_attackingTokenId)\\n    {\\n        bool raidSuccessful;\\n        uint256 raidResult;\\n        uint32 unitsCaptured;\\n\\n        SRealmsToken sRealmstoken = SRealmsToken(s.sRealms);\\n\\n        address defendersAddress = sRealmstoken.ownerOf(_defendingTokenId);\\n        require(msg.sender != defendersAddress, \\\"DONT_KILL_YOUR_PEOPLE\\\");\\n\\n        (raidSuccessful, raidResult, unitsCaptured) = _calculateOutcome(\\n            _attackingTokenId,\\n            _defendingTokenId\\n        );\\n        RealmInfo storage defendingRealmInfo = s.realmInfo[_defendingTokenId];\\n        RealmInfo storage attackingRealmInfo = s.realmInfo[_attackingTokenId];\\n        require(\\n            attackingRealmInfo.orderOf != defendingRealmInfo.orderOf,\\n            \\\"CANT_ATTACK_SAME_ORDER\\\"\\n        );\\n        if (raidSuccessful) {\\n            // calculate pillaged resource values\\n            uint256[] memory dRealmResourceIds = new uint256[](\\n                defendingRealmInfo.resourceIds.length\\n            );\\n            uint256[] memory dRealmResourceValues = new uint256[](\\n                defendingRealmInfo.resourceIds.length\\n            );\\n\\n            (dRealmResourceIds, dRealmResourceValues) = _pillagedResources(\\n                _defendingTokenId,\\n                25,\\n                defendingRealmInfo\\n            ); // currently set at 50 TODO: be within a band limit and Raze some buildings\\n\\n            _mintResources(msg.sender, dRealmResourceIds, dRealmResourceValues);\\n            emit RaidResult(\\n                raidResult,\\n                _attackingTokenId,\\n                _defendingTokenId,\\n                msg.sender,\\n                defendersAddress,\\n                0, // attacking units lost\\n                0, //defending units lost\\n                dRealmResourceIds, // resource ids\\n                dRealmResourceValues, // resource values captured\\n                0 // units captured\\n            );\\n        } else {\\n            emit RaidResult(\\n                raidResult,\\n                _attackingTokenId,\\n                _defendingTokenId,\\n                msg.sender,\\n                defendersAddress,\\n                unitsCaptured, // attacking units lost\\n                0, //defending units lost\\n                new uint256[](0), // resource ids\\n                new uint256[](0), // resource values captured\\n                unitsCaptured // units captured\\n            );\\n        }\\n    }\\n\\n    function _calculateOutcome(\\n        uint256 _attackingTokenId,\\n        uint256 _defendingTokenId\\n    )\\n        internal\\n        returns (\\n            bool,\\n            uint256,\\n            uint32\\n        )\\n    {\\n        // Attacking Realm\\n        RaidingArmy storage raidingArmy = s.raidingArmy[_attackingTokenId];\\n\\n        // require(\\n        //     raidingArmy.knightsTrained + raidingArmy.footSoldiersTrained > 0,\\n        //     \\\"NO_UNITS\\\"\\n        // );\\n\\n        RaidingArmy storage defendingRaidingArmy = s.raidingArmy[\\n            _defendingTokenId\\n        ];\\n        DefendingArmy storage defendingArmy = s.defendingArmy[\\n            _defendingTokenId\\n        ];\\n        RealmInfo storage defendingRealm = s.realmInfo[_defendingTokenId];\\n\\n        uint32 knights;\\n        uint32 footSoldiers;\\n        uint32 trebuchets;\\n        uint32 scorpions;\\n\\n        (knights, footSoldiers) = _finishedRaidingUnits(raidingArmy);\\n\\n        (trebuchets, scorpions) = _finishedDefendingUnits(defendingArmy);\\n\\n        // Defending Realm\\n        uint32 defendersChance = (((uint32(defendingRealm.realmDefence) +\\n            (300 * trebuchets) +\\n            (100 * scorpions)) * 100) /\\n            (uint32(defendingRealm.realmDefence) +\\n                (300 * trebuchets) +\\n                (100 * scorpions) +\\n                (knights * 250) +\\n                (footSoldiers * 100)));\\n\\n        if (_pickWinner() > defendersChance) {\\n            return (true, defendersChance, 0);\\n        } else {\\n            raidingArmy.knightsTrained -= knights / 2;\\n            raidingArmy.footSoldiersTrained -= footSoldiers / 2;\\n            defendingRaidingArmy.knightsTrained += knights / 4;\\n            defendingRaidingArmy.footSoldiersTrained += footSoldiers / 4;\\n            return (false, defendersChance, (knights / 2) + (footSoldiers / 2)); // total units captured\\n        }\\n    }\\n\\n    function _getChance(\\n        RaidingArmy storage raidingArmy,\\n        DefendingArmy storage defendingArmy,\\n        RealmInfo storage defendingRealm\\n    ) internal view returns (uint32) {\\n        uint32 knights;\\n        uint32 footSoldiers;\\n        uint32 trebuchets;\\n        uint32 scorpions;\\n        (knights, footSoldiers) = _finishedRaidingUnits(raidingArmy);\\n\\n        (trebuchets, scorpions) = _finishedDefendingUnits(defendingArmy);\\n\\n        // Defending Realm\\n        uint32 defendersChance = (((uint32(defendingRealm.realmDefence) +\\n            (300 * trebuchets) +\\n            (100 * scorpions)) * 100) /\\n            (uint32(defendingRealm.realmDefence) +\\n                (300 * trebuchets) +\\n                (100 * scorpions) +\\n                (knights * 250) +\\n                (footSoldiers * 100)));\\n        return defendersChance;\\n    }\\n\\n    function getChance(uint256 _attackingTokenId, uint256 _defendingTokenId)\\n        public\\n        view\\n        returns (uint32)\\n    {\\n        RaidingArmy storage raidingArmy = s.raidingArmy[_attackingTokenId];\\n        DefendingArmy storage defendingArmy = s.defendingArmy[\\n            _defendingTokenId\\n        ];\\n        RealmInfo storage defendingRealm = s.realmInfo[_defendingTokenId];\\n\\n        return _getChance(raidingArmy, defendingArmy, defendingRealm);\\n    }\\n\\n    function _totalUnits(\\n        uint32 _trained,\\n        uint32 _slayed,\\n        uint32 _unfinished\\n    ) private pure returns (uint32) {\\n        return (_trained - _slayed - _unfinished);\\n    }\\n\\n    function _finishedRaidingUnits(RaidingArmy storage raidingArmy)\\n        private\\n        view\\n        returns (uint32, uint32)\\n    {\\n        uint32 unfinishedKnights;\\n        uint32 unfinishedFootsoldiers;\\n        for (\\n            uint32 i = raidingArmy.knightsTrained;\\n            i < raidingArmy.knightsTrained - raidingArmy.knightsSlayed;\\n            i--\\n        ) {\\n            if (raidingArmy.knights[i].unitFinished < block.timestamp) {\\n                break;\\n            } else {\\n                unfinishedKnights++;\\n            }\\n        }\\n\\n        for (\\n            uint32 i = raidingArmy.footSoldiersTrained;\\n            i <\\n            raidingArmy.footSoldiersTrained - raidingArmy.footSoldiersSlayed;\\n            i--\\n        ) {\\n            if (raidingArmy.footSoldiers[i].unitFinished < block.timestamp) {\\n                break;\\n            } else {\\n                unfinishedFootsoldiers++;\\n            }\\n        }\\n        return (\\n            _totalUnits(\\n                raidingArmy.knightsTrained,\\n                raidingArmy.knightsSlayed,\\n                unfinishedKnights\\n            ),\\n            _totalUnits(\\n                raidingArmy.footSoldiersTrained,\\n                raidingArmy.footSoldiersSlayed,\\n                unfinishedFootsoldiers\\n            )\\n        );\\n    }\\n\\n    function _finishedDefendingUnits(DefendingArmy storage defendingArmy)\\n        private\\n        view\\n        returns (uint32, uint32)\\n    {\\n        uint32 unfinishedTrebuchets;\\n        uint32 unfinishedScorpions;\\n\\n        for (\\n            uint32 i = defendingArmy.trebuchetsTrained;\\n            i <\\n            defendingArmy.trebuchetsTrained - defendingArmy.trebuchetsSlayed;\\n            i--\\n        ) {\\n            if (defendingArmy.trebuchets[i].unitFinished < block.timestamp) {\\n                break;\\n            } else {\\n                unfinishedTrebuchets++;\\n            }\\n        }\\n\\n        for (\\n            uint32 i = defendingArmy.scorpionsTrained;\\n            i < defendingArmy.scorpionsTrained - defendingArmy.scorpionsSlayed;\\n            i--\\n        ) {\\n            if (defendingArmy.scorpions[i].unitFinished < block.timestamp) {\\n                break;\\n            } else {\\n                unfinishedScorpions++;\\n            }\\n        }\\n        return (\\n            _totalUnits(\\n                defendingArmy.trebuchetsTrained,\\n                defendingArmy.trebuchetsSlayed,\\n                unfinishedTrebuchets\\n            ),\\n            _totalUnits(\\n                defendingArmy.scorpionsTrained,\\n                defendingArmy.scorpionsSlayed,\\n                unfinishedScorpions\\n            )\\n        );\\n    }\\n\\n    function _pickWinner() private view returns (uint256) {\\n        return _random() % 100;\\n    }\\n\\n    function pickWinner() public view returns (uint256) {\\n        return _pickWinner();\\n    }\\n\\n    function _random() private view returns (uint256) {\\n        return\\n            uint256(\\n                keccak256(\\n                    abi.encodePacked(\\n                        block.difficulty,\\n                        block.timestamp,\\n                        uint8(100)\\n                    )\\n                )\\n            );\\n    }\\n\\n    function _pillagedResources(\\n        uint256 _tokenId,\\n        uint256 _percentage,\\n        RealmInfo storage realmInfo\\n    )\\n        private\\n        returns (\\n            uint256[] memory _ids,\\n            uint256[] memory _realmsResourcesOutputs\\n        )\\n    {\\n        uint256[] memory resourcesProduction = new uint256[](\\n            realmInfo.resourceIds.length\\n        );\\n        _realmsResourcesOutputs = new uint256[](realmInfo.resourceIds.length);\\n\\n        // calculate the resources on the realm and the levels they are at\\n        for (uint256 i = 0; i < realmInfo.resourceIds.length; i++) {\\n            resourcesProduction[i] = realmInfo\\n                .resourceInfo[realmInfo.resourceIds[i]]\\n                .production;\\n        }\\n\\n        uint256 total = _getAvailableVaultResources(\\n            realmInfo.vestedTimeUpdatedAt\\n        );\\n        uint256 happiness = _getHappiness(_tokenId);\\n        // Calculate total output of the Realm\\n        for (uint256 i = 0; i < realmInfo.resourceIds.length; i++) {\\n            _realmsResourcesOutputs[i] =\\n                ((((resourcesProduction[i] * total) * _percentage) / 100) *\\n                    happiness) /\\n                100; // replace with resourcesAvailable\\n        }\\n\\n        realmInfo.vestedTimeUpdatedAt = _returnPillagedTime(\\n            realmInfo.vestedTimeUpdatedAt,\\n            _getAvailableVestedResources(realmInfo.vestedTimeUpdatedAt),\\n            _percentage\\n        );\\n\\n        return (realmInfo.resourceIds, _realmsResourcesOutputs);\\n    }\\n\\n    function _returnPillagedTime(\\n        uint256 _lastUpdate,\\n        uint256 _resourcesAvailable,\\n        uint256 _percentage\\n    ) internal pure returns (uint256) {\\n        return\\n            _lastUpdate + ((_resourcesAvailable * 1 hours) * _percentage) / 100;\\n    }\\n\\n    function _getAvailableVaultResources(uint256 _vestedTimeUpdatedAt)\\n        internal\\n        view\\n        returns (uint256)\\n    {\\n        return (block.timestamp - _vestedTimeUpdatedAt) / (1 hours);\\n    }\\n}\\n\",\"keccak256\":\"0x6ee5d33fdf19290de02cc247263c75dd5b767cfe20d703832299761f79ddefba\"},\"contracts/settling/libraries/LibAppStorage.sol\":{\"content\":\"pragma solidity ^0.8.2;\\n\\nstruct AppStorage {\\n    mapping(uint256 => RealmInfo) realmInfo;\\n    address sRealms;\\n    address realms;\\n    address realmsStorage;\\n    address treasury;\\n    address resources;\\n    address oracle;\\n    address lords;\\n    mapping(uint256 => LevelProduction) levelProduction;\\n    mapping(uint256 => UpgradeCosts) upgradeCosts;\\n    mapping(uint256 => BuildingUpgradeCosts) buildingUpgradeCosts;\\n    mapping(uint256 => BuildingCosts) buildingCosts;\\n    mapping(uint256 => TheAges) theAges;\\n    uint256 genesisTime;\\n    mapping(uint256 => Raiding) raiding;\\n    mapping(uint256 => RaidingArmy) raidingArmy;\\n    mapping(uint256 => DefendingArmy) defendingArmy;\\n    mapping(uint256 => ArmyUnit) armyUnit;\\n}\\n\\nstruct TheAges {\\n    uint256 settledRealms;\\n    uint256 ageStart;\\n    uint256 ageFinish;\\n}\\n\\nstruct RealmInfo {\\n    string name;\\n    uint256 lastUpdateAt;\\n    uint256 vestedTimeUpdatedAt;\\n    uint256 ageSettled;\\n    uint256 ageClaimed;\\n    uint256[] resourceIds;\\n    uint8 cities;\\n    uint8 harbours;\\n    uint8 rivers;\\n    uint8 regions;\\n    uint8 wonders;\\n    uint8 orderOf;\\n    uint8 aquaducts;\\n    uint8 temples;\\n    uint8 castles;\\n    uint8 markets;\\n    uint8 ports;\\n    uint8 barracks;\\n    uint8 farms;\\n    uint8 shipyard;\\n    uint8 fishingVillage;\\n    int32 realmDefence;\\n    int32 realmOffence;\\n    int32 realmMagic;\\n    int32 foodSupply;\\n    int32 population;\\n    mapping(uint256 => ResourceInfo) resourceInfo;\\n}\\n\\nstruct ResourceInfo {\\n    uint8 id;\\n    uint8 level; // level of resource production\\n    uint8 production;\\n}\\n\\nstruct BuildingCosts {\\n    string name;\\n    uint32[] resourceIds;\\n    uint32[] resourceValues;\\n    uint32[] requirements;\\n    int32 defence;\\n    int32 offence;\\n    int32 magic;\\n    int32 population;\\n    int32 food;\\n}\\n\\nstruct BuildingUpgradeCosts {\\n    uint8[] realmBuildings;\\n    mapping(uint256 => BuildingCosts) buildingCosts;\\n}\\n\\nstruct LevelProduction {\\n    uint8 output;\\n}\\nstruct UpgradeCosts {\\n    uint8[] resourceIds;\\n    mapping(uint256 => UpgradeCostLevels) upgradeCostLevels;\\n}\\n\\nstruct UpgradeCostLevels {\\n    uint256[] value;\\n}\\nstruct Raiding {\\n    uint256 coolDownTime;\\n    uint256 totalRaids;\\n    uint256 successfulRaids;\\n}\\n\\nstruct RaidingArmy {\\n    uint32 knightsTrained;\\n    uint32 knightsSlayed;\\n    uint32 footSoldiersTrained;\\n    uint32 footSoldiersSlayed;\\n    mapping(uint256 => TrainedArmyUnit) knights;\\n    mapping(uint256 => TrainedArmyUnit) footSoldiers;\\n}\\n\\nstruct DefendingArmy {\\n    uint32 trebuchetsTrained;\\n    uint32 trebuchetsSlayed;\\n    uint32 scorpionsTrained;\\n    uint32 scorpionsSlayed;\\n    mapping(uint256 => TrainedArmyUnit) trebuchets;\\n    mapping(uint256 => TrainedArmyUnit) scorpions;\\n}\\n\\nstruct TrainedArmyUnit {\\n    bool destroyed;\\n    uint256 unitFinished;\\n}\\n\\nstruct ArmyUnit {\\n    string name;\\n    uint256 timeToTrain;\\n    uint32 offence;\\n    uint32 defence;\\n    uint256[] resourceIds;\\n    uint256[] resourceValues;\\n}\\n\\nlibrary LibAppStorage {\\n    function diamondStorage() internal pure returns (AppStorage storage ds) {\\n        assembly {\\n            ds.slot := 0\\n        }\\n    }\\n\\n    function abs(int256 x) internal pure returns (uint256) {\\n        return uint256(x >= 0 ? x : -x);\\n    }\\n}\\n\",\"keccak256\":\"0xdf4eaff003a64be8c2fe375e99c6b5464c22c235404aaa429c2917a21babbac4\"},\"contracts/settling/libraries/Modifiers.sol\":{\"content\":\"import \\\"../../shared/interfaces/RealmsToken.sol\\\";\\nimport \\\"../../shared/interfaces/SRealmsToken.sol\\\";\\nimport \\\"../libraries/LibAppStorage.sol\\\";\\n\\ncontract Modifiers {\\n    AppStorage internal s;\\n    modifier checkSRealmOwner(uint256 _tokenId) {\\n        SRealmsToken sRealmstoken = SRealmsToken(s.sRealms);\\n        require(\\n            msg.sender == sRealmstoken.ownerOf(_tokenId),\\n            \\\"You do not own this Realm\\\"\\n        );\\n        _;\\n    }\\n    modifier checkRealmOwner(uint256 _tokenId) {\\n        RealmsToken realmstoken = RealmsToken(s.realms);\\n        require(\\n            msg.sender == realmstoken.ownerOf(_tokenId),\\n            \\\"You do not own this Realm\\\"\\n        );\\n        _;\\n    }\\n}\\n\",\"keccak256\":\"0x6a04f22a363dcf5c72fd36e2eb64c03f7bbed1d0d098311e2727c992890b4718\"},\"contracts/settling/libraries/ResourceUtils.sol\":{\"content\":\"import \\\"../../shared/interfaces/RealmsToken.sol\\\";\\nimport \\\"../../shared/interfaces/SRealmsToken.sol\\\";\\nimport \\\"../libraries/LibAppStorage.sol\\\";\\nimport \\\"../libraries/Modifiers.sol\\\";\\nimport \\\"../../shared/interfaces/ResourcesIERC1155MintBurn.sol\\\";\\nimport \\\"@openzeppelin/contracts/token/ERC721/IERC721Receiver.sol\\\";\\n\\ncontract ResourceUtils is Modifiers {\\n    function _mintResources(\\n        address _minter,\\n        uint256[] memory _resourceIds,\\n        uint256[] memory _resourceValues\\n    ) internal {\\n        ResourcesIERC1155MintBurn resourceTokens = ResourcesIERC1155MintBurn(\\n            s.resources\\n        );\\n        resourceTokens.resourceMinting(\\n            _minter,\\n            _resourceIds,\\n            _resourceValues,\\n            \\\"0x\\\"\\n        );\\n    }\\n\\n    function _batchTransferResources(\\n        address _from,\\n        address _to,\\n        uint256[] memory _resourceIds,\\n        uint256[] memory _resourceValues\\n    ) internal {\\n        ResourcesIERC1155MintBurn resourceTokens = ResourcesIERC1155MintBurn(\\n            s.resources\\n        );\\n        resourceTokens.safeBatchTransferFrom(\\n            _from,\\n            _to,\\n            _resourceIds,\\n            _resourceValues,\\n            \\\"0x\\\"\\n        );\\n    }\\n\\n    function _batchBurnResources(\\n        address _from,\\n        uint256[] memory _resourceIds,\\n        uint256[] memory _resourceValues\\n    ) internal {\\n        ResourcesIERC1155MintBurn resourceTokens = ResourcesIERC1155MintBurn(\\n            s.resources\\n        );\\n        resourceTokens.batchBurnResources(_from, _resourceIds, _resourceValues);\\n    }\\n\\n    function _balanceOf(address _owner, uint256 _resourceId)\\n        internal\\n        view\\n        returns (uint256)\\n    {\\n        ResourcesIERC1155MintBurn resourceTokens = ResourcesIERC1155MintBurn(\\n            s.resources\\n        );\\n        return resourceTokens.balanceOf(_owner, _resourceId);\\n    }\\n\\n    function _getHappiness(uint256 _realmId) internal view returns (uint32) {\\n        RealmInfo storage realmInfo = s.realmInfo[_realmId];\\n        int32 food;\\n\\n        if (realmInfo.foodSupply < 0) {\\n            food = ((100 * realmInfo.foodSupply) * 20) / 1000;\\n        } else {\\n            food = 0;\\n        }\\n        int32 happiness = 100 +\\n            ((100 * (realmInfo.population * 4)) / 1000) +\\n            food;\\n\\n        return uint32(happiness);\\n    }\\n\\n    function _returnTime(uint256 _lastUpdate, uint256 _resourcesAvailable)\\n        internal\\n        pure\\n        returns (uint256)\\n    {\\n        return _lastUpdate + _resourcesAvailable * 1 hours;\\n    }\\n\\n    function _getAvailableResources(uint256 _lastUpdate)\\n        internal\\n        view\\n        returns (uint256)\\n    {\\n        return (block.timestamp - _lastUpdate) / 1 hours;\\n    }\\n\\n    function _getAvailableVestedResources(uint256 _vestedTimeUpdatedAt)\\n        internal\\n        view\\n        returns (uint256)\\n    {\\n        uint256 vested;\\n        vested = (block.timestamp - _vestedTimeUpdatedAt) / (1 hours);\\n        if (vested > 14) {\\n            return vested;\\n        } else {\\n            return 0;\\n        }\\n    }\\n}\\n\",\"keccak256\":\"0x358ba709063a669039016e36282c2d3d6d03cf390f1311b50cf9ac7ecc90e337\"},\"contracts/shared/interfaces/IERC1155.sol\":{\"content\":\"// SPDX-License-Identifier: Apache-2.0\\npragma solidity ^0.8.2;\\n\\ninterface IERC1155 {\\n    /****************************************|\\n  |                 Events                 |\\n  |_______________________________________*/\\n\\n    /**\\n     * @dev Either TransferSingle or TransferBatch MUST emit when tokens are transferred, including zero amount transfers as well as minting or burning\\n     *   Operator MUST be msg.sender\\n     *   When minting/creating tokens, the `_from` field MUST be set to `0x0`\\n     *   When burning/destroying tokens, the `_to` field MUST be set to `0x0`\\n     *   The total amount transferred from address 0x0 minus the total amount transferred to 0x0 may be used by clients and exchanges to be added to the \\\"circulating supply\\\" for a given token ID\\n     *   To broadcast the existence of a token ID with no initial balance, the contract SHOULD emit the TransferSingle event from `0x0` to `0x0`, with the token creator as `_operator`, and a `_amount` of 0\\n     */\\n    event TransferSingle(\\n        address indexed _operator,\\n        address indexed _from,\\n        address indexed _to,\\n        uint256 _id,\\n        uint256 _amount\\n    );\\n\\n    /**\\n     * @dev Either TransferSingle or TransferBatch MUST emit when tokens are transferred, including zero amount transfers as well as minting or burning\\n     *   Operator MUST be msg.sender\\n     *   When minting/creating tokens, the `_from` field MUST be set to `0x0`\\n     *   When burning/destroying tokens, the `_to` field MUST be set to `0x0`\\n     *   The total amount transferred from address 0x0 minus the total amount transferred to 0x0 may be used by clients and exchanges to be added to the \\\"circulating supply\\\" for a given token ID\\n     *   To broadcast the existence of multiple token IDs with no initial balance, this SHOULD emit the TransferBatch event from `0x0` to `0x0`, with the token creator as `_operator`, and a `_amount` of 0\\n     */\\n    event TransferBatch(\\n        address indexed _operator,\\n        address indexed _from,\\n        address indexed _to,\\n        uint256[] _ids,\\n        uint256[] _amounts\\n    );\\n\\n    /**\\n     * @dev MUST emit when an approval is updated\\n     */\\n    event ApprovalForAll(\\n        address indexed _owner,\\n        address indexed _operator,\\n        bool _approved\\n    );\\n\\n    /****************************************|\\n  |                Functions               |\\n  |_______________________________________*/\\n\\n    /**\\n     * @notice Transfers amount of an _id from the _from address to the _to address specified\\n     * @dev MUST emit TransferSingle event on success\\n     * Caller must be approved to manage the _from account's tokens (see isApprovedForAll)\\n     * MUST throw if `_to` is the zero address\\n     * MUST throw if balance of sender for token `_id` is lower than the `_amount` sent\\n     * MUST throw on any other error\\n     * When transfer is complete, this function MUST check if `_to` is a smart contract (code size > 0). If so, it MUST call `onERC1155Received` on `_to` and revert if the return amount is not `bytes4(keccak256(\\\"onERC1155Received(address,address,uint256,uint256,bytes)\\\"))`\\n     * @param _from    Source address\\n     * @param _to      Target address\\n     * @param _id      ID of the token type\\n     * @param _amount  Transfered amount\\n     * @param _data    Additional data with no specified format, sent in call to `_to`\\n     */\\n    function safeTransferFrom(\\n        address _from,\\n        address _to,\\n        uint256 _id,\\n        uint256 _amount,\\n        bytes calldata _data\\n    ) external;\\n\\n    /**\\n     * @notice Send multiple types of Tokens from the _from address to the _to address (with safety call)\\n     * @dev MUST emit TransferBatch event on success\\n     * Caller must be approved to manage the _from account's tokens (see isApprovedForAll)\\n     * MUST throw if `_to` is the zero address\\n     * MUST throw if length of `_ids` is not the same as length of `_amounts`\\n     * MUST throw if any of the balance of sender for token `_ids` is lower than the respective `_amounts` sent\\n     * MUST throw on any other error\\n     * When transfer is complete, this function MUST check if `_to` is a smart contract (code size > 0). If so, it MUST call `onERC1155BatchReceived` on `_to` and revert if the return amount is not `bytes4(keccak256(\\\"onERC1155BatchReceived(address,address,uint256[],uint256[],bytes)\\\"))`\\n     * Transfers and events MUST occur in the array order they were submitted (_ids[0] before _ids[1], etc)\\n     * @param _from     Source addresses\\n     * @param _to       Target addresses\\n     * @param _ids      IDs of each token type\\n     * @param _amounts  Transfer amounts per token type\\n     * @param _data     Additional data with no specified format, sent in call to `_to`\\n     */\\n    function safeBatchTransferFrom(\\n        address _from,\\n        address _to,\\n        uint256[] calldata _ids,\\n        uint256[] calldata _amounts,\\n        bytes calldata _data\\n    ) external;\\n\\n    /**\\n     * @notice Get the balance of an account's Tokens\\n     * @param _owner  The address of the token holder\\n     * @param _id     ID of the Token\\n     * @return        The _owner's balance of the Token type requested\\n     */\\n    function balanceOf(address _owner, uint256 _id)\\n        external\\n        view\\n        returns (uint256);\\n\\n    /**\\n     * @notice Get the balance of multiple account/token pairs\\n     * @param _owners The addresses of the token holders\\n     * @param _ids    ID of the Tokens\\n     * @return        The _owner's balance of the Token types requested (i.e. balance for each (owner, id) pair)\\n     */\\n    function balanceOfBatch(address[] calldata _owners, uint256[] calldata _ids)\\n        external\\n        view\\n        returns (uint256[] memory);\\n\\n    /**\\n     * @notice Enable or disable approval for a third party (\\\"operator\\\") to manage all of caller's tokens\\n     * @dev MUST emit the ApprovalForAll event on success\\n     * @param _operator  Address to add to the set of authorized operators\\n     * @param _approved  True if the operator is approved, false to revoke approval\\n     */\\n    function setApprovalForAll(address _operator, bool _approved) external;\\n\\n    /**\\n     * @notice Queries the approval status of an operator for a given owner\\n     * @param _owner     The owner of the Tokens\\n     * @param _operator  Address of authorized operator\\n     * @return isOperator True if the operator is approved, false if not\\n     */\\n    function isApprovedForAll(address _owner, address _operator)\\n        external\\n        view\\n        returns (bool isOperator);\\n}\\n\",\"keccak256\":\"0xa71395b6df4a2d78d7d9a4e42e9411e44f1933f2190ebb59e93d46957cca1622\",\"license\":\"Apache-2.0\"},\"contracts/shared/interfaces/RealmsToken.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.2;\\n\\nimport \\\"@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol\\\";\\n\\n/**\\n * @dev Required interface of an ERC721 compliant contract.\\n */\\ninterface RealmsToken is IERC721Enumerable {\\n\\n}\\n\",\"keccak256\":\"0x029f5860d9ba6e170c4578b2ae6660dd85a0f0347655b9f70b094a11084cabc0\",\"license\":\"MIT\"},\"contracts/shared/interfaces/ResourcesIERC1155MintBurn.sol\":{\"content\":\"// SPDX-License-Identifier: Apache-2.0\\npragma solidity ^0.8.2;\\n\\nimport \\\"./IERC1155.sol\\\";\\n\\n/**\\n * Recommended interface for public facing minting and burning functions.\\n * These public methods should have restricted access.\\n */\\ninterface ResourcesIERC1155MintBurn is IERC1155 {\\n    /***************************************|\\n  |        Public Minting Functions       |\\n  |______________________________________*/\\n\\n    /**\\n     * @dev Mint _amount of tokens of a given id if not frozen and if max supply not exceeded\\n     * @param _to     The address to mint tokens to.\\n     * @param _id     Token id to mint\\n     * @param _amount The amount to be minted\\n     * @param _data   Byte array of data to pass to recipient if it's a contract\\n     */\\n    function mint(\\n        address _to,\\n        uint256 _id,\\n        uint256 _amount,\\n        bytes calldata _data\\n    ) external;\\n\\n    /**\\n     * @dev Mint tokens for each ids in _ids\\n     * @param _to      The address to mint tokens to.\\n     * @param _ids     Array of ids to mint\\n     * @param _amounts Array of amount of tokens to mint per id\\n     * @param _data    Byte array of data to pass to recipient if it's a contract\\n     */\\n    function batchMint(\\n        address _to,\\n        uint256[] calldata _ids,\\n        uint256[] calldata _amounts,\\n        bytes calldata _data\\n    ) external;\\n\\n    /***************************************|\\n  |        Public Minting Functions       |\\n  |______________________________________*/\\n\\n    /**\\n     * @notice Burn _amount of tokens of a given token id\\n     * @param _from    The address to burn tokens from\\n     * @param _id      Token id to burn\\n     * @param _amount  The amount to be burned\\n     */\\n    function burn(\\n        address _from,\\n        uint256 _id,\\n        uint256 _amount\\n    ) external;\\n\\n    /**\\n     * @notice Burn tokens of given token id for each (_ids[i], _amounts[i]) pair\\n     * @param _from     The address to burn tokens from\\n     * @param _ids      Array of token ids to burn\\n     * @param _amounts  Array of the amount to be burned\\n     */\\n    function batchBurn(\\n        address _from,\\n        uint256[] calldata _ids,\\n        uint256[] calldata _amounts\\n    ) external;\\n\\n    function resourceMinting(\\n        address _to,\\n        uint256[] memory _ids,\\n        uint256[] memory _amounts,\\n        bytes memory _data\\n    ) external;\\n\\n    function batchResourceMinting(\\n        address _to,\\n        uint256[] memory _ids,\\n        uint256[] memory _amounts,\\n        bytes memory _data\\n    ) external;\\n\\n    function batchBurnResources(\\n        address _from,\\n        uint256[] memory _ids,\\n        uint256[] memory _amounts\\n    ) external;\\n}\\n\",\"keccak256\":\"0x827b22a96beba7f58adf4ea7cdbc774d885adb2cd76831688b78884778f39dc0\",\"license\":\"Apache-2.0\"},\"contracts/shared/interfaces/SRealmsToken.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n\\npragma solidity ^0.8.2;\\n\\nimport \\\"@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol\\\";\\n\\ninterface SRealmsToken is IERC721Enumerable {\\n    function changeDiamondAddress(address _newDiamondAddress) external;\\n\\n    function mintFromStakingContract(address to, uint256 tokenId) external;\\n\\n    function burn(uint256 tokenId) external;\\n}\\n\",\"keccak256\":\"0x721727d42568f1b4735d518e01aaa23f2cb6fe590009dcb402a63e9105c034df\",\"license\":\"MIT\"}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b50611fe7806100206000396000f3fe608060405234801561001057600080fd5b50600436106100415760003560e01c80630f3c92f5146100465780635d495aea14610062578063d2004f8c14610080575b600080fd5b610060600480360381019061005b91906114aa565b6100b0565b005b61006a61064d565b6040516100779190611765565b60405180910390f35b61009a600480360381019061009591906114aa565b61065c565b6040516100a791906118d4565b60405180910390f35b8160008060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1690508073ffffffffffffffffffffffffffffffffffffffff16636352211e836040518263ffffffff1660e01b81526004016101139190611765565b60206040518083038186803b15801561012b57600080fd5b505afa15801561013f573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906101639190611481565b73ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16146101d0576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016101c790611725565b60405180910390fd5b600080600080600060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905060008173ffffffffffffffffffffffffffffffffffffffff16636352211e896040518263ffffffff1660e01b81526004016102399190611765565b60206040518083038186803b15801561025157600080fd5b505afa158015610265573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906102899190611481565b90508073ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614156102fa576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016102f190611745565b60405180910390fd5b61030489896106bf565b80955081965082975050505060008060000160008a8152602001908152602001600020905060008060000160008c815260200190815260200160002090508160060160059054906101000a900460ff1660ff168160060160059054906101000a900460ff1660ff1614156103ad576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016103a490611705565b60405180910390fd5b8615610518576000826005018054905067ffffffffffffffff8111156103fc577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b60405190808252806020026020018201604052801561042a5781602001602082028036833780820191505090505b5090506000836005018054905067ffffffffffffffff811115610476577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6040519080825280602002602001820160405280156104a45781602001602082028036833780820191505090505b5090506104b38c6019866109cc565b80925081935050506104c6338383610d2d565b7f192075229ea2954b6d2ac8beb0efd7a0302761bedc79b846809772a2bfba5639888e8e3389600080898960006040516105099a99989796959493929190611780565b60405180910390a15050610640565b7f192075229ea2954b6d2ac8beb0efd7a0302761bedc79b846809772a2bfba5639868c8c33878a60008067ffffffffffffffff811115610581577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6040519080825280602002602001820160405280156105af5781602001602082028036833780820191505090505b50600067ffffffffffffffff8111156105f1577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b60405190808252806020026020018201604052801561061f5781602001602082028036833780820191505090505b508e6040516106379a9998979695949392919061182a565b60405180910390a15b5050505050505050505050565b6000610657610dcb565b905090565b6000806000600f016000858152602001908152602001600020905060008060100160008581526020019081526020016000209050600080600001600086815260200190815260200160002090506106b4838383610de6565b935050505092915050565b6000806000806000600f0160008781526020019081526020016000209050600080600f0160008781526020019081526020016000209050600080601001600088815260200190815260200160002090506000806000016000898152602001908152602001600020905060008060008061073788610ee9565b8094508195505050610748866110bc565b8092508193505050600060648461075f9190611c57565b60fa8661076c9190611c57565b8360646107799190611c57565b8561012c6107879190611c57565b89600601600f9054906101000a900460030b6107a39190611a18565b6107ad9190611a18565b6107b79190611a18565b6107c19190611a18565b60648360646107d09190611c57565b8561012c6107de9190611c57565b89600601600f9054906101000a900460030b6107fa9190611a18565b6108049190611a18565b61080e9190611c57565b6108189190611aed565b90508063ffffffff16610829610dcb565b11156108515760018160008163ffffffff1691509b509b509b505050505050505050506109c5565b60028561085e9190611aed565b8960000160008282829054906101000a900463ffffffff166108809190611cc9565b92506101000a81548163ffffffff021916908363ffffffff1602179055506002846108ab9190611aed565b8960000160088282829054906101000a900463ffffffff166108cd9190611cc9565b92506101000a81548163ffffffff021916908363ffffffff1602179055506004856108f89190611aed565b8860000160008282829054906101000a900463ffffffff1661091a9190611a18565b92506101000a81548163ffffffff021916908363ffffffff1602179055506004846109459190611aed565b8860000160088282829054906101000a900463ffffffff166109679190611a18565b92506101000a81548163ffffffff021916908363ffffffff1602179055506000816002866109959190611aed565b6002886109a29190611aed565b6109ac9190611a18565b8163ffffffff1691509b509b509b505050505050505050505b9250925092565b6060806000836005018054905067ffffffffffffffff811115610a18577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b604051908082528060200260200182016040528015610a465781602001602082028036833780820191505090505b509050836005018054905067ffffffffffffffff811115610a90577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b604051908082528060200260200182016040528015610abe5781602001602082028036833780820191505090505b50915060005b8460050180549050811015610b9a57846008016000866005018381548110610b15577f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b9060005260206000200154815260200190815260200160002060000160029054906101000a900460ff1660ff16828281518110610b7b577f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b6020026020010181815250508080610b9290611db1565b915050610ac4565b506000610baa856002015461128f565b90506000610bb7886112b1565b63ffffffff16905060005b8660050180549050811015610ca35760648260648a86888681518110610c11577f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b6020026020010151610c239190611bfd565b610c2d9190611bfd565b610c379190611abc565b610c419190611bfd565b610c4b9190611abc565b858281518110610c84577f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b6020026020010181815250508080610c9b90611db1565b915050610bc2565b50610cbf8660020154610cb98860020154611389565b896113c4565b8660020181905550856005018481805480602002602001604051908101604052809291908181526020018280548015610d1757602002820191906000526020600020905b815481526020019060010190808311610d03575b5050505050915094509450505050935093915050565b60008060050160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1690508073ffffffffffffffffffffffffffffffffffffffff16638edf55bf8585856040518463ffffffff1660e01b8152600401610d93939291906116ad565b600060405180830381600087803b158015610dad57600080fd5b505af1158015610dc1573d6000803e3d6000fd5b5050505050505050565b60006064610dd76113ff565b610de19190611e43565b905090565b6000806000806000610df788610ee9565b8094508195505050610e08876110bc565b80925081935050506000606484610e1f9190611c57565b60fa86610e2c9190611c57565b836064610e399190611c57565b8561012c610e479190611c57565b8a600601600f9054906101000a900460030b610e639190611a18565b610e6d9190611a18565b610e779190611a18565b610e819190611a18565b6064836064610e909190611c57565b8561012c610e9e9190611c57565b8a600601600f9054906101000a900460030b610eba9190611a18565b610ec49190611a18565b610ece9190611c57565b610ed89190611aed565b905080955050505050509392505050565b60008060008060008560000160009054906101000a900463ffffffff1690505b8560000160049054906101000a900463ffffffff168660000160009054906101000a900463ffffffff16610f3d9190611cc9565b63ffffffff168163ffffffff161015610f9c57428660010160008363ffffffff168152602001908152602001600020600101541015610f7b57610f9c565b8280610f8690611dfa565b9350508080610f9490611d87565b915050610f09565b5060008560000160089054906101000a900463ffffffff1690505b85600001600c9054906101000a900463ffffffff168660000160089054906101000a900463ffffffff16610feb9190611cc9565b63ffffffff168163ffffffff16101561104a57428660020160008363ffffffff1681526020019081526020016000206001015410156110295761104a565b818061103490611dfa565b925050808061104290611d87565b915050610fb7565b5061107e8560000160009054906101000a900463ffffffff168660000160049054906101000a900463ffffffff1684611435565b6110b18660000160089054906101000a900463ffffffff1687600001600c9054906101000a900463ffffffff1684611435565b935093505050915091565b60008060008060008560000160009054906101000a900463ffffffff1690505b8560000160049054906101000a900463ffffffff168660000160009054906101000a900463ffffffff166111109190611cc9565b63ffffffff168163ffffffff16101561116f57428660010160008363ffffffff16815260200190815260200160002060010154101561114e5761116f565b828061115990611dfa565b935050808061116790611d87565b9150506110dc565b5060008560000160089054906101000a900463ffffffff1690505b85600001600c9054906101000a900463ffffffff168660000160089054906101000a900463ffffffff166111be9190611cc9565b63ffffffff168163ffffffff16101561121d57428660020160008363ffffffff1681526020019081526020016000206001015410156111fc5761121d565b818061120790611dfa565b925050808061121590611d87565b91505061118a565b506112518560000160009054906101000a900463ffffffff168660000160049054906101000a900463ffffffff1684611435565b6112848660000160089054906101000a900463ffffffff1687600001600c9054906101000a900463ffffffff1684611435565b935093505050915091565b6000610e1082426112a09190611c95565b6112aa9190611abc565b9050919050565b600080600080016000848152602001908152602001600020905060008082600601601b9054906101000a900460030b60030b1215611327576103e8601483600601601b9054906101000a900460030b606461130c9190611b1e565b6113169190611b1e565b6113209190611a52565b905061132c565b600090505b6000816103e860048560070160009054906101000a900460030b6113509190611b1e565b606461135c9190611b1e565b6113669190611a52565b6064611372919061194a565b61137c919061194a565b9050809350505050919050565b600080610e10834261139b9190611c95565b6113a59190611abc565b9050600e8111156113b957809150506113bf565b60009150505b919050565b6000606482610e10856113d79190611bfd565b6113e19190611bfd565b6113eb9190611abc565b846113f691906119c2565b90509392505050565b60004442606460405160200161141793929190611670565b6040516020818303038152906040528051906020012060001c905090565b60008183856114449190611cc9565b61144e9190611cc9565b90509392505050565b60008151905061146681611f83565b92915050565b60008135905061147b81611f9a565b92915050565b60006020828403121561149357600080fd5b60006114a184828501611457565b91505092915050565b600080604083850312156114bd57600080fd5b60006114cb8582860161146c565b92505060206114dc8582860161146c565b9150509250929050565b60006114f28383611606565b60208301905092915050565b61150781611cfd565b82525050565b6000611518826118ff565b6115228185611917565b935061152d836118ef565b8060005b8381101561155e57815161154588826114e6565b97506115508361190a565b925050600181019050611531565b5085935050505092915050565b61157481611d63565b82525050565b6000611587600283611928565b915061159282611edf565b602082019050919050565b60006115aa601683611939565b91506115b582611f08565b602082019050919050565b60006115cd601983611939565b91506115d882611f31565b602082019050919050565b60006115f0601583611939565b91506115fb82611f5a565b602082019050919050565b61160f81611d3c565b82525050565b61161e81611d3c565b82525050565b61163561163082611d3c565b611e27565b82525050565b61164481611d75565b82525050565b61165381611d46565b82525050565b61166a61166582611d56565b611e31565b82525050565b600061167c8286611624565b60208201915061168c8285611624565b60208201915061169c8284611659565b600182019150819050949350505050565b60006080820190506116c260008301866114fe565b81810360208301526116d4818561150d565b905081810360408301526116e8818461150d565b905081810360608301526116fb8161157a565b9050949350505050565b6000602082019050818103600083015261171e8161159d565b9050919050565b6000602082019050818103600083015261173e816115c0565b9050919050565b6000602082019050818103600083015261175e816115e3565b9050919050565b600060208201905061177a6000830184611615565b92915050565b600061014082019050611796600083018d611615565b6117a3602083018c611615565b6117b0604083018b611615565b6117bd606083018a6114fe565b6117ca60808301896114fe565b6117d760a083018861156b565b6117e460c083018761156b565b81810360e08301526117f6818661150d565b905081810361010083015261180b818561150d565b905061181b61012083018461156b565b9b9a5050505050505050505050565b600061014082019050611840600083018d611615565b61184d602083018c611615565b61185a604083018b611615565b611867606083018a6114fe565b61187460808301896114fe565b61188160a083018861163b565b61188e60c083018761156b565b81810360e08301526118a0818661150d565b90508181036101008301526118b5818561150d565b90506118c561012083018461163b565b9b9a5050505050505050505050565b60006020820190506118e9600083018461164a565b92915050565b6000819050602082019050919050565b600081519050919050565b6000602082019050919050565b600082825260208201905092915050565b600082825260208201905092915050565b600082825260208201905092915050565b600061195582611d0f565b915061196083611d0f565b925081637fffffff0383136000831215161561197f5761197e611e74565b5b817fffffffffffffffffffffffffffffffffffffffffffffffffffffffff800000000383126000831216156119b7576119b6611e74565b5b828201905092915050565b60006119cd82611d3c565b91506119d883611d3c565b9250827fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff03821115611a0d57611a0c611e74565b5b828201905092915050565b6000611a2382611d46565b9150611a2e83611d46565b92508263ffffffff03821115611a4757611a46611e74565b5b828201905092915050565b6000611a5d82611d0f565b9150611a6883611d0f565b925082611a7857611a77611ea3565b5b600160000383147fffffffffffffffffffffffffffffffffffffffffffffffffffffffff8000000083141615611ab157611ab0611e74565b5b828205905092915050565b6000611ac782611d3c565b9150611ad283611d3c565b925082611ae257611ae1611ea3565b5b828204905092915050565b6000611af882611d46565b9150611b0383611d46565b925082611b1357611b12611ea3565b5b828204905092915050565b6000611b2982611d0f565b9150611b3483611d0f565b925082637fffffff0482116000841360008413161615611b5757611b56611e74565b5b817fffffffffffffffffffffffffffffffffffffffffffffffffffffffff800000000583126000841260008413161615611b9457611b93611e74565b5b827fffffffffffffffffffffffffffffffffffffffffffffffffffffffff800000000582126000841360008412161615611bd157611bd0611e74565b5b82637fffffff0582126000841260008412161615611bf257611bf1611e74565b5b828202905092915050565b6000611c0882611d3c565b9150611c1383611d3c565b9250817fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0483118215151615611c4c57611c4b611e74565b5b828202905092915050565b6000611c6282611d46565b9150611c6d83611d46565b92508163ffffffff0483118215151615611c8a57611c89611e74565b5b828202905092915050565b6000611ca082611d3c565b9150611cab83611d3c565b925082821015611cbe57611cbd611e74565b5b828203905092915050565b6000611cd482611d46565b9150611cdf83611d46565b925082821015611cf257611cf1611e74565b5b828203905092915050565b6000611d0882611d1c565b9050919050565b60008160030b9050919050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b6000819050919050565b600063ffffffff82169050919050565b600060ff82169050919050565b6000611d6e82611d3c565b9050919050565b6000611d8082611d46565b9050919050565b6000611d9282611d46565b91506000821415611da657611da5611e74565b5b600182039050919050565b6000611dbc82611d3c565b91507fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff821415611def57611dee611e74565b5b600182019050919050565b6000611e0582611d46565b915063ffffffff821415611e1c57611e1b611e74565b5b600182019050919050565b6000819050919050565b6000611e3c82611ed2565b9050919050565b6000611e4e82611d3c565b9150611e5983611d3c565b925082611e6957611e68611ea3565b5b828206905092915050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601260045260246000fd5b60008160f81b9050919050565b7f3078000000000000000000000000000000000000000000000000000000000000600082015250565b7f43414e545f41545441434b5f53414d455f4f5244455200000000000000000000600082015250565b7f596f7520646f206e6f74206f776e2074686973205265616c6d00000000000000600082015250565b7f444f4e545f4b494c4c5f594f55525f50454f504c450000000000000000000000600082015250565b611f8c81611cfd565b8114611f9757600080fd5b50565b611fa381611d3c565b8114611fae57600080fd5b5056fea264697066735822122044c66c98fc2de2e6f35390edd60ea0d8dee047502d4860851adcc80169928a6064736f6c63430008030033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100415760003560e01c80630f3c92f5146100465780635d495aea14610062578063d2004f8c14610080575b600080fd5b610060600480360381019061005b91906114aa565b6100b0565b005b61006a61064d565b6040516100779190611765565b60405180910390f35b61009a600480360381019061009591906114aa565b61065c565b6040516100a791906118d4565b60405180910390f35b8160008060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1690508073ffffffffffffffffffffffffffffffffffffffff16636352211e836040518263ffffffff1660e01b81526004016101139190611765565b60206040518083038186803b15801561012b57600080fd5b505afa15801561013f573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906101639190611481565b73ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff16146101d0576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016101c790611725565b60405180910390fd5b600080600080600060010160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905060008173ffffffffffffffffffffffffffffffffffffffff16636352211e896040518263ffffffff1660e01b81526004016102399190611765565b60206040518083038186803b15801561025157600080fd5b505afa158015610265573d6000803e3d6000fd5b505050506040513d601f19601f820116820180604052508101906102899190611481565b90508073ffffffffffffffffffffffffffffffffffffffff163373ffffffffffffffffffffffffffffffffffffffff1614156102fa576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016102f190611745565b60405180910390fd5b61030489896106bf565b80955081965082975050505060008060000160008a8152602001908152602001600020905060008060000160008c815260200190815260200160002090508160060160059054906101000a900460ff1660ff168160060160059054906101000a900460ff1660ff1614156103ad576040517f08c379a00000000000000000000000000000000000000000000000000000000081526004016103a490611705565b60405180910390fd5b8615610518576000826005018054905067ffffffffffffffff8111156103fc577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b60405190808252806020026020018201604052801561042a5781602001602082028036833780820191505090505b5090506000836005018054905067ffffffffffffffff811115610476577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6040519080825280602002602001820160405280156104a45781602001602082028036833780820191505090505b5090506104b38c6019866109cc565b80925081935050506104c6338383610d2d565b7f192075229ea2954b6d2ac8beb0efd7a0302761bedc79b846809772a2bfba5639888e8e3389600080898960006040516105099a99989796959493929190611780565b60405180910390a15050610640565b7f192075229ea2954b6d2ac8beb0efd7a0302761bedc79b846809772a2bfba5639868c8c33878a60008067ffffffffffffffff811115610581577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b6040519080825280602002602001820160405280156105af5781602001602082028036833780820191505090505b50600067ffffffffffffffff8111156105f1577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b60405190808252806020026020018201604052801561061f5781602001602082028036833780820191505090505b508e6040516106379a9998979695949392919061182a565b60405180910390a15b5050505050505050505050565b6000610657610dcb565b905090565b6000806000600f016000858152602001908152602001600020905060008060100160008581526020019081526020016000209050600080600001600086815260200190815260200160002090506106b4838383610de6565b935050505092915050565b6000806000806000600f0160008781526020019081526020016000209050600080600f0160008781526020019081526020016000209050600080601001600088815260200190815260200160002090506000806000016000898152602001908152602001600020905060008060008061073788610ee9565b8094508195505050610748866110bc565b8092508193505050600060648461075f9190611c57565b60fa8661076c9190611c57565b8360646107799190611c57565b8561012c6107879190611c57565b89600601600f9054906101000a900460030b6107a39190611a18565b6107ad9190611a18565b6107b79190611a18565b6107c19190611a18565b60648360646107d09190611c57565b8561012c6107de9190611c57565b89600601600f9054906101000a900460030b6107fa9190611a18565b6108049190611a18565b61080e9190611c57565b6108189190611aed565b90508063ffffffff16610829610dcb565b11156108515760018160008163ffffffff1691509b509b509b505050505050505050506109c5565b60028561085e9190611aed565b8960000160008282829054906101000a900463ffffffff166108809190611cc9565b92506101000a81548163ffffffff021916908363ffffffff1602179055506002846108ab9190611aed565b8960000160088282829054906101000a900463ffffffff166108cd9190611cc9565b92506101000a81548163ffffffff021916908363ffffffff1602179055506004856108f89190611aed565b8860000160008282829054906101000a900463ffffffff1661091a9190611a18565b92506101000a81548163ffffffff021916908363ffffffff1602179055506004846109459190611aed565b8860000160088282829054906101000a900463ffffffff166109679190611a18565b92506101000a81548163ffffffff021916908363ffffffff1602179055506000816002866109959190611aed565b6002886109a29190611aed565b6109ac9190611a18565b8163ffffffff1691509b509b509b505050505050505050505b9250925092565b6060806000836005018054905067ffffffffffffffff811115610a18577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b604051908082528060200260200182016040528015610a465781602001602082028036833780820191505090505b509050836005018054905067ffffffffffffffff811115610a90577f4e487b7100000000000000000000000000000000000000000000000000000000600052604160045260246000fd5b604051908082528060200260200182016040528015610abe5781602001602082028036833780820191505090505b50915060005b8460050180549050811015610b9a57846008016000866005018381548110610b15577f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b9060005260206000200154815260200190815260200160002060000160029054906101000a900460ff1660ff16828281518110610b7b577f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b6020026020010181815250508080610b9290611db1565b915050610ac4565b506000610baa856002015461128f565b90506000610bb7886112b1565b63ffffffff16905060005b8660050180549050811015610ca35760648260648a86888681518110610c11577f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b6020026020010151610c239190611bfd565b610c2d9190611bfd565b610c379190611abc565b610c419190611bfd565b610c4b9190611abc565b858281518110610c84577f4e487b7100000000000000000000000000000000000000000000000000000000600052603260045260246000fd5b6020026020010181815250508080610c9b90611db1565b915050610bc2565b50610cbf8660020154610cb98860020154611389565b896113c4565b8660020181905550856005018481805480602002602001604051908101604052809291908181526020018280548015610d1757602002820191906000526020600020905b815481526020019060010190808311610d03575b5050505050915094509450505050935093915050565b60008060050160009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1690508073ffffffffffffffffffffffffffffffffffffffff16638edf55bf8585856040518463ffffffff1660e01b8152600401610d93939291906116ad565b600060405180830381600087803b158015610dad57600080fd5b505af1158015610dc1573d6000803e3d6000fd5b5050505050505050565b60006064610dd76113ff565b610de19190611e43565b905090565b6000806000806000610df788610ee9565b8094508195505050610e08876110bc565b80925081935050506000606484610e1f9190611c57565b60fa86610e2c9190611c57565b836064610e399190611c57565b8561012c610e479190611c57565b8a600601600f9054906101000a900460030b610e639190611a18565b610e6d9190611a18565b610e779190611a18565b610e819190611a18565b6064836064610e909190611c57565b8561012c610e9e9190611c57565b8a600601600f9054906101000a900460030b610eba9190611a18565b610ec49190611a18565b610ece9190611c57565b610ed89190611aed565b905080955050505050509392505050565b60008060008060008560000160009054906101000a900463ffffffff1690505b8560000160049054906101000a900463ffffffff168660000160009054906101000a900463ffffffff16610f3d9190611cc9565b63ffffffff168163ffffffff161015610f9c57428660010160008363ffffffff168152602001908152602001600020600101541015610f7b57610f9c565b8280610f8690611dfa565b9350508080610f9490611d87565b915050610f09565b5060008560000160089054906101000a900463ffffffff1690505b85600001600c9054906101000a900463ffffffff168660000160089054906101000a900463ffffffff16610feb9190611cc9565b63ffffffff168163ffffffff16101561104a57428660020160008363ffffffff1681526020019081526020016000206001015410156110295761104a565b818061103490611dfa565b925050808061104290611d87565b915050610fb7565b5061107e8560000160009054906101000a900463ffffffff168660000160049054906101000a900463ffffffff1684611435565b6110b18660000160089054906101000a900463ffffffff1687600001600c9054906101000a900463ffffffff1684611435565b935093505050915091565b60008060008060008560000160009054906101000a900463ffffffff1690505b8560000160049054906101000a900463ffffffff168660000160009054906101000a900463ffffffff166111109190611cc9565b63ffffffff168163ffffffff16101561116f57428660010160008363ffffffff16815260200190815260200160002060010154101561114e5761116f565b828061115990611dfa565b935050808061116790611d87565b9150506110dc565b5060008560000160089054906101000a900463ffffffff1690505b85600001600c9054906101000a900463ffffffff168660000160089054906101000a900463ffffffff166111be9190611cc9565b63ffffffff168163ffffffff16101561121d57428660020160008363ffffffff1681526020019081526020016000206001015410156111fc5761121d565b818061120790611dfa565b925050808061121590611d87565b91505061118a565b506112518560000160009054906101000a900463ffffffff168660000160049054906101000a900463ffffffff1684611435565b6112848660000160089054906101000a900463ffffffff1687600001600c9054906101000a900463ffffffff1684611435565b935093505050915091565b6000610e1082426112a09190611c95565b6112aa9190611abc565b9050919050565b600080600080016000848152602001908152602001600020905060008082600601601b9054906101000a900460030b60030b1215611327576103e8601483600601601b9054906101000a900460030b606461130c9190611b1e565b6113169190611b1e565b6113209190611a52565b905061132c565b600090505b6000816103e860048560070160009054906101000a900460030b6113509190611b1e565b606461135c9190611b1e565b6113669190611a52565b6064611372919061194a565b61137c919061194a565b9050809350505050919050565b600080610e10834261139b9190611c95565b6113a59190611abc565b9050600e8111156113b957809150506113bf565b60009150505b919050565b6000606482610e10856113d79190611bfd565b6113e19190611bfd565b6113eb9190611abc565b846113f691906119c2565b90509392505050565b60004442606460405160200161141793929190611670565b6040516020818303038152906040528051906020012060001c905090565b60008183856114449190611cc9565b61144e9190611cc9565b90509392505050565b60008151905061146681611f83565b92915050565b60008135905061147b81611f9a565b92915050565b60006020828403121561149357600080fd5b60006114a184828501611457565b91505092915050565b600080604083850312156114bd57600080fd5b60006114cb8582860161146c565b92505060206114dc8582860161146c565b9150509250929050565b60006114f28383611606565b60208301905092915050565b61150781611cfd565b82525050565b6000611518826118ff565b6115228185611917565b935061152d836118ef565b8060005b8381101561155e57815161154588826114e6565b97506115508361190a565b925050600181019050611531565b5085935050505092915050565b61157481611d63565b82525050565b6000611587600283611928565b915061159282611edf565b602082019050919050565b60006115aa601683611939565b91506115b582611f08565b602082019050919050565b60006115cd601983611939565b91506115d882611f31565b602082019050919050565b60006115f0601583611939565b91506115fb82611f5a565b602082019050919050565b61160f81611d3c565b82525050565b61161e81611d3c565b82525050565b61163561163082611d3c565b611e27565b82525050565b61164481611d75565b82525050565b61165381611d46565b82525050565b61166a61166582611d56565b611e31565b82525050565b600061167c8286611624565b60208201915061168c8285611624565b60208201915061169c8284611659565b600182019150819050949350505050565b60006080820190506116c260008301866114fe565b81810360208301526116d4818561150d565b905081810360408301526116e8818461150d565b905081810360608301526116fb8161157a565b9050949350505050565b6000602082019050818103600083015261171e8161159d565b9050919050565b6000602082019050818103600083015261173e816115c0565b9050919050565b6000602082019050818103600083015261175e816115e3565b9050919050565b600060208201905061177a6000830184611615565b92915050565b600061014082019050611796600083018d611615565b6117a3602083018c611615565b6117b0604083018b611615565b6117bd606083018a6114fe565b6117ca60808301896114fe565b6117d760a083018861156b565b6117e460c083018761156b565b81810360e08301526117f6818661150d565b905081810361010083015261180b818561150d565b905061181b61012083018461156b565b9b9a5050505050505050505050565b600061014082019050611840600083018d611615565b61184d602083018c611615565b61185a604083018b611615565b611867606083018a6114fe565b61187460808301896114fe565b61188160a083018861163b565b61188e60c083018761156b565b81810360e08301526118a0818661150d565b90508181036101008301526118b5818561150d565b90506118c561012083018461163b565b9b9a5050505050505050505050565b60006020820190506118e9600083018461164a565b92915050565b6000819050602082019050919050565b600081519050919050565b6000602082019050919050565b600082825260208201905092915050565b600082825260208201905092915050565b600082825260208201905092915050565b600061195582611d0f565b915061196083611d0f565b925081637fffffff0383136000831215161561197f5761197e611e74565b5b817fffffffffffffffffffffffffffffffffffffffffffffffffffffffff800000000383126000831216156119b7576119b6611e74565b5b828201905092915050565b60006119cd82611d3c565b91506119d883611d3c565b9250827fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff03821115611a0d57611a0c611e74565b5b828201905092915050565b6000611a2382611d46565b9150611a2e83611d46565b92508263ffffffff03821115611a4757611a46611e74565b5b828201905092915050565b6000611a5d82611d0f565b9150611a6883611d0f565b925082611a7857611a77611ea3565b5b600160000383147fffffffffffffffffffffffffffffffffffffffffffffffffffffffff8000000083141615611ab157611ab0611e74565b5b828205905092915050565b6000611ac782611d3c565b9150611ad283611d3c565b925082611ae257611ae1611ea3565b5b828204905092915050565b6000611af882611d46565b9150611b0383611d46565b925082611b1357611b12611ea3565b5b828204905092915050565b6000611b2982611d0f565b9150611b3483611d0f565b925082637fffffff0482116000841360008413161615611b5757611b56611e74565b5b817fffffffffffffffffffffffffffffffffffffffffffffffffffffffff800000000583126000841260008413161615611b9457611b93611e74565b5b827fffffffffffffffffffffffffffffffffffffffffffffffffffffffff800000000582126000841360008412161615611bd157611bd0611e74565b5b82637fffffff0582126000841260008412161615611bf257611bf1611e74565b5b828202905092915050565b6000611c0882611d3c565b9150611c1383611d3c565b9250817fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff0483118215151615611c4c57611c4b611e74565b5b828202905092915050565b6000611c6282611d46565b9150611c6d83611d46565b92508163ffffffff0483118215151615611c8a57611c89611e74565b5b828202905092915050565b6000611ca082611d3c565b9150611cab83611d3c565b925082821015611cbe57611cbd611e74565b5b828203905092915050565b6000611cd482611d46565b9150611cdf83611d46565b925082821015611cf257611cf1611e74565b5b828203905092915050565b6000611d0882611d1c565b9050919050565b60008160030b9050919050565b600073ffffffffffffffffffffffffffffffffffffffff82169050919050565b6000819050919050565b600063ffffffff82169050919050565b600060ff82169050919050565b6000611d6e82611d3c565b9050919050565b6000611d8082611d46565b9050919050565b6000611d9282611d46565b91506000821415611da657611da5611e74565b5b600182039050919050565b6000611dbc82611d3c565b91507fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff821415611def57611dee611e74565b5b600182019050919050565b6000611e0582611d46565b915063ffffffff821415611e1c57611e1b611e74565b5b600182019050919050565b6000819050919050565b6000611e3c82611ed2565b9050919050565b6000611e4e82611d3c565b9150611e5983611d3c565b925082611e6957611e68611ea3565b5b828206905092915050565b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601160045260246000fd5b7f4e487b7100000000000000000000000000000000000000000000000000000000600052601260045260246000fd5b60008160f81b9050919050565b7f3078000000000000000000000000000000000000000000000000000000000000600082015250565b7f43414e545f41545441434b5f53414d455f4f5244455200000000000000000000600082015250565b7f596f7520646f206e6f74206f776e2074686973205265616c6d00000000000000600082015250565b7f444f4e545f4b494c4c5f594f55525f50454f504c450000000000000000000000600082015250565b611f8c81611cfd565b8114611f9757600080fd5b50565b611fa381611d3c565b8114611fae57600080fd5b5056fea264697066735822122044c66c98fc2de2e6f35390edd60ea0d8dee047502d4860851adcc80169928a6064736f6c63430008030033",
   "devdoc": {
     "kind": "dev",
     "methods": {},
@@ -128,12 +158,12 @@
   "storageLayout": {
     "storage": [
       {
-        "astId": 999,
+        "astId": 4876,
         "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
         "label": "s",
         "offset": 0,
         "slot": "0",
-        "type": "t_struct(AppStorage)779_storage"
+        "type": "t_struct(AppStorage)3822_storage"
       }
     ],
     "types": {
@@ -170,116 +200,116 @@
         "label": "int32",
         "numberOfBytes": "4"
       },
-      "t_mapping(t_uint256,t_struct(ArmyUnit)964_storage)": {
+      "t_mapping(t_uint256,t_struct(ArmyUnit)4007_storage)": {
         "encoding": "mapping",
         "key": "t_uint256",
         "label": "mapping(uint256 => struct ArmyUnit)",
         "numberOfBytes": "32",
-        "value": "t_struct(ArmyUnit)964_storage"
+        "value": "t_struct(ArmyUnit)4007_storage"
       },
-      "t_mapping(t_uint256,t_struct(BuildingCosts)874_storage)": {
+      "t_mapping(t_uint256,t_struct(BuildingCosts)3917_storage)": {
         "encoding": "mapping",
         "key": "t_uint256",
         "label": "mapping(uint256 => struct BuildingCosts)",
         "numberOfBytes": "32",
-        "value": "t_struct(BuildingCosts)874_storage"
+        "value": "t_struct(BuildingCosts)3917_storage"
       },
-      "t_mapping(t_uint256,t_struct(BuildingUpgradeCosts)883_storage)": {
+      "t_mapping(t_uint256,t_struct(BuildingUpgradeCosts)3926_storage)": {
         "encoding": "mapping",
         "key": "t_uint256",
         "label": "mapping(uint256 => struct BuildingUpgradeCosts)",
         "numberOfBytes": "32",
-        "value": "t_struct(BuildingUpgradeCosts)883_storage"
+        "value": "t_struct(BuildingUpgradeCosts)3926_storage"
       },
-      "t_mapping(t_uint256,t_struct(DefendingArmy)944_storage)": {
+      "t_mapping(t_uint256,t_struct(DefendingArmy)3987_storage)": {
         "encoding": "mapping",
         "key": "t_uint256",
         "label": "mapping(uint256 => struct DefendingArmy)",
         "numberOfBytes": "32",
-        "value": "t_struct(DefendingArmy)944_storage"
+        "value": "t_struct(DefendingArmy)3987_storage"
       },
-      "t_mapping(t_uint256,t_struct(LevelProduction)886_storage)": {
+      "t_mapping(t_uint256,t_struct(LevelProduction)3929_storage)": {
         "encoding": "mapping",
         "key": "t_uint256",
         "label": "mapping(uint256 => struct LevelProduction)",
         "numberOfBytes": "32",
-        "value": "t_struct(LevelProduction)886_storage"
+        "value": "t_struct(LevelProduction)3929_storage"
       },
-      "t_mapping(t_uint256,t_struct(Raiding)906_storage)": {
+      "t_mapping(t_uint256,t_struct(Raiding)3949_storage)": {
         "encoding": "mapping",
         "key": "t_uint256",
         "label": "mapping(uint256 => struct Raiding)",
         "numberOfBytes": "32",
-        "value": "t_struct(Raiding)906_storage"
+        "value": "t_struct(Raiding)3949_storage"
       },
-      "t_mapping(t_uint256,t_struct(RaidingArmy)925_storage)": {
+      "t_mapping(t_uint256,t_struct(RaidingArmy)3968_storage)": {
         "encoding": "mapping",
         "key": "t_uint256",
         "label": "mapping(uint256 => struct RaidingArmy)",
         "numberOfBytes": "32",
-        "value": "t_struct(RaidingArmy)925_storage"
+        "value": "t_struct(RaidingArmy)3968_storage"
       },
-      "t_mapping(t_uint256,t_struct(RealmInfo)845_storage)": {
+      "t_mapping(t_uint256,t_struct(RealmInfo)3888_storage)": {
         "encoding": "mapping",
         "key": "t_uint256",
         "label": "mapping(uint256 => struct RealmInfo)",
         "numberOfBytes": "32",
-        "value": "t_struct(RealmInfo)845_storage"
+        "value": "t_struct(RealmInfo)3888_storage"
       },
-      "t_mapping(t_uint256,t_struct(ResourceInfo)852_storage)": {
+      "t_mapping(t_uint256,t_struct(ResourceInfo)3895_storage)": {
         "encoding": "mapping",
         "key": "t_uint256",
         "label": "mapping(uint256 => struct ResourceInfo)",
         "numberOfBytes": "32",
-        "value": "t_struct(ResourceInfo)852_storage"
+        "value": "t_struct(ResourceInfo)3895_storage"
       },
-      "t_mapping(t_uint256,t_struct(TheAges)786_storage)": {
+      "t_mapping(t_uint256,t_struct(TheAges)3829_storage)": {
         "encoding": "mapping",
         "key": "t_uint256",
         "label": "mapping(uint256 => struct TheAges)",
         "numberOfBytes": "32",
-        "value": "t_struct(TheAges)786_storage"
+        "value": "t_struct(TheAges)3829_storage"
       },
-      "t_mapping(t_uint256,t_struct(TrainedArmyUnit)949_storage)": {
+      "t_mapping(t_uint256,t_struct(TrainedArmyUnit)3992_storage)": {
         "encoding": "mapping",
         "key": "t_uint256",
         "label": "mapping(uint256 => struct TrainedArmyUnit)",
         "numberOfBytes": "32",
-        "value": "t_struct(TrainedArmyUnit)949_storage"
+        "value": "t_struct(TrainedArmyUnit)3992_storage"
       },
-      "t_mapping(t_uint256,t_struct(UpgradeCostLevels)899_storage)": {
+      "t_mapping(t_uint256,t_struct(UpgradeCostLevels)3942_storage)": {
         "encoding": "mapping",
         "key": "t_uint256",
         "label": "mapping(uint256 => struct UpgradeCostLevels)",
         "numberOfBytes": "32",
-        "value": "t_struct(UpgradeCostLevels)899_storage"
+        "value": "t_struct(UpgradeCostLevels)3942_storage"
       },
-      "t_mapping(t_uint256,t_struct(UpgradeCosts)895_storage)": {
+      "t_mapping(t_uint256,t_struct(UpgradeCosts)3938_storage)": {
         "encoding": "mapping",
         "key": "t_uint256",
         "label": "mapping(uint256 => struct UpgradeCosts)",
         "numberOfBytes": "32",
-        "value": "t_struct(UpgradeCosts)895_storage"
+        "value": "t_struct(UpgradeCosts)3938_storage"
       },
       "t_string_storage": {
         "encoding": "bytes",
         "label": "string",
         "numberOfBytes": "32"
       },
-      "t_struct(AppStorage)779_storage": {
+      "t_struct(AppStorage)3822_storage": {
         "encoding": "inplace",
         "label": "struct AppStorage",
         "members": [
           {
-            "astId": 717,
+            "astId": 3760,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "realmInfo",
             "offset": 0,
             "slot": "0",
-            "type": "t_mapping(t_uint256,t_struct(RealmInfo)845_storage)"
+            "type": "t_mapping(t_uint256,t_struct(RealmInfo)3888_storage)"
           },
           {
-            "astId": 719,
+            "astId": 3762,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "sRealms",
             "offset": 0,
@@ -287,7 +317,7 @@
             "type": "t_address"
           },
           {
-            "astId": 721,
+            "astId": 3764,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "realms",
             "offset": 0,
@@ -295,7 +325,7 @@
             "type": "t_address"
           },
           {
-            "astId": 723,
+            "astId": 3766,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "realmsStorage",
             "offset": 0,
@@ -303,7 +333,7 @@
             "type": "t_address"
           },
           {
-            "astId": 725,
+            "astId": 3768,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "treasury",
             "offset": 0,
@@ -311,7 +341,7 @@
             "type": "t_address"
           },
           {
-            "astId": 727,
+            "astId": 3770,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "resources",
             "offset": 0,
@@ -319,7 +349,7 @@
             "type": "t_address"
           },
           {
-            "astId": 729,
+            "astId": 3772,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "oracle",
             "offset": 0,
@@ -327,7 +357,7 @@
             "type": "t_address"
           },
           {
-            "astId": 731,
+            "astId": 3774,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "lords",
             "offset": 0,
@@ -335,47 +365,47 @@
             "type": "t_address"
           },
           {
-            "astId": 736,
+            "astId": 3779,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "levelProduction",
             "offset": 0,
             "slot": "8",
-            "type": "t_mapping(t_uint256,t_struct(LevelProduction)886_storage)"
+            "type": "t_mapping(t_uint256,t_struct(LevelProduction)3929_storage)"
           },
           {
-            "astId": 741,
+            "astId": 3784,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "upgradeCosts",
             "offset": 0,
             "slot": "9",
-            "type": "t_mapping(t_uint256,t_struct(UpgradeCosts)895_storage)"
+            "type": "t_mapping(t_uint256,t_struct(UpgradeCosts)3938_storage)"
           },
           {
-            "astId": 746,
+            "astId": 3789,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "buildingUpgradeCosts",
             "offset": 0,
             "slot": "10",
-            "type": "t_mapping(t_uint256,t_struct(BuildingUpgradeCosts)883_storage)"
+            "type": "t_mapping(t_uint256,t_struct(BuildingUpgradeCosts)3926_storage)"
           },
           {
-            "astId": 751,
+            "astId": 3794,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "buildingCosts",
             "offset": 0,
             "slot": "11",
-            "type": "t_mapping(t_uint256,t_struct(BuildingCosts)874_storage)"
+            "type": "t_mapping(t_uint256,t_struct(BuildingCosts)3917_storage)"
           },
           {
-            "astId": 756,
+            "astId": 3799,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "theAges",
             "offset": 0,
             "slot": "12",
-            "type": "t_mapping(t_uint256,t_struct(TheAges)786_storage)"
+            "type": "t_mapping(t_uint256,t_struct(TheAges)3829_storage)"
           },
           {
-            "astId": 758,
+            "astId": 3801,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "genesisTime",
             "offset": 0,
@@ -383,46 +413,46 @@
             "type": "t_uint256"
           },
           {
-            "astId": 763,
+            "astId": 3806,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "raiding",
             "offset": 0,
             "slot": "14",
-            "type": "t_mapping(t_uint256,t_struct(Raiding)906_storage)"
+            "type": "t_mapping(t_uint256,t_struct(Raiding)3949_storage)"
           },
           {
-            "astId": 768,
+            "astId": 3811,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "raidingArmy",
             "offset": 0,
             "slot": "15",
-            "type": "t_mapping(t_uint256,t_struct(RaidingArmy)925_storage)"
+            "type": "t_mapping(t_uint256,t_struct(RaidingArmy)3968_storage)"
           },
           {
-            "astId": 773,
+            "astId": 3816,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "defendingArmy",
             "offset": 0,
             "slot": "16",
-            "type": "t_mapping(t_uint256,t_struct(DefendingArmy)944_storage)"
+            "type": "t_mapping(t_uint256,t_struct(DefendingArmy)3987_storage)"
           },
           {
-            "astId": 778,
+            "astId": 3821,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "armyUnit",
             "offset": 0,
             "slot": "17",
-            "type": "t_mapping(t_uint256,t_struct(ArmyUnit)964_storage)"
+            "type": "t_mapping(t_uint256,t_struct(ArmyUnit)4007_storage)"
           }
         ],
         "numberOfBytes": "576"
       },
-      "t_struct(ArmyUnit)964_storage": {
+      "t_struct(ArmyUnit)4007_storage": {
         "encoding": "inplace",
         "label": "struct ArmyUnit",
         "members": [
           {
-            "astId": 951,
+            "astId": 3994,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "name",
             "offset": 0,
@@ -430,7 +460,7 @@
             "type": "t_string_storage"
           },
           {
-            "astId": 953,
+            "astId": 3996,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "timeToTrain",
             "offset": 0,
@@ -438,7 +468,7 @@
             "type": "t_uint256"
           },
           {
-            "astId": 955,
+            "astId": 3998,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "offence",
             "offset": 0,
@@ -446,7 +476,7 @@
             "type": "t_uint32"
           },
           {
-            "astId": 957,
+            "astId": 4000,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "defence",
             "offset": 4,
@@ -454,7 +484,7 @@
             "type": "t_uint32"
           },
           {
-            "astId": 960,
+            "astId": 4003,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "resourceIds",
             "offset": 0,
@@ -462,7 +492,7 @@
             "type": "t_array(t_uint256)dyn_storage"
           },
           {
-            "astId": 963,
+            "astId": 4006,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "resourceValues",
             "offset": 0,
@@ -472,12 +502,12 @@
         ],
         "numberOfBytes": "160"
       },
-      "t_struct(BuildingCosts)874_storage": {
+      "t_struct(BuildingCosts)3917_storage": {
         "encoding": "inplace",
         "label": "struct BuildingCosts",
         "members": [
           {
-            "astId": 854,
+            "astId": 3897,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "name",
             "offset": 0,
@@ -485,7 +515,7 @@
             "type": "t_string_storage"
           },
           {
-            "astId": 857,
+            "astId": 3900,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "resourceIds",
             "offset": 0,
@@ -493,7 +523,7 @@
             "type": "t_array(t_uint32)dyn_storage"
           },
           {
-            "astId": 860,
+            "astId": 3903,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "resourceValues",
             "offset": 0,
@@ -501,7 +531,7 @@
             "type": "t_array(t_uint32)dyn_storage"
           },
           {
-            "astId": 863,
+            "astId": 3906,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "requirements",
             "offset": 0,
@@ -509,7 +539,7 @@
             "type": "t_array(t_uint32)dyn_storage"
           },
           {
-            "astId": 865,
+            "astId": 3908,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "defence",
             "offset": 0,
@@ -517,7 +547,7 @@
             "type": "t_int32"
           },
           {
-            "astId": 867,
+            "astId": 3910,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "offence",
             "offset": 4,
@@ -525,7 +555,7 @@
             "type": "t_int32"
           },
           {
-            "astId": 869,
+            "astId": 3912,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "magic",
             "offset": 8,
@@ -533,7 +563,7 @@
             "type": "t_int32"
           },
           {
-            "astId": 871,
+            "astId": 3914,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "population",
             "offset": 12,
@@ -541,7 +571,7 @@
             "type": "t_int32"
           },
           {
-            "astId": 873,
+            "astId": 3916,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "food",
             "offset": 16,
@@ -551,12 +581,12 @@
         ],
         "numberOfBytes": "160"
       },
-      "t_struct(BuildingUpgradeCosts)883_storage": {
+      "t_struct(BuildingUpgradeCosts)3926_storage": {
         "encoding": "inplace",
         "label": "struct BuildingUpgradeCosts",
         "members": [
           {
-            "astId": 877,
+            "astId": 3920,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "realmBuildings",
             "offset": 0,
@@ -564,22 +594,22 @@
             "type": "t_array(t_uint8)dyn_storage"
           },
           {
-            "astId": 882,
+            "astId": 3925,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "buildingCosts",
             "offset": 0,
             "slot": "1",
-            "type": "t_mapping(t_uint256,t_struct(BuildingCosts)874_storage)"
+            "type": "t_mapping(t_uint256,t_struct(BuildingCosts)3917_storage)"
           }
         ],
         "numberOfBytes": "64"
       },
-      "t_struct(DefendingArmy)944_storage": {
+      "t_struct(DefendingArmy)3987_storage": {
         "encoding": "inplace",
         "label": "struct DefendingArmy",
         "members": [
           {
-            "astId": 927,
+            "astId": 3970,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "trebuchetsTrained",
             "offset": 0,
@@ -587,7 +617,7 @@
             "type": "t_uint32"
           },
           {
-            "astId": 929,
+            "astId": 3972,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "trebuchetsSlayed",
             "offset": 4,
@@ -595,7 +625,7 @@
             "type": "t_uint32"
           },
           {
-            "astId": 931,
+            "astId": 3974,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "scorpionsTrained",
             "offset": 8,
@@ -603,7 +633,7 @@
             "type": "t_uint32"
           },
           {
-            "astId": 933,
+            "astId": 3976,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "scorpionsSlayed",
             "offset": 12,
@@ -611,30 +641,30 @@
             "type": "t_uint32"
           },
           {
-            "astId": 938,
+            "astId": 3981,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "trebuchets",
             "offset": 0,
             "slot": "1",
-            "type": "t_mapping(t_uint256,t_struct(TrainedArmyUnit)949_storage)"
+            "type": "t_mapping(t_uint256,t_struct(TrainedArmyUnit)3992_storage)"
           },
           {
-            "astId": 943,
+            "astId": 3986,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "scorpions",
             "offset": 0,
             "slot": "2",
-            "type": "t_mapping(t_uint256,t_struct(TrainedArmyUnit)949_storage)"
+            "type": "t_mapping(t_uint256,t_struct(TrainedArmyUnit)3992_storage)"
           }
         ],
         "numberOfBytes": "96"
       },
-      "t_struct(LevelProduction)886_storage": {
+      "t_struct(LevelProduction)3929_storage": {
         "encoding": "inplace",
         "label": "struct LevelProduction",
         "members": [
           {
-            "astId": 885,
+            "astId": 3928,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "output",
             "offset": 0,
@@ -644,12 +674,12 @@
         ],
         "numberOfBytes": "32"
       },
-      "t_struct(Raiding)906_storage": {
+      "t_struct(Raiding)3949_storage": {
         "encoding": "inplace",
         "label": "struct Raiding",
         "members": [
           {
-            "astId": 901,
+            "astId": 3944,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "coolDownTime",
             "offset": 0,
@@ -657,7 +687,7 @@
             "type": "t_uint256"
           },
           {
-            "astId": 903,
+            "astId": 3946,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "totalRaids",
             "offset": 0,
@@ -665,7 +695,7 @@
             "type": "t_uint256"
           },
           {
-            "astId": 905,
+            "astId": 3948,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "successfulRaids",
             "offset": 0,
@@ -675,12 +705,12 @@
         ],
         "numberOfBytes": "96"
       },
-      "t_struct(RaidingArmy)925_storage": {
+      "t_struct(RaidingArmy)3968_storage": {
         "encoding": "inplace",
         "label": "struct RaidingArmy",
         "members": [
           {
-            "astId": 908,
+            "astId": 3951,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "knightsTrained",
             "offset": 0,
@@ -688,7 +718,7 @@
             "type": "t_uint32"
           },
           {
-            "astId": 910,
+            "astId": 3953,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "knightsSlayed",
             "offset": 4,
@@ -696,7 +726,7 @@
             "type": "t_uint32"
           },
           {
-            "astId": 912,
+            "astId": 3955,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "footSoldiersTrained",
             "offset": 8,
@@ -704,7 +734,7 @@
             "type": "t_uint32"
           },
           {
-            "astId": 914,
+            "astId": 3957,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "footSoldiersSlayed",
             "offset": 12,
@@ -712,30 +742,30 @@
             "type": "t_uint32"
           },
           {
-            "astId": 919,
+            "astId": 3962,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "knights",
             "offset": 0,
             "slot": "1",
-            "type": "t_mapping(t_uint256,t_struct(TrainedArmyUnit)949_storage)"
+            "type": "t_mapping(t_uint256,t_struct(TrainedArmyUnit)3992_storage)"
           },
           {
-            "astId": 924,
+            "astId": 3967,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "footSoldiers",
             "offset": 0,
             "slot": "2",
-            "type": "t_mapping(t_uint256,t_struct(TrainedArmyUnit)949_storage)"
+            "type": "t_mapping(t_uint256,t_struct(TrainedArmyUnit)3992_storage)"
           }
         ],
         "numberOfBytes": "96"
       },
-      "t_struct(RealmInfo)845_storage": {
+      "t_struct(RealmInfo)3888_storage": {
         "encoding": "inplace",
         "label": "struct RealmInfo",
         "members": [
           {
-            "astId": 788,
+            "astId": 3831,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "name",
             "offset": 0,
@@ -743,7 +773,7 @@
             "type": "t_string_storage"
           },
           {
-            "astId": 790,
+            "astId": 3833,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "lastUpdateAt",
             "offset": 0,
@@ -751,7 +781,7 @@
             "type": "t_uint256"
           },
           {
-            "astId": 792,
+            "astId": 3835,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "vestedTimeUpdatedAt",
             "offset": 0,
@@ -759,7 +789,7 @@
             "type": "t_uint256"
           },
           {
-            "astId": 794,
+            "astId": 3837,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "ageSettled",
             "offset": 0,
@@ -767,7 +797,7 @@
             "type": "t_uint256"
           },
           {
-            "astId": 796,
+            "astId": 3839,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "ageClaimed",
             "offset": 0,
@@ -775,7 +805,7 @@
             "type": "t_uint256"
           },
           {
-            "astId": 799,
+            "astId": 3842,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "resourceIds",
             "offset": 0,
@@ -783,7 +813,7 @@
             "type": "t_array(t_uint256)dyn_storage"
           },
           {
-            "astId": 801,
+            "astId": 3844,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "cities",
             "offset": 0,
@@ -791,7 +821,7 @@
             "type": "t_uint8"
           },
           {
-            "astId": 803,
+            "astId": 3846,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "harbours",
             "offset": 1,
@@ -799,7 +829,7 @@
             "type": "t_uint8"
           },
           {
-            "astId": 805,
+            "astId": 3848,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "rivers",
             "offset": 2,
@@ -807,7 +837,7 @@
             "type": "t_uint8"
           },
           {
-            "astId": 807,
+            "astId": 3850,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "regions",
             "offset": 3,
@@ -815,7 +845,7 @@
             "type": "t_uint8"
           },
           {
-            "astId": 809,
+            "astId": 3852,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "wonders",
             "offset": 4,
@@ -823,7 +853,7 @@
             "type": "t_uint8"
           },
           {
-            "astId": 811,
+            "astId": 3854,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "orderOf",
             "offset": 5,
@@ -831,7 +861,7 @@
             "type": "t_uint8"
           },
           {
-            "astId": 813,
+            "astId": 3856,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "aquaducts",
             "offset": 6,
@@ -839,7 +869,7 @@
             "type": "t_uint8"
           },
           {
-            "astId": 815,
+            "astId": 3858,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "temples",
             "offset": 7,
@@ -847,7 +877,7 @@
             "type": "t_uint8"
           },
           {
-            "astId": 817,
+            "astId": 3860,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "castles",
             "offset": 8,
@@ -855,7 +885,7 @@
             "type": "t_uint8"
           },
           {
-            "astId": 819,
+            "astId": 3862,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "markets",
             "offset": 9,
@@ -863,7 +893,7 @@
             "type": "t_uint8"
           },
           {
-            "astId": 821,
+            "astId": 3864,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "ports",
             "offset": 10,
@@ -871,7 +901,7 @@
             "type": "t_uint8"
           },
           {
-            "astId": 823,
+            "astId": 3866,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "barracks",
             "offset": 11,
@@ -879,7 +909,7 @@
             "type": "t_uint8"
           },
           {
-            "astId": 825,
+            "astId": 3868,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "farms",
             "offset": 12,
@@ -887,7 +917,7 @@
             "type": "t_uint8"
           },
           {
-            "astId": 827,
+            "astId": 3870,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "shipyard",
             "offset": 13,
@@ -895,7 +925,7 @@
             "type": "t_uint8"
           },
           {
-            "astId": 829,
+            "astId": 3872,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "fishingVillage",
             "offset": 14,
@@ -903,7 +933,7 @@
             "type": "t_uint8"
           },
           {
-            "astId": 831,
+            "astId": 3874,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "realmDefence",
             "offset": 15,
@@ -911,7 +941,7 @@
             "type": "t_int32"
           },
           {
-            "astId": 833,
+            "astId": 3876,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "realmOffence",
             "offset": 19,
@@ -919,7 +949,7 @@
             "type": "t_int32"
           },
           {
-            "astId": 835,
+            "astId": 3878,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "realmMagic",
             "offset": 23,
@@ -927,7 +957,7 @@
             "type": "t_int32"
           },
           {
-            "astId": 837,
+            "astId": 3880,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "foodSupply",
             "offset": 27,
@@ -935,7 +965,7 @@
             "type": "t_int32"
           },
           {
-            "astId": 839,
+            "astId": 3882,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "population",
             "offset": 0,
@@ -943,22 +973,22 @@
             "type": "t_int32"
           },
           {
-            "astId": 844,
+            "astId": 3887,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "resourceInfo",
             "offset": 0,
             "slot": "8",
-            "type": "t_mapping(t_uint256,t_struct(ResourceInfo)852_storage)"
+            "type": "t_mapping(t_uint256,t_struct(ResourceInfo)3895_storage)"
           }
         ],
         "numberOfBytes": "288"
       },
-      "t_struct(ResourceInfo)852_storage": {
+      "t_struct(ResourceInfo)3895_storage": {
         "encoding": "inplace",
         "label": "struct ResourceInfo",
         "members": [
           {
-            "astId": 847,
+            "astId": 3890,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "id",
             "offset": 0,
@@ -966,7 +996,7 @@
             "type": "t_uint8"
           },
           {
-            "astId": 849,
+            "astId": 3892,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "level",
             "offset": 1,
@@ -974,7 +1004,7 @@
             "type": "t_uint8"
           },
           {
-            "astId": 851,
+            "astId": 3894,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "production",
             "offset": 2,
@@ -984,12 +1014,12 @@
         ],
         "numberOfBytes": "32"
       },
-      "t_struct(TheAges)786_storage": {
+      "t_struct(TheAges)3829_storage": {
         "encoding": "inplace",
         "label": "struct TheAges",
         "members": [
           {
-            "astId": 781,
+            "astId": 3824,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "settledRealms",
             "offset": 0,
@@ -997,7 +1027,7 @@
             "type": "t_uint256"
           },
           {
-            "astId": 783,
+            "astId": 3826,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "ageStart",
             "offset": 0,
@@ -1005,7 +1035,7 @@
             "type": "t_uint256"
           },
           {
-            "astId": 785,
+            "astId": 3828,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "ageFinish",
             "offset": 0,
@@ -1015,12 +1045,12 @@
         ],
         "numberOfBytes": "96"
       },
-      "t_struct(TrainedArmyUnit)949_storage": {
+      "t_struct(TrainedArmyUnit)3992_storage": {
         "encoding": "inplace",
         "label": "struct TrainedArmyUnit",
         "members": [
           {
-            "astId": 946,
+            "astId": 3989,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "destroyed",
             "offset": 0,
@@ -1028,7 +1058,7 @@
             "type": "t_bool"
           },
           {
-            "astId": 948,
+            "astId": 3991,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "unitFinished",
             "offset": 0,
@@ -1038,12 +1068,12 @@
         ],
         "numberOfBytes": "64"
       },
-      "t_struct(UpgradeCostLevels)899_storage": {
+      "t_struct(UpgradeCostLevels)3942_storage": {
         "encoding": "inplace",
         "label": "struct UpgradeCostLevels",
         "members": [
           {
-            "astId": 898,
+            "astId": 3941,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "value",
             "offset": 0,
@@ -1053,12 +1083,12 @@
         ],
         "numberOfBytes": "32"
       },
-      "t_struct(UpgradeCosts)895_storage": {
+      "t_struct(UpgradeCosts)3938_storage": {
         "encoding": "inplace",
         "label": "struct UpgradeCosts",
         "members": [
           {
-            "astId": 889,
+            "astId": 3932,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "resourceIds",
             "offset": 0,
@@ -1066,12 +1096,12 @@
             "type": "t_array(t_uint8)dyn_storage"
           },
           {
-            "astId": 894,
+            "astId": 3937,
             "contract": "contracts/settling/facets/RaidingFacet.sol:RaidingFacet",
             "label": "upgradeCostLevels",
             "offset": 0,
             "slot": "1",
-            "type": "t_mapping(t_uint256,t_struct(UpgradeCostLevels)899_storage)"
+            "type": "t_mapping(t_uint256,t_struct(UpgradeCostLevels)3942_storage)"
           }
         ],
         "numberOfBytes": "64"

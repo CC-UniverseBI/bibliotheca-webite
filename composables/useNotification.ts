@@ -1,14 +1,15 @@
 import { ref } from '@nuxtjs/composition-api'
-// import { useFormatting } from '@/composables/useFormatting';
-// import { getEtherscanLink, getMaticLink, getTenderlyLink } from './useLink';
-// import { useRandom } from './useRandom';
-import { activeNetworkId } from './web3/useNetwork'
-// const { makeid } = useRandom();
+
+import { useRandom } from '~/composables/web3/useRandom'
+import { NetworkId, activeNetworkId } from '~/composables/web3/useNetwork'
+import { useFormatting } from '@/composables/useFormatting'
+import { statements } from '@/composables/utils/statements'
+const { makeid, getRandomInt } = useRandom()
 
 const queue = ref([])
 
 export function useNotification() {
-  // const { shortenHash } = useFormatting();
+  const { shortenHash } = useFormatting()
 
   function close(key) {
     queue.value = queue.value.filter((item) => item.key !== key)
@@ -51,13 +52,32 @@ export function useNotification() {
    */
   function show(params) {
     if (params) {
-      if (!params.key) params.key = 10 // makeid(10);
+      if (!params.key) params.key = makeid(10)
       queue.value.push(params)
     }
+    console.log(queue.value)
   }
 
-  function showError(title, body, href) {
-    show({ icon: 'error', title, body, href, duration: 0 })
+  function showError(title) {
+    const statement: any = statements.find((a) => title.includes(a.error))
+    if (statement) {
+      const random = getRandomInt(0, statement.messages.length - 1)
+      show({
+        icon: 'error',
+        title: statement.messages[random].title,
+        body: statement.messages[random].text,
+        href: '',
+        duration: 5000,
+      })
+    } else {
+      show({
+        icon: 'error',
+        title: 'Unknown error',
+        body: title,
+        href: '',
+        duration: 5000,
+      })
+    }
   }
 
   function showWarning(title, body = '') {
@@ -81,72 +101,76 @@ export function useNotification() {
   }
 
   function showAwaiting(title, body) {
-    const key = title
+    const key = makeid(10)
     show({ icon: 'spinner', title, body, duration: 0, key })
     return key
   }
 
-  /* function showPendingTransaction(transactionHash, network?: Network) {
-    network = network || activeNetworkId.value;
+  // function showPendingTransaction(transactionHash, network?: Network) {
+  //   network = network || activeNetworkId.value
 
-    let href;
-    if (network === Network.Polygon) {
-      href = getMaticLink(transactionHash);
-    } else {
-      href = getEtherscanLink(transactionHash);
-    }
-    const body = transactionHash;
+  //   let href
+  //   if (network === Network.Polygon) {
+  //     href = getMaticLink(transactionHash)
+  //   } else if (network === Network.Arbitrum) {
+  //     href = getArbitrumLink(transactionHash)
+  //   } else {
+  //     href = getEtherscanLink(transactionHash)
+  //   }
+  //   const body = shortenHash(transactionHash)
 
-    show({
-      icon: 'pending-transaction',
-      title: 'Pending transaction',
-      href,
-      body,
-      duration: 0,
-      key: transactionHash
-    });
-  }
+  //   show({
+  //     icon: 'pending-transaction',
+  //     title: 'Pending transaction',
+  //     href,
+  //     body,
+  //     duration: 0,
+  //     key: transactionHash,
+  //   })
+  // }
 
-  function showConfirmedTransaction(transactionHash, network?: Network) {
-    network = network || activeNetworkId.value;
+  // function showConfirmedTransaction(transactionHash, network?: Network) {
+  //   network = network || activeNetworkId.value
 
-    let href;
-    if (network === Network.Polygon) {
-      href = getMaticLink(transactionHash);
-    } else {
-      href = getEtherscanLink(transactionHash);
-    }
-    const body = transactionHash;
+  //   let href
+  //   if (network === Network.Polygon) {
+  //     href = getMaticLink(transactionHash)
+  //   } else if (network === Network.Arbitrum) {
+  //     href = getArbitrumLink(transactionHash)
+  //   } else {
+  //     href = getEtherscanLink(transactionHash)
+  //   }
+  //   const body = shortenHash(transactionHash)
 
-    const found = queue.value.find(item => item.key === transactionHash);
-    if (found) {
-      found.icon = 'success';
-      found.title = 'Transaction Confirmed';
-      found.href = href;
-      found.body = body;
-    } else {
-      show({
-        icon: 'success',
-        title: 'Transaction Confirmed',
-        href,
-        body,
-        duration: 0
-      });
-    }
-  }
+  //   const found = queue.value.find((item) => item.key === transactionHash)
+  //   if (found) {
+  //     found.icon = 'success'
+  //     found.title = 'Transaction Confirmed'
+  //     found.href = href
+  //     found.body = body
+  //   } else {
+  //     show({
+  //       icon: 'success',
+  //       title: 'Transaction Confirmed',
+  //       href,
+  //       body,
+  //       duration: 0,
+  //     })
+  //   }
+  // }
 
   function showConfirmedSimulation(transactionId) {
-    const href = getTenderlyLink(transactionId);
-    const body = transactionId;
+    // const href = getTenderlyLink(transactionId)
+    const body = shortenHash(transactionId)
 
     show({
       icon: 'success',
       title: 'Successfully Simulated',
-      href,
+      // href,
       body,
-      duration: 5000
-    });
-  } */
+      duration: 5000,
+    })
+  }
 
   function showLoggedIn(title, body) {
     show({ icon: 'logged-in', title, body, duration: 2000 })
@@ -164,10 +188,9 @@ export function useNotification() {
     showNotImplemented,
     showSuccess,
     showInfo,
-
-    /* showPendingTransaction,
-    showConfirmedTransaction,
-    showConfirmedSimulation, */
+    // showPendingTransaction,
+    // showConfirmedTransaction,
+    showConfirmedSimulation,
     showLoggedIn,
     showLoggedOut,
     showAwaiting,

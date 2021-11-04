@@ -9,7 +9,7 @@ import {
 
 import { useWeb3 } from '@instadapp/vue-web3'
 import { useModal } from '../useModal'
-import { useNotification } from '../useNotification'
+import { useNotification } from '~/composables/useNotification'
 import { Network, allNetworks } from '~/constant/networks'
 
 const activeNetworks = process.env.ACTIVE_NETWORKS.split(',')

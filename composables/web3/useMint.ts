@@ -9,14 +9,14 @@ import {
 } from '@nuxtjs/composition-api'
 import BigNumber from 'bignumber.js'
 import { ethers } from 'ethers'
-import { useNetwork, activeNetwork } from './useNetwork'
 import { useWeb3 } from '@instadapp/vue-web3'
+import { useNetwork, activeNetwork } from './useNetwork'
 import { useGraph } from './useGraph'
 import { useBigNumber } from './useBigNumber'
 import { mintedRealmsQuery } from './../graphql/queries'
 import { useWeb3Modal } from '~/composables/web3/useWeb3Modal'
 import realmsABI from '~/abi/lootRealms.json'
-import erc721tokens from '~/constant/erc721tokens'
+import erc721tokens from '~/constant/erc721Tokens'
 
 const result = reactive({ mint: null })
 
@@ -101,7 +101,7 @@ export function useMint() {
         lootIds
       )
     } catch (e) {
-      error.mint = e.message
+      error.mint = e.data.message
     } finally {
       loading.mint = false
       await getAvailableTokenIds()
@@ -150,11 +150,10 @@ export function useMint() {
 
 async function mintToken(owner, network, lootId) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const tokensArr = erc721tokens[network].allTokens
+  const realmsAddress = erc721tokens[network].realms.address
   const signer = provider.getSigner()
-  const tokensAddrArr = tokensArr.map((a) => a.address)
 
-  const tokenContract = new ethers.Contract(tokensAddrArr[0], realmsABI, signer)
+  const tokenContract = new ethers.Contract(realmsAddress, realmsABI, signer)
   const overrides = {
     // To convert Ether to Wei:
     value: ethers.utils.parseEther('0.1'),
@@ -167,11 +166,10 @@ async function mintToken(owner, network, lootId) {
 
 async function multiMintToken(owner, network, lootIds) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const tokensArr = erc721tokens[network].allTokens
+  const realmsAddress = erc721tokens[network].realms.address
   const signer = provider.getSigner()
-  const tokensAddrArr = tokensArr.map((a) => a.address)
 
-  const tokenContract = new ethers.Contract(tokensAddrArr[0], realmsABI, signer)
+  const tokenContract = new ethers.Contract(realmsAddress, realmsABI, signer)
 
   const wei =
     network === 'rinkeby' ? 0.0 * lootIds.length : 0.1 * lootIds.length

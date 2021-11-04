@@ -17,8 +17,7 @@
   </div>
 </template>
 <script>
-import { useFetch } from '@nuxtjs/composition-api'
-import { computed, defineComponent } from '@vue/composition-api'
+import { computed, defineComponent, onMounted } from '@vue/composition-api'
 import { useStatistics } from '~/composables/statistics/useStatistics'
 export default defineComponent({
   props: {
@@ -58,7 +57,7 @@ export default defineComponent({
       },
     ]
 
-    useFetch(async () => {
+    onMounted(async () => {
       await getHappiness(props.realm)
     })
 

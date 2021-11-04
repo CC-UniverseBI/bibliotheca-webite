@@ -28,7 +28,7 @@ import { useNetwork } from '~/composables/web3/useNetwork'
 export default defineComponent({
   setup(props, context) {
     const { address } = context.root.$route.params
-    const { getUserRealms, userRealms, loading: realmsLoading } = useRealms()
+    const { getWalletRealms, userRealms, loading: realmsLoading } = useRealms()
     const {
       checkForNetworkMismatch,
       networkMismatch,
@@ -55,7 +55,7 @@ export default defineComponent({
       }
 
       try {
-        await getUserRealms(address, 'l2')
+        await getWalletRealms(address, 'l2')
       } catch (e) {
         console.log(e)
       } finally {

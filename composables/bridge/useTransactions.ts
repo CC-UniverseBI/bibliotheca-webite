@@ -22,7 +22,7 @@ import {
 
 import { useWeb3 } from '@instadapp/vue-web3'
 import { useNetwork } from '../web3/useNetwork'
-import erc721tokens from '~/constant/erc721tokens'
+import erc721Tokens from '~/constant/erc721Tokens'
 
 import {
   lastOutboxEntryQuery,
@@ -398,12 +398,11 @@ export function useTransactions() {
   ) => {
     const address = account.value
     const t = new Date().getTime()
-    const tokensArr = erc721tokens[useL2Network.value.id].allTokens
-    const tokensAddrArr = tokensArr.map((a) => a.address)
+    const realmsAddress = erc721Tokens[useL2Network.value.id].realms.address
     try {
       const gateWayWithdrawalsResultsNested =
         await bridge.value.getGatewayWithdrawEventData(
-          tokensAddrArr[0],
+          realmsAddress,
           address,
           filter
         )
@@ -648,7 +647,7 @@ export function useTransactions() {
   })
   const sortedTransactions = computed(() => {
     if (transactions.value) {
-      return [...transactions.value]
+      return transactions.value
         .filter((tx) => tx.sender === account.value)
         .filter(
           (tx) =>

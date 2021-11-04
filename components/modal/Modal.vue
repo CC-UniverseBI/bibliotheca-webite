@@ -2,7 +2,7 @@
   <transition :duration="{ enter: 300, leave: 200 }">
     <div
       v-show="isShown"
-      class="fixed inset-0 z-10 overflow-y-auto pointer-events-auto"
+      class="fixed inset-0 z-20 overflow-y-auto pointer-events-auto"
     >
       <div
         class="
@@ -13,7 +13,6 @@
           px-4
           pt-4
           pb-20
-          text-center
           sm:justify-center sm:p-0
           font-body
         "

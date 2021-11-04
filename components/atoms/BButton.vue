@@ -1,8 +1,8 @@
 <template>
   <component
     :is="tag"
-    class="button ease-in-out font-display text-center disabled:opacity-25"
-    :class="[buttonColor, btnClass]"
+    class="button ease-in-out font-display disabled:opacity-25"
+    :class="[buttonColor]"
     v-bind="$attrs"
     :disabled="disabled"
     :to="to"
@@ -57,22 +57,10 @@ export default {
     tag() {
       return this.to ? 'nuxt-link' : 'button'
     },
-    btnClass() {
-      const classes = []
-      if (this.block) {
-        classes.push('w-full')
-      }
-      if (this.type === 'link') {
-        classes.push('bg-nude-100')
-      }
-      if (this.disabled && this.block) {
-        classes.push('bg-red-400')
-      }
-      return classes.join(' ')
-    },
   },
   methods: {
     externalSite() {
+      console.log('external site buytton')
       if (this.href) {
         window.location = this.href
       }

@@ -136,18 +136,16 @@ export default defineComponent({
     const { close } = useModal()
     const { activate } = useWeb3()
     // const { activeNetworkId } = useNetwork()
-    const { showError, showAwaiting, closeAll } = useNotification()
+    const { showError } = useNotification()
     const connecting = ref(false)
     const connect = async (connector) => {
       connecting.value = true
-      showAwaiting('Connecting...')
+
       try {
         await activate(connector, undefined, true)
         connecting.value = false
         close()
-        closeAll()
       } catch (error) {
-        closeAll()
         showError('', error.message)
       }
       connecting.value = false

@@ -163,7 +163,9 @@ export default {
     '~/components',
     '~/components/cards',
     '~/components/atoms',
-    '~/components/atoms/market'
+    '~/components/atoms/market',
+    '~/components/realms',
+    '~/components/sprites',
   ],
   buildModules: [
     '@nuxtjs/eslint-module',
@@ -205,7 +207,7 @@ export default {
     }, */
   },
   router: {
-    linkExactActiveClass: 'bg-black text-red-400',
+    linkExactActiveClass: 'text-red-600',
   },
   env: {
     INFURA_ID: process.env.INFURA_ID,

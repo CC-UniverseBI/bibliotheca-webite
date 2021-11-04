@@ -1,16 +1,15 @@
 import { reactive, ref, Ref } from '@nuxtjs/composition-api'
 import { ethers } from 'ethers'
-import { activeNetwork } from '../web3/useNetwork'
+import { useNetwork } from '../web3/useNetwork'
 import { useWeb3 } from '../web3'
 
 import StakingFacetAbi from '~/abi/StakingFacet.json'
 
 import GetterFacetAbi from '~/abi/GetterFacet.json'
-import diamondAddress from '~/constant/diamondAddress'
+import contractAddress from '~/constant/contractAddress'
 
-import erc721tokens from '~/constant/erc721tokens'
-import sRealmsTokens from '~/constant/sRealmsTokens'
 export function useStatistics() {
+  const { useL2Network } = useNetwork()
   const { account } = useWeb3()
   const error = reactive({
     stake: null,
@@ -26,7 +25,7 @@ export function useStatistics() {
     try {
       error.stake = null
       loading.stake = true
-      happiness.value = await getRealmHappiness(activeNetwork.value.id, realmId)
+      happiness.value = await getRealmHappiness(useL2Network.value.id, realmId)
     } catch (e) {
       console.log(e)
       error.stake = e.message
@@ -40,7 +39,7 @@ export function useStatistics() {
       error.stake = null
       loading.stake = true
       realmStatistics.value = await getAllStatistics(
-        activeNetwork.value.id,
+        useL2Network.value.id,
         realmId
       )
     } catch (e) {
@@ -55,7 +54,7 @@ export function useStatistics() {
     try {
       error.stake = null
       loading.stake = true
-      ageClaimed.value = await getAgeClaimed(activeNetwork.value.id, realmId)
+      ageClaimed.value = await getAgeClaimed(useL2Network.value.id, realmId)
     } catch (e) {
       console.log(e)
       error.stake = e.message
@@ -77,12 +76,11 @@ export function useStatistics() {
 
 async function getRealmHappiness(network, realmId) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const tokensArr = diamondAddress[network].allTokens
+  const tokenAddress = contractAddress[network].realmsDiamond
   const signer = provider.getSigner()
-  const tokensAddrArr = tokensArr.map((a) => a.address)
 
   const resourceStakingFacet = new ethers.Contract(
-    tokensAddrArr[0],
+    tokenAddress,
     StakingFacetAbi.abi,
     signer
   )
@@ -92,12 +90,11 @@ async function getRealmHappiness(network, realmId) {
 
 async function getAllStatistics(network, realmId) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const tokensArr = diamondAddress[network].allTokens
+  const tokenAddress = contractAddress[network].realmsDiamond
   const signer = provider.getSigner()
-  const tokensAddrArr = tokensArr.map((a) => a.address)
 
   const getterFacet = new ethers.Contract(
-    tokensAddrArr[0],
+    tokenAddress,
     GetterFacetAbi.abi,
     signer
   )
@@ -107,12 +104,11 @@ async function getAllStatistics(network, realmId) {
 
 async function getAgeClaimed(network, realmId) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const tokensArr = diamondAddress[network].allTokens
+  const tokenAddress = contractAddress[network].realmsDiamond
   const signer = provider.getSigner()
-  const tokensAddrArr = tokensArr.map((a) => a.address)
 
   const getterFacetAbi = new ethers.Contract(
-    tokensAddrArr[0],
+    tokenAddress,
     GetterFacetAbi.abi,
     signer
   )

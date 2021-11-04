@@ -1,17 +1,21 @@
 <template>
-  <div class="container">
+  <div class="w-full">
     <div class="flex flex-wrap space-x-4">
       <DataCard>
-        <h5 class="text-red-200 uppercase text-center">Total Realms Settled</h5>
-        <div v-if="sRealms" class="text-6xl p-4 text-center">
-          {{ sRealms.length }}
+        <h5 class="text-red-600 uppercase text-center">Total Realms Settled</h5>
+        <div v-if="sRealms.length" class="text-6xl p-4 text-center">
+          {{ adventurer.l2.srealmsHeld }}
         </div>
-        <BButton class="mt-auto" type="primary" @click="claimAllResources()"
+        <BButton
+          v-if="isAddressPage"
+          class="mt-auto"
+          type="primary"
+          @click="claimAllResources()"
           >Claim all your resources</BButton
         >
       </DataCard>
       <DataCard class="w-40">
-        <h5 class="text-red-200 uppercase text-center">Age</h5>
+        <h5 class="text-red-600 uppercase text-center">Age</h5>
         <div v-if="worldAge" class="text-6xl text-center p-4">
           {{ worldAge }}
         </div>
@@ -27,8 +31,8 @@
           </vac>
         </no-ssr>
       </DataCard>
-      <DataCard>
-        <h5 class="text-red-200 uppercase text-center">Lords</h5>
+      <DataCard v-if="isAddressPage">
+        <h5 class="text-red-600 uppercase text-center">Lords</h5>
         <div class="mt-auto">
           <BButton
             :loading="loadingLords.claim"
@@ -43,33 +47,50 @@
     <div class="mt-8">
       <h2>Settled Realms</h2>
     </div>
-    <div v-if="sRealms" class="flex flex-wrap">
-      <StakedRealm
-        v-for="realm in sRealms"
-        :key="realm.id"
-        :realm="realm"
-        @unsettle="popFromArray"
-      />
+    <div v-if="sRealms.length">
+      <div class="flex flex-wrap">
+        <StakedRealm
+          v-for="realm in adventurer.l2.srealms"
+          :key="realm.id"
+          :realm="realm"
+          @unsettle="popFromArray"
+        />
+      </div>
+      <BButton type="primary" :to="'/adventurer/' + address + '/realms'">
+        See all Realms</BButton
+      >
     </div>
-    <div v-else>
+    <div v-else-if="loadingSRealms">
       <Loader />
+    </div>
+    <div v-else>No settled Realms yet</div>
+
+    <div class="mt-8">
+      <h2>Empire Raiding</h2>
     </div>
   </div>
 </template>
 <script>
-import { defineComponent, onMounted } from '@vue/composition-api'
+import { defineComponent, computed } from '@vue/composition-api'
 
 import { useWeb3 } from '@instadapp/vue-web3'
-
-import { useRealms } from '~/composables/web3/useRealms'
+import { useFetch } from '@nuxtjs/composition-api'
 import { useLords } from '~/composables/lords/useLords'
 import { useStaking } from '~/composables/staking/useStaking'
 import { useNetwork } from '~/composables/web3/useNetwork'
+import { useAdventurer } from '~/composables/useAdventurer'
+import { useConnect } from '~/composables/web3/useConnect'
 // import { useWeb3Modal } from '~/composables/web3/useWeb3Modal'
 export default defineComponent({
+  fetchOnServer: false,
   setup(props, context) {
     const { address } = context.root.$route.params
-    const { getUserSRealms, sRealms } = useRealms()
+    const {
+      getAdventurer,
+      adventurer,
+      loading: loadingSRealms,
+    } = useAdventurer()
+    const { isAddressPage } = useConnect()
     const {
       claimLords,
       getWorldAge,
@@ -79,8 +100,12 @@ export default defineComponent({
       loading: loadingLords,
       timeNextAge,
     } = useLords()
-    const { activeNetworkId, checkForNetworkMismatch, networkMismatch } =
-      useNetwork()
+    const {
+      activeNetworkId,
+      checkForNetworkMismatch,
+      networkMismatch,
+      useL2Network,
+    } = useNetwork()
     // const { open } = useWeb3Modal()
     const { account } = useWeb3()
 
@@ -95,26 +120,32 @@ export default defineComponent({
       result,
     } = useStaking()
 
-    onMounted(async () => {
-      await getWorldAge()
-      await getUserSRealms(address, 'arbitrumRinkeby')
-      await getTimeToNextAge()
-      activeNetworkId.value = 'arbitrumRinkeby'
+    const sRealms = computed(() => {
+      return adventurer.l2?.srealms || []
+    })
+
+    useFetch(async () => {
+      activeNetworkId.value = useL2Network.value.id
       if (account.value) {
         if (networkMismatch.value) {
           checkForNetworkMismatch()
-        } else {
-          await getUserSRealms(address, 'arbitrumRinkeby')
         }
       }
+
+      await getWorldAge()
+      await getAdventurer(address, 'l2')
+      await getTimeToNextAge()
     })
 
     const popFromArray = (value) => {
-      const index = sRealms.value.map((e) => e.id).indexOf(value)
-      sRealms.value.splice(index, 1)
+      const index = adventurer.l2.srealms.map((e) => e.id).indexOf(value)
+      adventurer.l2.srealms.splice(index, 1)
     }
 
     return {
+      adventurer,
+      address,
+      activeNetworkId,
       popFromArray,
       stakeRealm,
       claimResources,
@@ -132,6 +163,8 @@ export default defineComponent({
       getTimeToNextAge,
       loadingLords,
       timeNextAge,
+      loadingSRealms,
+      isAddressPage,
     }
   },
 })

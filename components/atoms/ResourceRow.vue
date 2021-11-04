@@ -11,13 +11,14 @@
   </tr>
 </template>
 <script>
-import { useFetch, defineComponent, ref } from '@nuxtjs/composition-api'
+import { defineComponent, ref, useFetch } from '@nuxtjs/composition-api'
 import { useResources } from '~/composables/resources/useResources'
 import LoadingDots from '~/assets/img/threeDots.svg?inline'
 export default defineComponent({
   components: {
     LoadingDots,
   },
+  fetchOnServer: false,
   props: {
     resource: {
       type: Object,

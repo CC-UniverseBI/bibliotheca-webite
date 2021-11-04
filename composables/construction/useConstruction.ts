@@ -2,16 +2,15 @@ import { reactive, ref, Ref } from '@nuxtjs/composition-api'
 import { ethers } from 'ethers'
 import { useWeb3 } from '@instadapp/vue-web3'
 import { useNetwork, activeNetwork } from '../web3/useNetwork'
-
+import { useNotification } from '~/composables/useNotification'
 import TraitConstructionFacetAbi from '~/abi/TraitConstructionFacet.json'
 
-import diamondAddress from '~/constant/diamondAddress'
-import erc721tokens from '~/constant/erc721tokens'
+import contractAddress from '~/constant/contractAddress'
 
 export function useConstruction() {
-  const { provider, library, account, activate } = useWeb3()
-  const { partnerNetwork, useL1Network, useL2Network } = useNetwork()
+  const { account } = useWeb3()
 
+  const { showError } = useNotification()
   const error = reactive({
     building: null,
     costs: null,
@@ -45,6 +44,7 @@ export function useConstruction() {
       )
     } catch (e) {
       console.log(e)
+      await showError(e.message)
       error.building = e.message
     } finally {
       await getBuildings(realmId)
@@ -119,11 +119,10 @@ export function useConstruction() {
 }
 async function getBuilding(owner, network, realmId) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const tokensArr = diamondAddress[network].allTokens
-  const tokensAddrArr = tokensArr.map((a) => a.address)
+  const diamondAddress = contractAddress[network].realmsDiamond
   const signer = provider.getSigner()
   const constructionFacet = new ethers.Contract(
-    tokensAddrArr[0],
+    diamondAddress,
     TraitConstructionFacetAbi.abi,
     signer
   )
@@ -140,11 +139,10 @@ async function construct(
   upgradeResourceValues
 ) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const tokensArr = diamondAddress[network].allTokens
-  const tokensAddrArr = tokensArr.map((a) => a.address)
+  const diamondAddress = contractAddress[network].realmsDiamond
   const signer = provider.getSigner()
   const constructionFacet = new ethers.Contract(
-    tokensAddrArr[0],
+    diamondAddress,
     TraitConstructionFacetAbi.abi,
     signer
   )
@@ -160,11 +158,10 @@ async function construct(
 }
 async function getBuildingCosts(owner, network, buildingId) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const tokensArr = diamondAddress[network].allTokens
-  const tokensAddrArr = tokensArr.map((a) => a.address)
+  const diamondAddress = contractAddress[network].realmsDiamond
   const signer = provider.getSigner()
   const constructionFacet = new ethers.Contract(
-    tokensAddrArr[0],
+    diamondAddress,
     TraitConstructionFacetAbi.abi,
     signer
   )
@@ -173,11 +170,10 @@ async function getBuildingCosts(owner, network, buildingId) {
 }
 async function getAllBuildingStats(owner, network, buildingId) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const tokensArr = diamondAddress[network].allTokens
-  const tokensAddrArr = tokensArr.map((a) => a.address)
+  const diamondAddress = contractAddress[network].realmsDiamond
   const signer = provider.getSigner()
   const constructionFacet = new ethers.Contract(
-    tokensAddrArr[0],
+    diamondAddress,
     TraitConstructionFacetAbi.abi,
     signer
   )

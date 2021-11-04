@@ -1,31 +1,69 @@
 import { gql } from 'graphql-request'
 import { WalletFragment } from './fragments/wallet'
-import { RealmFragment } from './fragments/realmFragments'
+import { RealmFragment, SRealmFragment } from './fragments/realmFragments'
+import { RaidResultFragment } from './fragments/raidResults'
 import { BagFragment, defaultLoot } from './fragments/loot'
 import { TreasureFragment } from './fragments/treasure'
 import { ManaFragment } from './fragments/mana'
 import { GAdventurerFragment } from './fragments/gadventurer'
 
-const usersSRealms = gql`
-  query usersSRealms($address: String!) {
-    srealms(first: 100, where: { currentOwner: $address }) {
+const getSRealmsQuery = gql`
+  query getSRealms(
+    $address: String
+    $resources: [Int]
+    $orders: [Int]
+    $first: Int
+    $skip: Int
+  ) {
+    srealms(
+      first: $first
+      where: {
+        currentOwner_contains: $address
+        currentOwner_not: "0x0000000000000000000000000000000000000000"
+        resourceIds_contains: $resources
+        order_in: $orders
+      }
+      skip: $skip
+    ) {
       id
       ageSettled
       ageClaimed
       name
-      regions
-      cities
-      harbors
-      rivers
-      resources
+      resources {
+        id
+        resource {
+          name
+        }
+        level
+        resourceUpgrades {
+          id
+        }
+      }
       wonder
       order
+      traits {
+        name
+        value
+        buildings {
+          name
+          value
+          buildingUpgrades {
+            id
+            address {
+              id
+            }
+          }
+        }
+      }
+      currentOwner {
+        id
+        address
+      }
     }
   }
 `
-
-const usersRealms = gql`
-  query usersRealms($address: String!) {
+const getRealms = gql`
+  query usersRealms($address: String) {
     realms(first: 100, where: { currentOwner: $address }) {
       id
       tokenURI
@@ -33,6 +71,17 @@ const usersRealms = gql`
         address
         joined
       }
+    }
+  }
+`
+
+const getResourceListQuery = gql`
+  query getResourceListQuery {
+    resources(first: 25) {
+      id
+      name
+      stakedRealms
+      totalRealms
     }
   }
 `
@@ -85,17 +134,62 @@ const getl1Adventurer = gql`
 `
 const getl2Adventurer = gql`
   ${RealmFragment}
+  ${SRealmFragment}
+  ${RaidResultFragment}
   query adventurer($address: String!) {
     wallet(id: $address) {
       id
       realmsHeld
-      realms(first: 30) {
+      realms(first: 5) {
         ...RealmData
+      }
+      srealmsHeld
+      srealms(first: 5) {
+        ...SRealmData
+      }
+      raiderResults(orderBy: timestamp, orderDirection: desc) {
+        ...RaidResultFragment
+      }
+      defenderResults(orderBy: timestamp, orderDirection: desc) {
+        ...RaidResultFragment
       }
     }
   }
 `
-
+enum OrderBy {
+  raidAttacks,
+}
+const getAdventurerRaidResultsQuery = gql`
+  ${RaidResultFragment}
+  query getAdventurerRaidResultsQuery(
+    $address: String
+    $first: Int
+    $skip: Int
+    $orderBy: String
+    $orderDirection: String
+  ) {
+    wallets(
+      first: $first
+      where: {
+        address_contains: $address
+        address_not: "0x0000000000000000000000000000000000000000"
+      }
+      skip: $skip
+      orderBy: $orderBy
+      orderDirection: $orderDirection
+    ) {
+      address
+      raidAttacks
+      raidDefends
+      raiderResults {
+        ...RaidResultFragment
+      }
+      defenderResults {
+        ...RaidResultFragment
+      }
+    }
+  }
+`
 const mintedRealmsQuery = gql`
   query mintedRealmsQuery($lastID: String) {
     realms(
@@ -153,12 +247,14 @@ const messageHasExecutedQuery = gql`
   }
 `
 export {
-  usersRealms,
+  getRealms,
   mintedRealmsQuery,
-  usersSRealms,
+  getSRealmsQuery,
+  getAdventurerRaidResultsQuery,
   getl1Adventurer,
   getl2Adventurer,
   lastOutboxEntryQuery,
   getWithdrawalsQuery,
   messageHasExecutedQuery,
+  getResourceListQuery,
 }

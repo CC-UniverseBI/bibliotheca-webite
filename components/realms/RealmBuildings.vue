@@ -10,31 +10,29 @@
         >1</span
       > -->
       <span class="self-center">
-        <span>{{ findBuilding.name }}: {{ building }}</span>
+        <span
+          >{{ findBuilding.name }}:
+          <span class="font-semibold">{{ building }}</span> /
+          <span v-if="getConstraint" class="text-gray-400">{{
+            getConstraint.value
+          }}</span></span
+        >
         <!-- <span v-else class="flex"
           >{{ findBuilding(building).name }}: <LoadingDots class="w-5"
         /></span> -->
       </span>
     </span>
-    <v-popover placement="right" trigger="hover">
-      <button
-        class="
-          border border-gray-800
-          rounded
-          px-2
-          py-1
-          text-xs
-          hover:bg-gray-800 hover:shadow
-          font-body
-        "
+    <v-popover v-if="isAddressPage" placement="right" trigger="hover">
+      <Web3Button
+        type="small"
         :disabled="loading.building"
         @click="constructBuilding(realmId, buildingId, stats[1], stats[2])"
       >
         {{ loading.building ? 'Building..' : 'Build' }}
-      </button>
+      </Web3Button>
 
       <template slot="popover">
-        <div class="bg-gray-300 shadow-xl p-4 rounded text-black">
+        <div class="bg-gray-300 shadow-xl p-4 rounded text-black z-50">
           <h4 class="text-center mb-1">Building Cost</h4>
 
           <div v-if="stats" class="flex justify-between capitalize">
@@ -85,14 +83,12 @@
 </template>
 <script>
 import { computed, defineComponent } from '@nuxtjs/composition-api'
-import allBuildings from '~/composables/buildings.json'
+import { allBuildings } from '@/composables/utils/buildings'
 import { useConstruction } from '~/composables/construction/useConstruction'
 import { resources } from '@/composables/utils/resourceColours'
-// import LoadingDots from '~/assets/img/threeDots.svg?inline'
+import { useConnect } from '~/composables/web3/useConnect'
+
 export default defineComponent({
-  //   components: {
-  //     LoadingDots,
-  //   },
   props: {
     building: {
       type: Number,
@@ -104,6 +100,10 @@ export default defineComponent({
     },
     buildingId: {
       type: Number,
+      required: true,
+    },
+    realmTraits: {
+      type: Array,
       required: true,
     },
   },
@@ -120,17 +120,16 @@ export default defineComponent({
       error,
       result,
     } = useConstruction()
-
+    const { isAddressPage } = useConnect()
     const findBuilding = computed(() => {
       return allBuildings.find((a) => a.id === parseInt(props.buildingId))
     })
     const findResources = (resource) => {
       return resources.find((a) => a.id === parseInt(resource))
     }
-    // useFetch(async () => {
-    //   await fetchProductionOutput(props.realmId, props.resource)
-    // })
-
+    const getConstraint = computed(() => {
+      return props.realmTraits.find((a) => a.name === findBuilding.value.trait)
+    })
     return {
       findBuilding,
       constructBuilding,
@@ -144,6 +143,8 @@ export default defineComponent({
       loading,
       error,
       result,
+      getConstraint,
+      isAddressPage,
     }
   },
 })
