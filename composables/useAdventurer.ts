@@ -1,21 +1,13 @@
 /* eslint-disable max-depth */
-import {
-  computed,
-  reactive,
-  onMounted,
-  useContext,
-  ref,
-  watch,
-} from '@nuxtjs/composition-api'
-import { useWeb3 } from '@instadapp/vue-web3'
-import {
-  getl1Adventurer,
-  getl2Adventurer,
-  usersSRealms,
-} from './graphql/queries'
-import { useNetwork, activeNetwork } from '~/composables/web3/useNetwork'
+import { computed, reactive, ref } from '@nuxtjs/composition-api'
+import { getl1Adventurer, getl2Adventurer } from './graphql/queries'
+import { useNetwork } from '~/composables/web3/useNetwork'
 import { useWeb3Modal } from '~/composables/web3/useWeb3Modal'
 import { useGraph } from '~/composables/web3/useGraph'
+export enum Layers {
+  l1,
+  l2,
+}
 
 export function useAdventurer() {
   const loading = ref(false)
@@ -24,36 +16,41 @@ export function useAdventurer() {
   })
   const { gqlRequest } = useGraph()
   const { useL1Network, useL2Network } = useNetwork()
-  const { open } = useWeb3Modal()
-  const adventurer = ref({
+  const adventurer = reactive({
     l1: null,
     l2: null,
   })
+  const fetchAdventurer = async (address, layer) => {
+    if (layer === 'l1') {
+      const { wallet } = await gqlRequest(
+        getl1Adventurer,
+        { address },
+        useL1Network.value.id
+      )
+      adventurer.l1 = wallet
+    } else {
+      const { wallet } = await gqlRequest(
+        getl2Adventurer,
+        { address },
+        useL2Network.value.id
+      )
 
-  const fetchAdventurer = async (account, network) => {
-    const query = network.isArbitrum ? getl2Adventurer : getl1Adventurer
-    const { wallet } = await gqlRequest(
-      query,
-      { address: account.toLowerCase() },
-      network.id
-    )
-    return wallet
+      adventurer.l2 = wallet
+    }
   }
 
-  const getAdventurer = async (account?, network?) => {
+  const getAdventurer = async (account?, layer?: Layers) => {
     try {
       error.getAdventurer = null
       loading.value = true
-      if (!network) {
+      const address = account.toLowerCase()
+      if (!layer) {
         Promise.all([
-          (adventurer.value.l1 = await fetchAdventurer(account, 'mainnet')),
-          /* (adventurer.value.l2 = await fetchAdventurer(
-            account,
-            useL2Network.value
-          )), */
+          await fetchAdventurer(address, 'l1'),
+          await fetchAdventurer(address, 'l2'),
         ])
       } else {
-        await fetchAdventurer(account, network)
+        await fetchAdventurer(address, layer)
       }
     } catch (e) {
       error.getAdventurer = e

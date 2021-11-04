@@ -1,20 +1,24 @@
-import { reactive, ref, Ref } from '@nuxtjs/composition-api'
+import { reactive, ref, Ref, computed } from '@nuxtjs/composition-api'
 import { ethers } from 'ethers'
 import { useWeb3 } from '@instadapp/vue-web3'
 import { useNetwork, activeNetwork } from '../web3/useNetwork'
-
+import { getResourceListQuery } from './../graphql/queries'
+import { useNotification } from '~/composables/useNotification'
 // ABI
 import ResourceConstructionFacetAbi from '~/abi/ResourceConstructionFacet.json'
 import ResourceTokensAbi from '~/abi/ResourceTokens.json'
 
 // ADDRESS CONSTS
-import resourceTokens from '~/constant/resourceTokens'
-import diamondAddress from '~/constant/diamondAddress'
-
+import erc1155Tokens from '~/constant/erc1155Tokens'
+import contractAddress from '~/constant/contractAddress'
+import { useGraph } from '~/composables/web3/useGraph'
+const allUsersResources = ref()
 export function useResources() {
   const { provider, library, account, activate } = useWeb3()
   const { partnerNetwork, useL1Network, useL2Network } = useNetwork()
+  const { gqlRequest } = useGraph()
 
+  const { showError } = useNotification()
   const error = reactive({
     resources: null,
   })
@@ -26,21 +30,66 @@ export function useResources() {
 
   const result = reactive({ resources: null })
   const output = ref()
+  const resourceList = ref([])
 
+  const getResourceList = async () => {
+    try {
+      error.resources = null
+      // loading.resources = true
+      const { resources } = await gqlRequest(
+        getResourceListQuery,
+        null,
+        useL2Network.value.id
+      )
+      resourceList.value = resources
+    } catch (e) {
+      console.log(e)
+      await showError(e.message)
+      error.resources = e.message
+    } finally {
+      // loading.resources = false
+    }
+  }
+
+  const resourceListOrdered = computed(() => {
+    return resourceList.value.sort((a, b) => {
+      return b.totalRealms - a.totalRealms
+    })
+  })
+  const balance = ref()
   const fetchResource = async (account, resourceId) => {
     try {
       error.resources = null
       // loading.resources = true
-      return await getResourceBalance(
+      balance.value = await getResourceBalance(
         account,
         activeNetwork.value.id,
         resourceId
       )
     } catch (e) {
       console.log(e)
+      await showError(e.message)
       error.resources = e.message
     } finally {
       // loading.resources = false
+    }
+  }
+
+  const fetchUsersBalance = async (address) => {
+    const balances = []
+    for (let i = 1; i <= 22; i++) {
+      try {
+        const balance = await getResourceBalance(
+          account.value,
+          activeNetwork.value.id,
+          i
+        )
+        balances.push(balance)
+      } catch (e) {
+        console.log(e)
+      } finally {
+        console.log('ss')
+      }
     }
   }
   const fetchProductionOutput = async (realmId, resourceId) => {
@@ -55,6 +104,7 @@ export function useResources() {
       )
     } catch (e) {
       console.log(e)
+      await showError(e.message)
       error.resources = e.message
     } finally {
       // loading.resources = false
@@ -74,6 +124,7 @@ export function useResources() {
       )
     } catch (e) {
       console.log(e)
+      await showError(e.message)
       error.resources = e.message
     } finally {
       loading.fetchingResources = false
@@ -84,6 +135,7 @@ export function useResources() {
     try {
       error.resources = null
       loading.resources = true
+
       await fetchUpgradeCost(resourceId, level)
       await upgradeResourceProduction(
         account.value,
@@ -94,14 +146,17 @@ export function useResources() {
         upgradeCosts.value[1]
       )
     } catch (e) {
-      console.log(e)
-      error.resources = e.message
+      if (e.data) {
+        await showError(e.data.message)
+      }
     } finally {
       loading.resources = false
-      await fetchProductionOutput(realmId, resourceId)
     }
   }
   return {
+    resourceList,
+    resourceListOrdered,
+    getResourceList,
     fetchResource,
     fetchProductionOutput,
     upgradeResource,
@@ -116,11 +171,11 @@ export function useResources() {
 
 async function getResourceBalance(owner, network, resourceId) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const tokensArr = resourceTokens[network].allTokens
+  const resourcesAddress =
+    erc1155Tokens[network].getTokenByKey('realm-resources').address
   const signer = provider.getSigner()
-  const tokensAddrArr = tokensArr.map((a) => a.address)
   const resources = new ethers.Contract(
-    tokensAddrArr[0],
+    resourcesAddress,
     ResourceTokensAbi.abi,
     signer
   )
@@ -130,11 +185,11 @@ async function getResourceBalance(owner, network, resourceId) {
 
 async function resourceProductionOutput(owner, network, realmId, resourceId) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const tokensArr = diamondAddress[network].allTokens
-  const tokensAddrArr = tokensArr.map((a) => a.address)
+  const diamondAddress = contractAddress[network].realmsDiamond
+
   const signer = provider.getSigner()
   const resourceConstructionFacet = new ethers.Contract(
-    tokensAddrArr[0],
+    diamondAddress,
     ResourceConstructionFacetAbi.abi,
     signer
   )
@@ -154,11 +209,10 @@ async function upgradeResourceProduction(
   upgradeResourceValues
 ) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const tokensArr = diamondAddress[network].allTokens
-  const tokensAddrArr = tokensArr.map((a) => a.address)
+  const diamondAddress = contractAddress[network].realmsDiamond
   const signer = provider.getSigner()
   const resourceConstructionFacet = new ethers.Contract(
-    tokensAddrArr[0],
+    diamondAddress,
     ResourceConstructionFacetAbi.abi,
     signer
   )
@@ -174,11 +228,10 @@ async function upgradeResourceProduction(
 
 async function upgradeCost(owner, network, resourceId, level) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const tokensArr = diamondAddress[network].allTokens
-  const tokensAddrArr = tokensArr.map((a) => a.address)
+  const diamondAddress = contractAddress[network].realmsDiamond
   const signer = provider.getSigner()
   const resourceConstructionFacet = new ethers.Contract(
-    tokensAddrArr[0],
+    diamondAddress,
     ResourceConstructionFacetAbi.abi,
     signer
   )

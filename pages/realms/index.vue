@@ -36,10 +36,7 @@
         </BButton>
       </div>
       <div>
-        <span
-          >Final rarity is still being determined until mint finishes. Higher
-          numbers are more rare, and range between 5 and 8300.</span
-        >
+        <span>Rarity ranges between 5 and 8300 - higher scores are better</span>
       </div>
 
       <div v-if="!$fetchState.pending" class="flex flex-wrap w-full">

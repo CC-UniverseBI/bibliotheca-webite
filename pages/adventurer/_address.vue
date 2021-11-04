@@ -2,7 +2,7 @@
   <div>
     <h3 class="text-gray-400">
       <span v-if="ensName">{{ ensName }}</span>
-      <span v-else>{{ shortenHash(address) }}'</span>
+      <span v-else>{{ shortenHash(address) }}</span>
     </h3>
     <h1 v-if="isAddressPage" class="mb-8">My Lord, your vast empire</h1>
     <h1 v-else class="mb-8">Adventurer's Empire</h1>
@@ -17,7 +17,8 @@
             px-6
             py-3
             text-gray-400
-            hover:bg-black hover:text-red-200
+            hover:bg-black hover:text-red-600
+            border-2 border-transparent
             uppercase
           "
           :to="'/adventurer/' + address + '/' + link.slug"
@@ -26,7 +27,7 @@
       </nav>
     </div>
 
-    <NuxtChild />
+    <NuxtChild keep-alive />
   </div>
 </template>
 <script>
@@ -59,17 +60,21 @@ export default defineComponent({
         slug: '',
       },
       {
-        title: 'Market',
-        slug: 'market',
+        title: 'Realms',
+        slug: 'realms',
+      },
+      {
+        title: 'Raid Results',
+        slug: 'raid-results',
       },
     ])
     const displayedLinks = computed(() => {
-      if (isAddressPage.value) {
+      /* if (isAddressPage.value) {
         return menuLinks.value.concat({
-          title: 'Realm Settling',
+          title: 'Realms available to Settle',
           slug: 'settling',
         })
-      } else return menuLinks.value
+      } else */ return menuLinks.value
     })
 
     if (isAddressPage) {

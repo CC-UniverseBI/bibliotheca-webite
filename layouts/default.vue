@@ -7,27 +7,37 @@
 
       <NuxtLink to="/"><Book class="w-12 h-12 mx-auto" /></NuxtLink>
     </div>
-
+    <NotificationBar />
     <SideBar class="fixed sm:relative w-80 min-h-screen" />
     <div class="w-full">
       <AccountButton />
-      <Nuxt class="p-3 sm:p-8" />
+
+      <Nuxt keep-alive class="p-3 sm:p-8" />
       <Modal />
     </div>
   </div>
 </template>
 <script>
-import { defineComponent } from '@nuxtjs/composition-api'
+import { defineComponent, watch } from '@nuxtjs/composition-api'
+import { useWeb3 } from '@instadapp/vue-web3'
 import { useUiState } from '~/composables'
 import { useConnect } from '~/composables/web3/useConnect'
 import Book from '~/assets/img/book-open.svg?inline'
+import { useRaiding } from '~/composables/military/useRaiding'
+
 export default defineComponent({
   components: {
     Book,
   },
   setup() {
+    const { account } = useWeb3()
     const { toggleSideBar, sideBarOpen } = useUiState()
+    const { addRaidResultListener } = useRaiding()
     useConnect()
+
+    watch(account, () => {
+      addRaidResultListener()
+    })
 
     return {
       toggleSideBar,

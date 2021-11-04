@@ -10,7 +10,7 @@
       v-if="orderId"
       class="px-4 py-2 rounded"
       :style="'background:' + getOrderById.colour"
-      >Order of {{ getOrderById.order }}</span
+      >Order of {{ getOrderById.name }}</span
     >
   </span>
 </template>
@@ -32,10 +32,13 @@ export default defineComponent({
   },
   setup(props) {
     const getOrder = computed(() => {
-      return gaOrders.find((a) => props.order.includes(a.order))
+      if (props.order) {
+        return gaOrders.find((a) => props.order.includes(a.name))
+      }
+      return null
     })
     const getOrderById = computed(() => {
-      return gaOrders.find((a) => props.orderId === parseInt(a.id))
+      return gaOrders.find((a) => props.orderId === a.id)
     })
     return {
       getOrder,

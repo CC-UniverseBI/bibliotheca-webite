@@ -33,6 +33,20 @@ module.exports = {
         display: ['EB Garamond', 'serif'],
         body: ['Inconsolata', 'monospace'],
       },
+      maxHeight: {
+        0: '0',
+        '1/4': '25vh',
+        '1/2': '50vh',
+        '3/4': '75vh',
+        full: '100vh',
+      },
+      minHeight: {
+        0: '0',
+        '1/4': '25vh',
+        '1/2': '50vh',
+        '3/4': '75vh',
+        full: '100vh',
+      },
       colors: {
         gray: {
           100: '#edece9',
@@ -45,13 +59,6 @@ module.exports = {
           800: '#424242',
           900: '#161619',
           1000: '#0e0e0e',
-        },
-        minHeight: {
-          0: '0',
-          '1/4': '25vh',
-          '1/2': '50vh',
-          '3/4': '75vh',
-          full: '100vh',
         },
       },
       fill: {

@@ -5,6 +5,7 @@ import {
   Ref,
   onMounted,
   onBeforeUnmount,
+  computed,
 } from '@nuxtjs/composition-api'
 import { hexDataLength } from '@ethersproject/bytes'
 import { TransactionReceipt } from '@ethersproject/abstract-provider'
@@ -12,12 +13,14 @@ import { JsonRpcSigner } from '@ethersproject/providers/lib/json-rpc-provider'
 import { ethers, BigNumber } from 'ethers'
 import { Bridge } from 'arb-ts'
 import { useWeb3 } from '@instadapp/vue-web3'
+import axios from 'axios'
 import { useNetwork, activeNetwork } from '../web3/useNetwork'
 import { useBigNumber } from '../web3/useBigNumber'
+import { useNotification } from '~/composables/useNotification'
 import realmsLockBoxABI from '~/abi/realmsLockBox.json'
 import lootRealmsABI from '~/abi/lootRealms.json'
 import lootRealmsL2ABI from '~/abi/lootRealmsL2.json'
-import erc721tokens from '~/constant/erc721tokens'
+import erc721Tokens from '~/constant/erc721Tokens'
 import { useRealms } from '~/composables/web3/useRealms'
 import {
   useTransactions,
@@ -59,8 +62,11 @@ export const txnTypeToLayer = (txnType: TxnType): 1 | 2 => {
   }
 }
 
+const selectedRealm = ref()
+
 export function useBridge() {
-  const { getUserRealms } = useRealms()
+  const { showError } = useNotification()
+  const { getWalletRealms } = useRealms()
   const loadingBridge = ref(false)
   const error = reactive({
     depositL1: null,
@@ -98,6 +104,31 @@ export function useBridge() {
   const l2Signer = ref(null)
   const l2TransactionCount = ref(null)
   const bridge = ref(null)
+
+  const getSelectedRealm = computed(() => selectedRealm.value)
+  const loadingMeta = ref(false)
+  const selectRealmForTransfer = async (realm) => {
+    loadingMeta.value = true
+    try {
+      const response = await fetchRealmMetaData(realm.id)
+      selectedRealm.value = response.data
+    } catch (e) {
+      console.log(e)
+    } finally {
+      loadingMeta.value = false
+    }
+  }
+
+  const fetchRealmMetaData = async (id) => {
+    try {
+      return await axios.get(
+        'https://api.opensea.io/api/v1/asset/0x7afe30cb3e53dba6801aa0ea647a0ecea7cbe18d/' +
+          id
+      )
+    } catch (e) {
+      console.log(e)
+    }
+  }
 
   const getL1Signer = async () => {
     if (activeNetwork.value.isArbitrum) {
@@ -169,11 +200,11 @@ export function useBridge() {
           realmsLockBoxABI,
           await getL1Signer()
         )
-        const tokensArr = erc721tokens[activeNetwork.value.id].allTokens
-        const tokensAddrArr = tokensArr.map((a) => a.address)
+        const realmsAddress =
+          erc721Tokens[activeNetwork.value.id].realms.address
 
         const realmsContract = new ethers.Contract(
-          tokensAddrArr[0],
+          realmsAddress,
           lootRealmsABI,
           await getL1Signer()
         )
@@ -237,6 +268,7 @@ export function useBridge() {
           throw err
         }
       } catch (e) {
+        await showError(e.message)
         console.log(e)
       } finally {
         loadingBridge.value = false
@@ -244,6 +276,7 @@ export function useBridge() {
       }
     }
   }
+
   const withdrawToL1 = async (id) => {
     // eslint-disable-next-line prefer-const
     if (!process.server) {
@@ -272,8 +305,7 @@ export function useBridge() {
 
       const tx = await lootRealmsL2.withdrawToL1(id)
 
-      const tokensArr = erc721tokens[activeNetwork.value.id].allTokens
-      const tokensAddrArr = tokensArr.map((a) => a.address)
+      const realmsAddress = erc721Tokens[activeNetwork.value.id].realms.address
 
       try {
         addTransaction({
@@ -305,7 +337,7 @@ export function useBridge() {
           const l2ToL2EventDataResultPlus = {
             ...l2ToL2EventDataResult,
             type: AssetType.ERC721,
-            tokenAddress: tokensAddrArr[0],
+            tokenAddress: realmsAddress,
             value: id,
             outgoingMessageState,
           }
@@ -350,7 +382,7 @@ export function useBridge() {
         delete newPendingWithdrawalsMap[id]
         pendingWithdrawalsMap.value = newPendingWithdrawalsMap
         addToExecutedMessagesCache(batchNumber, indexInBatch)
-        await getUserRealms()
+        await getWalletRealms()
       } else {
         setTransactionFailure(rec.transactionHash)
       }
@@ -487,7 +519,7 @@ export function useBridge() {
             )
           } else {
             updateTransaction(txReceipt)
-            await getUserRealms()
+            await getWalletRealms()
           }
         })
       })
@@ -522,5 +554,7 @@ export function useBridge() {
     loading,
     partnerNetwork,
     loadingBridge,
+    selectRealmForTransfer,
+    getSelectedRealm,
   }
 }

@@ -1,7 +1,11 @@
 <template>
   <div class="hidden sm:flex justify-end px-4 py-4">
     <div v-if="active" class="px-4 self-center mr-auto">
-      <BButton :to="'/adventurer/' + account" type="primary" class="flex">
+      <BButton
+        :to="'/adventurer/' + account + '/empire'"
+        type="primary"
+        class="flex"
+      >
         <span class="self-center">See My Empire</span>
       </BButton>
     </div>

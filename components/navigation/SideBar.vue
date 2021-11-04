@@ -9,13 +9,13 @@
       ease-in-out
       transition-all
       left-0
-      z-30
+      z-20
     "
     :class="
       sideBarOpen ? 'translate-x-0' : '-translate-x-full sm:translate-x-0'
     "
   >
-    <div class="sm:sticky top-10 flex flex-col z-30">
+    <div class="sm:sticky top-10 flex flex-col z-30 h-screen">
       <div class="sm:hidden w-full">
         <button class="ml-auto" @click="toggleSideBar">
           <Close class="w-6 h-6" />
@@ -23,54 +23,74 @@
       </div>
 
       <h2>
-        <NuxtLink to="/"><Book class="w-12 h-12 mx-auto sm:mt-12" /></NuxtLink>
+        <NuxtLink to="/"><Book class="w-16 h-16 mx-auto sm:mt-12" /></NuxtLink>
       </h2>
-      <span class="text-xl text-center"
+      <span class="text-center font-semibold text-2xl"
         ><span class="text-yellow-400">${{ goldPrice }}</span> $AGLD</span
       >
 
-      <nav class="flex flex-col p-2 text-center capitalize">
-        <NuxtLink
+      <nav class="flex flex-col p-2 capitalize mt-8">
+        <h4 class="mt-8 uppercase text-gray-700 tracking-wide pl-4">
+          Settling
+        </h4>
+        <BButton
+          v-if="account"
+          :to="'/adventurer/' + account + '/empire'"
+          type="navLink"
+        >
+          <span class="self-center">See My Empire</span>
+        </BButton>
+        <BButton
+          v-for="link in settlingLinks"
+          :key="link.title"
+          type="navLink"
+          :to="link.page"
+          @click.native="toggleSideBar"
+          >{{ link.title }}</BButton
+        >
+        <h4 class="mt-8 uppercase text-gray-700 tracking-wide pl-4">
+          Loot Assets
+        </h4>
+        <BButton
           v-for="(link, i) in adventureLinks"
           :key="i"
-          class="
-            w-full
-            text-xl
-            rounded-xl
-            hover:bg-black
-            p-2
-            flex
-            justify-around
-          "
+          type="navLink"
           :to="link.page"
           @click.native="toggleSideBar"
         >
           <span class="flex"> {{ link.title }}</span>
-        </NuxtLink>
-
-        <NuxtLink
+        </BButton>
+        <BButton
           v-for="link in assetLinks"
           :key="link.title"
-          class="w-full text-xl rounded-xl hover:bg-black p-2"
+          type="navLink"
           :to="link.page"
           @click.native="toggleSideBar"
-          >{{ link.title }}</NuxtLink
+          >{{ link.title }}</BButton
         >
-        <hr class="my-2 border-gray-600" />
-        <NuxtLink
+        <h4 class="mt-8 uppercase text-gray-700 tracking-wide pl-4">
+          Utilities
+        </h4>
+        <BButton
           v-for="link in utilLinks"
           :key="link.title"
-          class="w-full text-xl rounded-xl hover:bg-black p-2"
+          type="navLink"
           :to="link.page"
           @click.native="toggleSideBar"
-          >{{ link.title }}</NuxtLink
+          >{{ link.title }}</BButton
         >
       </nav>
 
-      <div class="mx-auto my-20">
+      <div class="mt-auto flex flex-wrap py-10 justify-between px-4">
+        <div class="w-full text-center text-xl pb-5 hover:underline">
+          <a href="https://docs.bibliothecaforloot.com/alpha">Help Docs</a>
+        </div>
+        <div class="w-full text-center text-xl pb-5 hover:underline">
+          <a href="https://forum.bibliothecaforloot.com/">Forum</a>
+        </div>
         <a
           target="blank_"
-          class="hover:bg-gracy-700"
+          class="hover:bg-gracy-700 self-center"
           href="https://github.com/BibliothecaForAdventurers/bibliotheca-webite"
           ><Github class="w-8 h-8"
         /></a>
@@ -78,28 +98,28 @@
           target="blank_"
           class="hover:bg-gracy-700"
           href="https://discord.gg/8NS4JxGmUC"
-          ><Discord class="w-8 h-8 fill-current mt-4"
+          ><Discord class="w-8 h-8 fill-current"
         /></a>
         <a
           target="blank_"
           class="hover:bg-gracy-700"
           href="https://twitter.com/lootgraph"
-          ><Twitter class="w-8 h-8 fill-current mt-4"
+          ><Twitter class="w-8 h-8 fill-current"
         /></a>
         <a
           target="blank_"
           class="hover:bg-gracy-700"
           href="https://medium.com/@bibliotheca"
         >
-          <Medium class="w-8 h-8 fill-current mt-4" />
+          <Medium class="w-8 h-8 fill-current" />
         </a>
       </div>
-      <p class="text-center">Data on this site may be delayed.</p>
     </div>
   </div>
 </template>
 <script>
-import { onMounted } from '@vue/composition-api'
+import { onMounted, ref } from '@vue/composition-api'
+import { useWeb3 } from '@instadapp/vue-web3'
 import { useUiState, usePrice } from '~/composables'
 import Book from '~/assets/img/book-open.svg?inline'
 import Close from '~/assets/img/x-square.svg?inline'
@@ -107,7 +127,6 @@ import Github from '~/assets/img/github.svg?inline'
 import Discord from '~/assets/img/discord.svg?inline'
 import Medium from '~/assets/img/medium.svg?inline'
 import Twitter from '~/assets/img/twitter.svg?inline'
-// import Helm from '~/assets/img/helm.svg?inline'
 export default {
   name: 'SideBar',
   components: {
@@ -119,6 +138,7 @@ export default {
     Twitter,
   },
   setup() {
+    const { account } = useWeb3()
     const { toggleSideBar, sideBarOpen } = useUiState()
     const { goldPrice, getGoldPrice } = usePrice()
 
@@ -131,6 +151,7 @@ export default {
         page: '/realms',
         title: 'Realms',
       },
+
       {
         page: '/manas',
         title: 'Genesis Mana',
@@ -162,6 +183,16 @@ export default {
         title: 'Search All',
       },
     ]
+    const settlingLinks = ref([
+      {
+        page: '/settled-realms',
+        title: 'Settled Realms',
+      },
+      {
+        page: '/raiding/leaderboard',
+        title: 'Raiding Leaderboard',
+      },
+    ])
 
     onMounted(() => {
       getGoldPrice()
@@ -178,6 +209,8 @@ export default {
       assetLinks,
       utilLinks,
       adventureLinks,
+      settlingLinks,
+      account,
     }
   },
 }

@@ -1,12 +1,33 @@
 import { createTokenUtils } from '~/utils/create-token-utils'
 
 export default {
+  mainnet: createTokenUtils([
+    {
+      key: 'agld',
+      type: 'token',
+      symbol: 'AGLD',
+      name: 'Adventure Gold',
+      address: '0x32353A6C91143bfd6C7d363B546e62a9A2489A20',
+      decimals: 18,
+    },
+  ]),
+  rinkeby: createTokenUtils([
+    {
+      key: 'atime',
+      type: 'token',
+      symbol: 'ATIME',
+      decimals: 18,
+      name: 'Adventure Time (for Adventurers)',
+      address: '0x7D99D9c39CacCFb9EA9598030b328630d8957b36',
+    },
+  ]),
   arbitrumRinkeby: createTokenUtils([
     {
-      key: 'LordsToken',
+      key: 'lords',
       type: 'token',
       symbol: 'LORDS',
-      name: 'LordsToken',
+      decimals: 18,
+      name: 'Realm Lords',
       address: '0x9c3Cb08A7C4924B0365D5FE427Df04adD3FA3024',
     },
   ]),
