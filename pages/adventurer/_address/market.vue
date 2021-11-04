@@ -26,10 +26,34 @@
     </div>
 
     <div class="w-2/5 flex flex-col">
-      <div class="bg-black p-6 ml-6 rounded-2xl w-full shadow-2xl">
-        <h2 class="uppercase text-red-400 text-center">Trade</h2>
-        <br />
-        <div class="flex flex-wrap sm:space-x-3 my-3">
+      <div
+        class="
+          flex
+          p-2
+          bg-gray-900
+          mb-4
+          rounded-2xl
+          space-x-4
+          text-center
+          font-display
+          text-xl
+        "
+      >
+        <div :class="{ 'bg-gray-300': active }" class="p-2 w-1/2 rounded-2xl">
+          Swap
+        </div>
+        <div :class="{ 'bg-gray-300': active }" class="p-2 w-1/2 rounded-2xl">
+          Merchant LPs
+        </div>
+      </div>
+      <MarketCard>
+        <div class="flex">
+          <div class="w-1/2">
+            <ResourceSelect />
+          </div>
+          <div class="w-1/2"></div>
+        </div>
+        <!-- <div class="flex flex-wrap sm:space-x-3 my-3">
           <BButton
             v-for="(data, index) in orderTypes"
             :key="index"
@@ -49,8 +73,8 @@
           >
             {{ data.name }}
           </BButton>
-        </div>
-        <form>
+        </div> -->
+        <!-- <form>
           <table class="table-fixed w-full">
             <thead>
               <tr class="text-xl text-left">
@@ -86,8 +110,8 @@
               </div>
             </div>
           </div>
-        </form>
-      </div>
+        </form> -->
+      </MarketCard>
     </div>
   </div>
 </template>
