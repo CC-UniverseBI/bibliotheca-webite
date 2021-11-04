@@ -55,9 +55,12 @@
             </div>
 
             <div class="flex flex-col">
-              <span v-for="(cost, index) in upgradeCosts[1]" :key="index">{{
-                cost
-              }}</span>
+              <span v-for="(cost, index) in upgradeCosts[1]" :key="index"
+                >{{ cost }} /
+                <span>{{
+                  findCostResources(upgradeCosts[0][index]).balance
+                }}</span></span
+              >
             </div>
           </div>
         </div>
@@ -67,7 +70,7 @@
 </template>
 <script>
 import { computed, defineComponent } from '@nuxtjs/composition-api'
-import { resources } from '@/composables/utils/resourceColours'
+// import { resources } from '@/composables/utils/resourceColours'
 import { productionOutput } from '@/composables/utils/productionOutput'
 import { useResources } from '~/composables/resources/useResources'
 import { useConnect } from '~/composables/web3/useConnect'
@@ -95,6 +98,7 @@ export default defineComponent({
       upgradeCosts,
       loading,
       output,
+      allUsersResources,
     } = useResources()
 
     const resourceId = computed(() => {
@@ -118,11 +122,13 @@ export default defineComponent({
     })
 
     const findResources = computed(() => {
-      return resources.find((a) => a.id === parseInt(resourceId.value))
+      return allUsersResources.value.find(
+        (a) => a.id === parseInt(resourceId.value)
+      )
     })
 
     const findCostResources = (id) => {
-      return resources.find((a) => a.id === parseInt(id))
+      return allUsersResources.value.find((a) => a.id === parseInt(id))
     }
 
     return {

@@ -18,7 +18,7 @@
       </div>
 
       <template slot="popover">
-        <div class="bg-gray-300 shadow-xl p-4 rounded-2xl text-black z-50">
+        <div class="bg-gray-300 shadow-xl p-4 rounded-2xl text-black z-50 w-64">
           <h3 class="text-center mb-1">{{ unitValues.name }}</h3>
           <div class="pb-2">
             {{ unitValues.description }}
@@ -74,9 +74,13 @@
               >
             </div>
             <div class="flex flex-col">
-              <span v-for="(cost, index) in unitCost[1]" :key="index">{{
-                cost * qty
-              }}</span>
+              <span v-for="(cost, index) in unitCost[1]" :key="index"
+                >{{ cost * qty }} /
+                <span>{{
+                  findResources(unitCost[0][index]).balance
+                }}</span></span
+              >
+
               <hr class="my-2" />
             </div>
           </div>
@@ -90,7 +94,8 @@
 import { computed, defineComponent, ref } from '@vue/composition-api'
 import { militaryUnits } from '@/composables/utils/militaryUnits'
 import { useMilitary } from '~/composables/military/useMilitary'
-import { resources } from '@/composables/utils/resourceColours'
+import { useResources } from '~/composables/resources/useResources'
+
 import { useConnect } from '~/composables/web3/useConnect'
 export default defineComponent({
   props: {
@@ -117,6 +122,7 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const { allUsersResources } = useResources()
     const {
       buildRaiding,
       fetchUnitCost,
@@ -131,7 +137,7 @@ export default defineComponent({
       return militaryUnits.find((a) => a.id === parseInt(props.unitId))
     })
     const findResources = (resource) => {
-      return resources.find((a) => a.id === parseInt(resource))
+      return allUsersResources.value.find((a) => a.id === parseInt(resource))
     }
     const qty = ref(1)
 
@@ -147,6 +153,7 @@ export default defineComponent({
       result,
       unitValues,
       isAddressPage,
+      allUsersResources,
     }
   },
 })
