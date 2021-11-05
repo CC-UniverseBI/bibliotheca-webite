@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "add": "^2.0.6",
+    "vue-good-table": "^2.21.11",
     "vue-toast-notification": "^2.0"
   },
   "devDependencies": {
