@@ -60,6 +60,10 @@ export default defineComponent({
         slug: '',
       },
       {
+        title: 'Market',
+        slug: 'market',
+      },
+      {
         title: 'Realms',
         slug: 'realms',
       },

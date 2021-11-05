@@ -15,8 +15,9 @@ import ResourceTokensAbi from '~/abi/ResourceTokens.json'
 import ResourceExchangeAbi from '~/abi/NiftyswapExchange20.json'
 
 // ADDRESS CONSTS
-import exchangeAddress from '~/constant/exchangeAddress'
+
 import resourceTokens from '~/constant/erc1155Tokens'
+import erc1155Tokens from '~/constant/erc1155Tokens'
 import erc20Tokens from '~/constant/erc20Tokens'
 
 const { BigNumber } = ethers
@@ -197,11 +198,11 @@ export function useMarket() {
 
 async function getCurrencyReserve(network, resourceId) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const tokensArr = exchangeAddress[network].allTokens
+  const tokensArr = erc1155Tokens[network].allTokens
   const signer = provider.getSigner()
   const tokensAddrArr = tokensArr.map((a) => a.address)
   const exchange = new ethers.Contract(
-    tokensAddrArr[0],
+    tokensAddrArr[1],
     ResourceExchangeAbi.abi,
     signer
   )
@@ -212,8 +213,8 @@ async function getCurrencyReserve(network, resourceId) {
 
 async function getResourceReserve(network, resourceId) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const exAddr = exchangeAddress[network].allTokens[0].address
-  const resourceAddr = resourceTokens[network].allTokens[0].address
+  const exAddr = erc1155Tokens[network].allTokens[1].address
+  const resourceAddr = erc1155Tokens[network].allTokens[0].address
   const signer = provider.getSigner()
 
   const resources = new ethers.Contract(
@@ -227,11 +228,11 @@ async function getResourceReserve(network, resourceId) {
 
 async function getLiquidityTokenSupply(network, resourceId) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const tokensArr = exchangeAddress[network].allTokens
+  const tokensArr = erc1155Tokens[network].allTokens
   const signer = provider.getSigner()
   const tokensAddrArr = tokensArr.map((a) => a.address)
   const exchange = new ethers.Contract(
-    tokensAddrArr[0],
+    tokensAddrArr[1],
     ResourceExchangeAbi.abi,
     signer
   )
@@ -242,11 +243,11 @@ async function getLiquidityTokenSupply(network, resourceId) {
 
 async function getLiquidityBalance(network, resourceId) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const tokensArr = exchangeAddress[network].allTokens
+  const tokensArr = erc1155Tokens[network].allTokens
   const signer = provider.getSigner()
   const tokensAddrArr = tokensArr.map((a) => a.address)
   const exchange = new ethers.Contract(
-    tokensAddrArr[0],
+    tokensAddrArr[1],
     ResourceExchangeAbi.abi,
     signer
   )
@@ -260,10 +261,10 @@ async function getLiquidityBalance(network, resourceId) {
 async function getBuyPrices(network, resourceIds, amounts) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)
   const signer = provider.getSigner()
-  const tokensArr = exchangeAddress[network].allTokens
+  const tokensArr = erc1155Tokens[network].allTokens
   const tokensAddrArr = tokensArr.map((a) => a.address)
   const exchange = new ethers.Contract(
-    tokensAddrArr[0],
+    tokensAddrArr[1],
     ResourceExchangeAbi.abi,
     signer
   )
@@ -283,7 +284,7 @@ async function sendBulkBuyResources(
   const provider = new ethers.providers.Web3Provider(window.ethereum)
   const signer = provider.getSigner()
 
-  const exAddr = exchangeAddress[network].allTokens[0].address
+  const exAddr = erc1155Tokens[network].allTokens[1].address
   const exchange = new ethers.Contract(exAddr, ResourceExchangeAbi.abi, signer)
 
   // PRICES
@@ -314,7 +315,7 @@ async function sendBulkSellResources(
   const provider = new ethers.providers.Web3Provider(window.ethereum)
   const signer = provider.getSigner()
 
-  const exAddr = exchangeAddress[network].allTokens[0].address
+  const exAddr = erc1155Tokens[network].allTokens[1].address
   const exchange = new ethers.Contract(exAddr, ResourceExchangeAbi.abi, signer)
 
   const prices = await exchange.getPrice_tokenToCurrency(
@@ -322,7 +323,7 @@ async function sendBulkSellResources(
     resourceAmounts
   )
 
-  await validateAndApproveERC1155(network, 'resourceTokens', exAddr)
+  await validateAndApproveERC1155(network, 'erc1155Tokens', exAddr)
 
   const data = getSellTokenData(
     await signer.getAddress(),
@@ -330,7 +331,7 @@ async function sendBulkSellResources(
     deadline
   )
 
-  const resourceAddr = resourceTokens[network].allTokens[0].address
+  const resourceAddr = erc1155Tokens[network].allTokens[0].address
   const resources = new ethers.Contract(
     resourceAddr,
     ResourceExchangeAbi.abi,
@@ -354,8 +355,8 @@ async function sendAddLiquidity(
   const provider = new ethers.providers.Web3Provider(window.ethereum)
   const signer = provider.getSigner()
 
-  const exAddr = exchangeAddress[network].allTokens[0].address
-  const resourceAddr = resourceTokens[network].allTokens[0].address
+  const exAddr = erc1155Tokens[network].allTokens[1].address
+  const resourceAddr = erc1155Tokens[network].allTokens[0].address
 
   const currencyAmounts = []
   for (let i = 0; i < resourceIds.length; i++) {
@@ -367,7 +368,7 @@ async function sendAddLiquidity(
     currencyAmounts.push(maxCurrency)
   }
 
-  await validateAndApproveERC1155(network, 'resourceTokens', exAddr)
+  await validateAndApproveERC1155(network, 'erc1155Tokens', exAddr)
   await validateAndApproveERC20(
     network,
     'LordsToken',
@@ -400,7 +401,7 @@ async function sendRemoveLiquidity(
   const provider = new ethers.providers.Web3Provider(window.ethereum)
   const signer = provider.getSigner()
 
-  const exAddr = exchangeAddress[network].allTokens[0].address
+  const exAddr = erc1155Tokens[network].allTokens[1].address
 
   const currencyAmounts = []
   const resourceAmounts = []
