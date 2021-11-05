@@ -22,10 +22,6 @@ import erc20Tokens from '~/constant/erc20Tokens'
 const { BigNumber } = ethers
 
 export function useMarket() {
-  const { provider, library, account, activate } = useWeb3()
-  const { availableNetworks, partnerNetwork, useL1Network, useL2Network } =
-    useNetwork()
-
   const error = reactive({
     resources: null,
   })

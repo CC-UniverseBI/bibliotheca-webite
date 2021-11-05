@@ -95,7 +95,7 @@
                 @click="buy = !buy"
               >
                 <ArrowUp class="mx-2" />
-                {{ buy ? 'Buy' : 'Sell' }}
+                {{ buy ? 'Swap to' : 'Swap from' }}
                 <ArrowDown class="mx-2" />
               </button>
             </div>
@@ -120,13 +120,20 @@
       </MarketCard>
       <div v-if="selectedMenu.data === 'lp'">
         <div class="p-4 text-2xl font-display">
-          Become a Merchant and provide Liquidty on Trade Routes. Earn 0.3% Fees
+          Become a Merchant and provide Liquidty on Trade Routes. Earn Fees
         </div>
         <MarketCard>
           <div class="flex flex-wrap">
-            <div v-if="!selectedResources.length" class="w-full text-2xl mb-4">
-              Select Resources
+            <div class="flex justify-between w-full">
+              <div
+                v-if="!selectedResources.length"
+                class="w-full text-2xl mb-4"
+              >
+                Select Resources
+              </div>
+              <div class="ml-auto"><Deadline /></div>
             </div>
+
             <div
               :class="{ 'flex-col-reverse': buy }"
               class="w-full flex flex-col transition duration-300"
@@ -169,7 +176,7 @@
                   @click="buy = !buy"
                 >
                   <ArrowUp class="mx-2" />
-                  {{ buy ? 'Buy' : 'Sell' }}
+                  {{ buy ? 'Add Liquidity' : 'Remove Liquidity' }}
                   <ArrowDown class="mx-2" />
                 </button>
               </div>
@@ -192,9 +199,7 @@
             </div>
           </div>
         </MarketCard>
-      </div>
-
-      <!-- <div class="flex flex-wrap sm:space-x-3 my-3">
+        <!-- <div class="flex flex-wrap sm:space-x-3 my-3">
           <BButton
             v-for="(data, index) in orderTypes"
             :key="index"
@@ -215,7 +220,7 @@
             {{ data.name }}
           </BButton>
         </div> -->
-      <!-- <form>
+        <!-- <form>
           <table class="table-fixed w-full">
             <thead>
               <tr class="text-xl text-left">
@@ -252,17 +257,20 @@
             </div>
           </div>
         </form> -->
+      </div>
     </div>
   </div>
 </template>
 <script>
 import { useFetch, defineComponent, ref } from '@nuxtjs/composition-api'
-import { resources } from '@/composables/utils/resourceColours'
+// import { resources } from '@/composables/utils/resourceColours'
 import { useLords } from '~/composables/lords/useLords'
 import { useMarket } from '~/composables/market/useMarket'
 import { usePrice } from '~/composables'
+import { useResources } from '~/composables/resources/useResources'
 import ArrowUp from '~/assets/img/arrow-up.svg?inline'
 import ArrowDown from '~/assets/img/arrow-down.svg?inline'
+
 export default defineComponent({
   components: {
     ArrowUp,
@@ -270,6 +278,7 @@ export default defineComponent({
   },
   fetchOnServer: false,
   setup(props, context) {
+    const { allUsersResources } = useResources()
     const { goldPrice } = usePrice()
     const { slug } = context.root.$route.params
     const {
@@ -329,7 +338,7 @@ export default defineComponent({
       selectedOrderType.value = orderType
     }
 
-    const filteredResources = resources.filter((d) => {
+    const filteredResources = allUsersResources.value.filter((d) => {
       return d.value > 1
     })
 
@@ -345,6 +354,7 @@ export default defineComponent({
       const i = selectedResources.value.indexOf(resource)
       if (i === -1) {
         selectedResources.value.push(resource)
+        updateLordsPrice()
       } else {
         selectedResources.value.splice(i, 1)
         updateLordsPrice()
@@ -362,6 +372,7 @@ export default defineComponent({
     }
     async function updateLordsPrice() {
       const filtered = selectedResources.value.filter((e) => e.amount > 0)
+      console.log(filtered)
       const ids = filtered.map((e) => e.id)
       const amounts = filtered.map((e) => e.amount)
       const prices = await fetchBulkResourcePrices(ids, amounts)

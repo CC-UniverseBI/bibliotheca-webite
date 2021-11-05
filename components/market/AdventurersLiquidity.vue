@@ -1,5 +1,5 @@
 <template>
-  <div class="text-2xl">
+  <div class="text-2xl self-center">
     <!-- <div class="p-2">
       <span v-if="loading.resources"><LoadingDots class="w-8 h-2" /></span
       ><span v-else
@@ -10,7 +10,7 @@
       {{ lordsReserve }}👑 <br />
       {{ resourceReserve }}
     </div> -->
-    <div class="text-base">
+    <div class="text-base font-semibold">
       <!-- {{ lordsReserve }} <br /> -->
       {{ lbalance }} /
       {{ lsupply }}

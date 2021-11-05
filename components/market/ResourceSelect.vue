@@ -3,19 +3,19 @@
     <div class="w-full pr-9">
       <div
         :class="resource.colourClass"
-        class="
-          bg-gray-700
-          p-3
-          rounded-xl
-          font-display
-          text-xl
-          bg-opacity-75
-          border
-        "
+        class="p-3 rounded-xl font-display text-xl bg-opacity-75 border"
       >
         {{ resource.trait }}
       </div>
-      <div class="mt-2 text-sm text-gray-400">Balance:</div>
+      <div class="mt-2 text-sm text-gray-200 px-2">
+        Balance: {{ resource.balance }}
+        <button
+          class="text-red-500 font-body font-semibold"
+          @click="$emit('Max Balance', resource.balance)"
+        >
+          (MAX)
+        </button>
+      </div>
     </div>
     <div class="flex flex-col justify-between w-1/3">
       <div class="text-2xl mt-2 flex ml-auto">
