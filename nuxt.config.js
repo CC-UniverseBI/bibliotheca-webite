@@ -155,6 +155,7 @@ export default {
     '~/plugins/v-click-outside.js',
     '~/plugins/vue-awesome-countdown.js',
     '~/plugins/v-tooltip.js',
+    { src: '~/plugins/vue-good-table', ssr: false }
   ],
   components: [
     '~/components/web3',

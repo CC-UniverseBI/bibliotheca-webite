@@ -24,7 +24,7 @@ import erc20Tokens from '~/constant/erc20Tokens'
 const { BigNumber } = ethers
 
 export function useMarket() {
-  const { allUsersResources } = useResources()
+  const { allUsersResources, resourceListOrdered } = useResources()
   const error = reactive({
     resources: null,
   })
@@ -36,23 +36,55 @@ export function useMarket() {
   const result = reactive({ resources: null })
   const output = ref()
   const allUserTokenValues = ref(
-    allUsersResources.value.map((e) => {
-      return { id: e.id, value: e.balance }
-    })
+    allUsersResources.value
+      .filter((e) => e.value > 1)
+      .map((e) => {
+        return { id: e.id, value: '0' }
+      })
+  )
+  const allTokenPrices = ref(
+    allUsersResources.value
+      .filter((e) => e.value > 1)
+      .map((e) => {
+        return { id: e.id, price: '0' }
+      })
   )
 
   const fetchUserTokenValues = async () => {
     try {
-      const resourcesWithBalance = allUsersResources.value.filter((e) =>
-        BigNumber.from(e.balance).gt(0)
-      )
+      const resourcesWithBalance = allUsersResources.value.filter((e) => {
+        return e.value > 1 && e.balance > 0
+      })
       const prices = await fetchBulkResourcePrices(
         resourcesWithBalance.map((e) => e.id),
         resourcesWithBalance.map((e) => e.balance)
       )
-      prices.forEach((e, i) => {
-        const index = allUsersResources.value.map((e) => e.id).indexOf(i)
-        e.mul(allUserTokenValues.value[index].value)
+      resourcesWithBalance.forEach((e, i) => {
+        const index = allUsersResources.value.map((e) => e.id).indexOf(e.id)
+        allUserTokenValues.value[index].value = BigNumber.from(prices[i])
+          .mul(e.balance as number)
+          .toString()
+      })
+    } catch (e) {
+      console.log(e)
+    } finally {
+      console.log('ss')
+    }
+  }
+
+  const fetchAllTokenPrices = async () => {
+    try {
+      const resourceIds = allUsersResources.value
+        .filter((e) => {
+          return e.value > 1
+        })
+        .map((e) => e.id)
+      const prices = await fetchBulkResourcePrices(
+        resourceIds,
+        resourceIds.map(() => 1)
+      )
+      resourceIds.forEach((e, i) => {
+        allTokenPrices.value[i].price = prices[i].toString()
       })
     } catch (e) {
       console.log(e)
@@ -226,6 +258,7 @@ export function useMarket() {
 
   return {
     fetchUserTokenValues,
+    fetchAllTokenPrices,
     fetchCurrencyReserve,
     fetchCurrencyReserves,
     fetchResourceReserve,
@@ -242,6 +275,7 @@ export function useMarket() {
     result,
     output,
     allUserTokenValues,
+    allTokenPrices,
   }
 }
 
@@ -327,12 +361,12 @@ async function getPrices(network, resourceIds, amounts, getSellPrice) {
   const withReserves = []
   reserves.forEach((e, i) => {
     if (!e.gt(0)) return
-    filteredAmounts.push(amounts[i])
+    filteredAmounts.push(e.gt(amounts[i]) ? amounts[i] : e)
     withReserves.push(resourceIds[i])
   })
   const priceFunction = getSellPrice
-    ? exchange.getPrice_currencyToToken
-    : exchange.getPrice_tokenToCurrency
+    ? exchange.getPrice_tokenToCurrency
+    : exchange.getPrice_currencyToToken
   const prices = await priceFunction(withReserves, filteredAmounts)
 
   return sortedIds.map((e, i) => {
