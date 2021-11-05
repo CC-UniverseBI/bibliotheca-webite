@@ -1,5 +1,5 @@
 <template>
-  <vue-good-table :columns="columns" :rows="rows" />
+  <vue-good-table :columns="columns" :rows="rows" @on-row-click="addToMarket" />
 </template>
 <script>
 import { defineComponent, ref, useFetch } from '@nuxtjs/composition-api'
@@ -44,6 +44,7 @@ export default defineComponent({
       fetchAllTokenPrices,
       allUserTokenValues,
       allTokenPrices,
+      addToMarket,
     } = useMarket()
     const viewTypes = [
       {
@@ -88,6 +89,7 @@ export default defineComponent({
       balance,
       rows,
       columns,
+      addToMarket,
     }
   },
 })

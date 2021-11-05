@@ -1,4 +1,4 @@
-import { reactive, ref, Ref } from '@nuxtjs/composition-api'
+import { computed, reactive, ref, Ref } from '@nuxtjs/composition-api'
 import { ethers } from 'ethers'
 import { useWeb3 } from '@instadapp/vue-web3'
 import { useNetwork, activeNetwork } from '../web3/useNetwork'
@@ -22,7 +22,7 @@ import erc1155Tokens from '~/constant/erc1155Tokens'
 import erc20Tokens from '~/constant/erc20Tokens'
 
 const { BigNumber } = ethers
-
+const selectedResources = ref([])
 export function useMarket() {
   const { allUsersResources, resourceListOrdered } = useResources()
   const error = reactive({
@@ -256,7 +256,21 @@ export function useMarket() {
     }
   }
 
+  const addToMarket = (resource) => {
+    console.log(resource)
+    const i = selectedResources.value.indexOf(resource.row)
+    if (i === -1) {
+      selectedResources.value.push(resource.row)
+      // updateLordsPrice()
+    } else {
+      selectedResources.value.splice(i, 1)
+      // updateLordsPrice()
+    }
+  }
+
   return {
+    addToMarket,
+    selectedResources,
     fetchUserTokenValues,
     fetchAllTokenPrices,
     fetchCurrencyReserve,

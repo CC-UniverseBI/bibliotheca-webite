@@ -296,6 +296,7 @@ export default defineComponent({
       addLiquidity,
       removeLiquidity,
       fetchBulkResourcePrices,
+      selectedResources,
     } = useMarket()
 
     const menu = [
@@ -333,7 +334,6 @@ export default defineComponent({
       },
     ]
     const selectedOrderType = ref(orderTypes[0])
-    const selectedResources = ref([])
     const lordsPrice = ref(0)
     function setOrderType(orderType) {
       selectedOrderType.value = orderType
@@ -351,16 +351,6 @@ export default defineComponent({
       await getAdventurersLords(slug)
     })
 
-    function onArrowClick(resource) {
-      const i = selectedResources.value.indexOf(resource)
-      if (i === -1) {
-        selectedResources.value.push(resource)
-        updateLordsPrice()
-      } else {
-        selectedResources.value.splice(i, 1)
-        updateLordsPrice()
-      }
-    }
     function onXClick(resource) {
       const i = selectedResources.value.indexOf(resource)
       selectedResources.value.splice(i, 1)
@@ -414,7 +404,6 @@ export default defineComponent({
       selectedOrderType,
       setOrderType,
       selectedResources,
-      onArrowClick,
       onXClick,
       onAmountChanged,
       onOrderSubmit,
