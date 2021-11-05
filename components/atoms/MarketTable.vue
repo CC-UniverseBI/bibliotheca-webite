@@ -1,5 +1,10 @@
 <template>
-  <vue-good-table :columns="columns" :rows="rows" @on-row-click="addToMarket" />
+  <vue-good-table
+    style-class="bg-black text-xl p-4 rounded"
+    :columns="columns"
+    :rows="rows"
+    @on-row-click="addToMarket"
+  />
 </template>
 <script>
 import { defineComponent, ref, useFetch } from '@nuxtjs/composition-api'
@@ -74,11 +79,12 @@ export default defineComponent({
         default:
           rows.value = filteredResources.map((e, i) => {
             return {
-              id: i,
+              id: e.id,
               name: e.trait,
               price: allTokenPrices.value[i].price,
               balance: allUsersResources.value[i].balance,
               value: allUserTokenValues.value[i].value,
+              colourClass: e.colourClass,
             }
           })
           break

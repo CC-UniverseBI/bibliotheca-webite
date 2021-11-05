@@ -1,13 +1,13 @@
 <template>
   <div class="flex bg-gray-900 justify-between p-4 rounded-2xl w-full mb-4">
     <div class="w-full pr-9">
-      <!-- <div
+      <div
         :class="resource.colourClass"
         class="p-3 rounded-xl font-display text-xl bg-opacity-75 border"
       >
-        {{ resource.trait }}
-      </div> -->
-      <!-- <div class="mt-2 text-sm text-gray-200 px-2">
+        {{ resource.name }}
+      </div>
+      <div class="mt-2 text-sm text-gray-200 px-2">
         Balance: {{ resource.balance }}
         <button
           class="text-red-500 font-body font-semibold"
@@ -15,7 +15,7 @@
         >
           (MAX)
         </button>
-      </div> -->
+      </div>
     </div>
     <div class="flex flex-col justify-between w-1/3">
       <div class="text-2xl mt-2 flex ml-auto">
