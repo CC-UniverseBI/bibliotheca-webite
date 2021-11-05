@@ -5,6 +5,7 @@ export const resources = [
     colour: '#78350f',
     colourClass: 'bg-yellow-900 border-yellow-900',
     id: 1,
+    balance: 0,
   },
 
   {
@@ -13,6 +14,7 @@ export const resources = [
     colour: '#e0e0e0',
     colourClass: 'bg-gray-500 text-gray-300 border-gray-300',
     id: 3,
+    balance: 0,
   },
   {
     trait: 'Coal',
@@ -20,6 +22,7 @@ export const resources = [
     colour: '#757575',
     colourClass: 'bg-gray-300 border-gray-600 text-black',
     id: 2,
+    balance: 0,
   },
   {
     trait: 'Obsidian',
@@ -27,6 +30,7 @@ export const resources = [
     colour: '#000000',
     colourClass: 'bg-black border-black',
     id: 4,
+    balance: 0,
   },
   {
     trait: 'Gold',
@@ -34,6 +38,7 @@ export const resources = [
     colour: '#fcd34d',
     colourClass: 'bg-yellow-300 text-yellow-900 border-yellow-300',
     id: 5,
+    balance: 0,
   },
   {
     trait: 'Silver',
@@ -41,6 +46,7 @@ export const resources = [
     colour: '#eeeeee',
     colourClass: 'bg-gray-300 text-gray-50 border-gray-500',
     id: 6,
+    balance: 0,
   },
   {
     trait: 'Ruby',
@@ -48,6 +54,7 @@ export const resources = [
     colour: '#dc2626',
     colourClass: 'bg-red-600 border-red-600',
     id: 7,
+    balance: 0,
   },
   {
     trait: 'Sapphire',
@@ -55,6 +62,7 @@ export const resources = [
     colour: '#3b82f6',
     colourClass: 'bg-blue-500 border-blue-500',
     id: 8,
+    balance: 0,
   },
   {
     trait: 'Adamantine',
@@ -62,6 +70,7 @@ export const resources = [
     colour: '#1e3a8a',
     colourClass: 'bg-blue-900 border-blue-900',
     id: 9,
+    balance: 0,
   },
   {
     trait: 'Mithral',
@@ -69,6 +78,7 @@ export const resources = [
     colour: '#60a5fa',
     colourClass: 'bg-blue-400 border-blue-400',
     id: 10,
+    balance: 0,
   },
   {
     trait: 'Cold Iron',
@@ -76,6 +86,7 @@ export const resources = [
     colour: '#fca5a5',
     colourClass: 'bg-red-300 text-red-900 border-red-300',
     id: 11,
+    balance: 0,
   },
   {
     trait: 'Diamonds',
@@ -83,6 +94,7 @@ export const resources = [
     colour: '#ccbcfb',
     colourClass: 'bg-purple-200 text-purple-700 border-purple-700',
     id: 12,
+    balance: 0,
   },
   {
     trait: 'Copper',
@@ -90,6 +102,7 @@ export const resources = [
     colour: '#f59e0b',
     colourClass: 'bg-yellow-500 border-yellow-900 text-yellow-200',
     id: 13,
+    balance: 0,
   },
   {
     trait: 'Ironwood',
@@ -97,6 +110,7 @@ export const resources = [
     colour: '#b91c1c',
     colourClass: 'bg-red-700 border-red-700',
     id: 14,
+    balance: 0,
   },
   {
     trait: 'Twilight Quartz',
@@ -104,6 +118,7 @@ export const resources = [
     colour: '#6d28d9',
     colourClass: 'bg-purple-700 border-purple-700',
     id: 15,
+    balance: 0,
   },
   {
     trait: 'Hartwood',
@@ -111,6 +126,7 @@ export const resources = [
     colour: '#fca5a5',
     colourClass: 'bg-red-300 border-red-300',
     id: 16,
+    balance: 0,
   },
   {
     trait: 'Ignium',
@@ -118,6 +134,7 @@ export const resources = [
     colour: '#ef4444',
     colourClass: 'bg-red-500 text-yellow-200 border-red-500',
     id: 17,
+    balance: 0,
   },
   {
     trait: 'Ethereal Silica',
@@ -125,6 +142,7 @@ export const resources = [
     colour: '#10b981',
     colourClass: 'bg-green-500 border-green-500',
     id: 18,
+    balance: 0,
   },
   {
     trait: 'True Ice',
@@ -132,6 +150,7 @@ export const resources = [
     colour: '#ffffff',
     colourClass: 'bg-white text-blue-700 border-blue-700',
     id: 19,
+    balance: 0,
   },
   {
     trait: 'Alchemical Silver',
@@ -139,6 +158,7 @@ export const resources = [
     colour: '#bdbdbd',
     colourClass: 'bg-gray-400 border-gray-400',
     id: 20,
+    balance: 0,
   },
   {
     trait: 'Deep Crystal',
@@ -146,6 +166,7 @@ export const resources = [
     colour: '#93c5fd',
     colourClass: 'bg-blue-300 border-blue-300',
     id: 21,
+    balance: 0,
   },
   {
     trait: 'Dragonhide',
@@ -153,34 +174,42 @@ export const resources = [
     colour: '#ec4899',
     colourClass: 'bg-pink-500 border-pink-500',
     id: 22,
+    balance: 0,
   },
   {
     trait: 'Cathedral Of Agony',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'Sanctum Of Purpose',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Ancestral Willow',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Crying Oak',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Immortal Hot Spring',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'Pantheon Of Chaos',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Solemn Catacombs',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Exalted Geyser',
@@ -189,18 +218,22 @@ export const resources = [
   {
     trait: 'The Devout Summit',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Mother Grove',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'Synagogue Of Collapse',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'Sanctuary Of The Ancients',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Weeping Willow',
@@ -209,149 +242,186 @@ export const resources = [
   {
     trait: 'The Exalted Maple',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'Altar Of The Void',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Pure Stone',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Celestial Vertex',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Eternal Orchard',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Amaranthine Rock',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Pearl Summit',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'Mosque Of Mercy',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Mirror Grotto',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Glowing Geyser',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'Altar Of Perfection',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Cerulean Chamber',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Mythic Trees',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Perpetual Ridge',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Fading Yew',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Origin Oasis',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Sanctified Fjord',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Pale Pillar',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'Sanctum Of The Oracle',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Ethereal Isle',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Omen Graves',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Pale Vertex',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Glowing Pinnacle',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Azure Lake',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Argent Catacombs',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Dark Mountain',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'Sky Mast',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'Infinity Spire',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Exalted Basin',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Ancestral Trees',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Perpetual Fjord',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Ancient Lagoon',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Pearl River',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Cerulean Reliquary',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'Altar Of Divine Will',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'Pagoda Of Fortune',
     value: 1,
+    balance: 0,
   },
   {
     trait: 'The Oracle Pool',
     value: 1,
+    balance: 0,
   },
 ]

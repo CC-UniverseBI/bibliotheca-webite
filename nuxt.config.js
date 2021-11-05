@@ -163,6 +163,7 @@ export default {
     '~/components',
     '~/components/cards',
     '~/components/atoms',
+    '~/components/market',
     '~/components/atoms/market',
     '~/components/realms',
     '~/components/sprites',

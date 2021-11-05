@@ -57,9 +57,10 @@
             </div>
 
             <div class="flex flex-col">
-              <span v-for="(cost, index) in stats[2]" :key="index">{{
-                cost
-              }}</span>
+              <span v-for="(cost, index) in stats[2]" :key="index"
+                >{{ cost }} /
+                <span>{{ findResources(stats[1][index]).balance }}</span></span
+              >
               <hr class="my-2" />
               <span
                 ><span v-if="stats[7] > 0">+{{ stats[7] }}</span
@@ -85,9 +86,8 @@
 import { computed, defineComponent } from '@nuxtjs/composition-api'
 import { allBuildings } from '@/composables/utils/buildings'
 import { useConstruction } from '~/composables/construction/useConstruction'
-import { resources } from '@/composables/utils/resourceColours'
 import { useConnect } from '~/composables/web3/useConnect'
-
+import { useResources } from '~/composables/resources/useResources'
 export default defineComponent({
   props: {
     building: {
@@ -108,6 +108,7 @@ export default defineComponent({
     },
   },
   setup(props) {
+    const { allUsersResources } = useResources()
     const {
       constructBuilding,
       getBuildings,
@@ -125,7 +126,7 @@ export default defineComponent({
       return allBuildings.find((a) => a.id === parseInt(props.buildingId))
     })
     const findResources = (resource) => {
-      return resources.find((a) => a.id === parseInt(resource))
+      return allUsersResources.value.find((a) => a.id === parseInt(resource))
     }
     const getConstraint = computed(() => {
       return props.realmTraits.find((a) => a.name === findBuilding.value.trait)

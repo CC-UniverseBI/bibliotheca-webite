@@ -13,6 +13,9 @@ import erc1155Tokens from '~/constant/erc1155Tokens'
 import contractAddress from '~/constant/contractAddress'
 import { useGraph } from '~/composables/web3/useGraph'
 
+import { resources } from '~/composables/utils/resourceColours'
+
+const allUsersResources = ref(resources)
 export function useResources() {
   const { provider, library, account, activate } = useWeb3()
   const { partnerNetwork, useL1Network, useL2Network } = useNetwork()
@@ -56,22 +59,43 @@ export function useResources() {
       return b.totalRealms - a.totalRealms
     })
   })
-
+  const balance = ref()
   const fetchResource = async (account, resourceId) => {
     try {
       error.resources = null
+      console.log(account)
       // loading.resources = true
-      return await getResourceBalance(
+      balance.value = await getResourceBalance(
         account,
         activeNetwork.value.id,
         resourceId
       )
+      console.log(balance.value)
     } catch (e) {
       console.log(e)
       await showError(e.message)
       error.resources = e.message
     } finally {
       // loading.resources = false
+    }
+  }
+
+  const fetchUsersBalance = async () => {
+    // allUsersResources.value =
+    for (let i = 1; i <= 22; i++) {
+      try {
+        const balance = await getResourceBalance(
+          account.value,
+          activeNetwork.value.id,
+          i
+        )
+        const index = allUsersResources.value.map((e) => e.id).indexOf(i)
+        allUsersResources.value[index].balance = balance
+      } catch (e) {
+        console.log(e)
+      } finally {
+        console.log('ss')
+      }
     }
   }
   const fetchProductionOutput = async (realmId, resourceId) => {
@@ -148,11 +172,15 @@ export function useResources() {
     loading,
     result,
     output,
+    fetchUsersBalance,
+    allUsersResources,
+    balance,
   }
 }
 
 async function getResourceBalance(owner, network, resourceId) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)
+  console.log(network)
   const resourcesAddress =
     erc1155Tokens[network].getTokenByKey('realm-resources').address
   const signer = provider.getSigner()
@@ -161,8 +189,8 @@ async function getResourceBalance(owner, network, resourceId) {
     ResourceTokensAbi.abi,
     signer
   )
-
-  return await resources.balanceOf(owner, resourceId)
+  const balance = await resources.balanceOf(owner, resourceId)
+  return balance.toString()
 }
 
 async function resourceProductionOutput(owner, network, realmId, resourceId) {

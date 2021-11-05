@@ -21,6 +21,7 @@
 import { defineComponent, watch } from '@nuxtjs/composition-api'
 import { useWeb3 } from '@instadapp/vue-web3'
 import { useUiState } from '~/composables'
+import { useResources } from '~/composables/resources/useResources'
 import { useConnect } from '~/composables/web3/useConnect'
 import Book from '~/assets/img/book-open.svg?inline'
 import { useRaiding } from '~/composables/military/useRaiding'
@@ -30,6 +31,7 @@ export default defineComponent({
     Book,
   },
   setup() {
+    const { fetchUsersBalance, allUsersResources } = useResources()
     const { account } = useWeb3()
     const { toggleSideBar, sideBarOpen } = useUiState()
     const { addRaidResultListener } = useRaiding()
@@ -37,11 +39,13 @@ export default defineComponent({
 
     watch(account, () => {
       addRaidResultListener()
+      fetchUsersBalance()
     })
 
     return {
       toggleSideBar,
       sideBarOpen,
+      allUsersResources,
     }
   },
 })

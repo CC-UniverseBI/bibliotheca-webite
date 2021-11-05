@@ -16,6 +16,8 @@ import ResourceTokensAbi from '~/abi/ResourceTokens.json'
 import ResourceExchangeAbi from '~/abi/NiftyswapExchange20.json'
 
 // ADDRESS CONSTS
+
+import resourceTokens from '~/constant/erc1155Tokens'
 import erc1155Tokens from '~/constant/erc1155Tokens'
 import erc20Tokens from '~/constant/erc20Tokens'
 
@@ -23,9 +25,6 @@ const { BigNumber } = ethers
 
 export function useMarket() {
   const { allUsersResources } = useResources()
-  const { provider, library, account, activate } = useWeb3()
-  const { availableNetworks, partnerNetwork, useL1Network, useL2Network } =
-    useNetwork()
   const error = reactive({
     resources: null,
   })
@@ -45,7 +44,7 @@ export function useMarket() {
   const fetchUserTokenValues = async () => {
     try {
       const resourcesWithBalance = allUsersResources.value.filter((e) =>
-        e.balance.gt(0)
+        BigNumber.from(e.balance).gt(0)
       )
       const prices = await fetchBulkResourcePrices(
         resourcesWithBalance.map((e) => e.id),
@@ -53,7 +52,7 @@ export function useMarket() {
       )
       prices.forEach((e, i) => {
         const index = allUsersResources.value.map((e) => e.id).indexOf(i)
-        allUserTokenValues.value[index].value.mul(e)
+        e.mul(allUserTokenValues.value[index].value)
       })
     } catch (e) {
       console.log(e)
@@ -290,7 +289,7 @@ async function getLiquidityTokenSupply(network, resourceId) {
   )
 
   const supply = await exchange.getTotalSupply([resourceId])
-  return supply[0]
+  return parseInt(ethers.utils.formatEther(supply[0])).toFixed(2)
 }
 
 async function getLiquidityBalance(network, resourceId) {
@@ -307,7 +306,7 @@ async function getLiquidityBalance(network, resourceId) {
   const liquidityBal = await exchange.balanceOf(await signer.getAddress(), [
     resourceId,
   ])
-  return liquidityBal
+  return parseInt(ethers.utils.formatEther(liquidityBal)).toFixed(2)
 }
 
 async function getPrices(network, resourceIds, amounts, getSellPrice) {
@@ -523,7 +522,7 @@ async function validateAndApproveERC1155(network, key, spender) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)
   const signer = provider.getSigner()
 
-  const address = erc1155Tokens[network].getTokenByKey(key).address
+  const address = resourceTokens[network].getTokenByKey(key).address
   const erc1155 = new ethers.Contract(address, ResourceTokensAbi.abi, signer)
 
   const isAllowed = await erc1155.isApprovedForAll(
