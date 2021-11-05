@@ -63,12 +63,14 @@ export function useResources() {
   const fetchResource = async (account, resourceId) => {
     try {
       error.resources = null
+      console.log(account)
       // loading.resources = true
       balance.value = await getResourceBalance(
         account,
         activeNetwork.value.id,
         resourceId
       )
+      console.log(balance.value)
     } catch (e) {
       console.log(e)
       await showError(e.message)
@@ -172,11 +174,13 @@ export function useResources() {
     output,
     fetchUsersBalance,
     allUsersResources,
+    balance,
   }
 }
 
 async function getResourceBalance(owner, network, resourceId) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)
+  console.log(network)
   const resourcesAddress =
     erc1155Tokens[network].getTokenByKey('realm-resources').address
   const signer = provider.getSigner()
