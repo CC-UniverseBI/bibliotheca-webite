@@ -1,6 +1,6 @@
 <template>
   <div class="container flex">
-    <div class="bg-grey p-6 rounded-2xl w-3/5 shadow-2xl">
+    <!-- <div class="bg-grey p-6 rounded-2xl w-3/5 shadow-2xl">
       <h2 class="uppercase text-red-400 text-center">Resource Market</h2>
       <br />
       <table class="table-fixed w-full">
@@ -23,7 +23,8 @@
           />
         </tbody>
       </table>
-    </div>
+    </div> -->
+    <MarketTable :resources="sortedResources" />
 
     <div class="w-2/5 flex flex-col">
       <div
