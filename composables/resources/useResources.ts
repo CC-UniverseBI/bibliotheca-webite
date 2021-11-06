@@ -94,7 +94,7 @@ export function useResources() {
       } catch (e) {
         console.log(e)
       } finally {
-        console.log('ss')
+        // console.log('ss')
       }
     }
   }
