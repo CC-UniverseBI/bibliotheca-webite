@@ -35,7 +35,12 @@
           {{ button.label }}
         </BButton>
       </div>
-      <div v-if="!$fetchState.pending" class="flex flex-wrap">
+      <InfiniteScroll
+        v-if="!$fetchState.pending"
+        class="flex flex-wrap"
+        :content-change-key="adventurers.length"
+        @fetchNextBlock="fetchMore"
+      >
         <div
           v-for="(adventurer, index) in adventurers"
           :key="index"
@@ -43,10 +48,14 @@
         >
           <AdventurerCard :adventurer="adventurer" />
         </div>
-        <BButton :loading="loading" type="primary" @click.native="fetchMore"
-          >Load more</BButton
-        >
-      </div>
+        <template v-if="loading">
+          <Loader
+            v-for="(loader, index) in 4"
+            :key="'dummy' + index"
+            class="mr-3 mb-3"
+          />
+        </template>
+      </InfiniteScroll>
       <div v-else class="flex flex-wrap mt-4">
         <Loader v-for="(loader, index) in 6" :key="index" class="mr-3 mb-3" />
       </div>
@@ -62,10 +71,11 @@ import {
   useContext,
   useFetch,
 } from '@nuxtjs/composition-api'
+import InfiniteScroll from '../../components/atoms/InfiniteScroll'
 import AdventurerCard from '~/components/cards/AdventurerCard.vue'
 
 export default defineComponent({
-  components: { AdventurerCard },
+  components: { InfiniteScroll, AdventurerCard },
   setup(props, context) {
     const getQuery = (param) => {
       return ref(gql`

@@ -21,11 +21,23 @@
       </BButton>
     </form>
     <div v-if="!$fetchState.pending">
-      <div v-if="!queryLoading" class="flex flex-wrap">
+      <InfiniteScroll
+        v-if="!queryLoading"
+        class="flex flex-wrap"
+        :content-change-key="loot.length"
+        @fetchNextBlock="fetchMore"
+      >
         <div v-for="(l, index) in loot" :key="index" class="w-80">
           <LootCard is-o-g :loot="l" />
         </div>
-      </div>
+        <template v-if="loading">
+          <Loader
+            v-for="(loader, index) in 4"
+            :key="'dummy' + index"
+            class="mr-3 mb-3"
+          />
+        </template>
+      </InfiniteScroll>
 
       <div v-if="queryLoading" class="flex flex-wrap mt-8">
         <Loader v-for="(loader, index) in 4" :key="index" class="mr-3 mb-3" />
@@ -33,15 +45,6 @@
       <div v-if="!queryLoading && !loot.length" class="my-3">
         <div class="text-2xl">No Loot found - Try adjusting your query.</div>
       </div>
-      <BButton
-        v-if="loot.length > 1"
-        :disabled="queryLoading"
-        :loading="loading"
-        type="primary"
-        class="mt-8"
-        @click.native="fetchMore"
-        >{{ loading ? 'loading' : 'Load more loot' }}</BButton
-      >
     </div>
     <div v-else class="mt-4">
       <Loader />
@@ -57,8 +60,11 @@ import {
   useContext,
   useFetch,
 } from '@nuxtjs/composition-api'
+import InfiniteScroll from '../../components/atoms/InfiniteScroll'
+import Loader from '../../components/Loader'
 
 export default defineComponent({
+  components: { Loader, InfiniteScroll },
   setup(props, context) {
     const { $graphql } = useContext()
     const search = ref()

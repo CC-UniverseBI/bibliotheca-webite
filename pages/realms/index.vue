@@ -39,22 +39,25 @@
         <span>Rarity ranges between 5 and 8300 - higher scores are better</span>
       </div>
 
-      <div v-if="!$fetchState.pending" class="flex flex-wrap w-full">
+      <InfiniteScroll
+        v-if="!$fetchState.pending"
+        class="flex flex-wrap w-full"
+        :content-change-key="openSeaData.length"
+        @fetchNextBlock="fetchMoreRealms"
+      >
         <div v-for="realm in openSeaData" :key="realm.id" class="w-80">
           <RealmCard :id="realm.token_id" :realm="realm" />
         </div>
-      </div>
+        <template v-if="loading">
+          <Loader
+            v-for="(loader, index) in 4"
+            :key="'dummy' + index"
+            class="mr-3 mb-3"
+          />
+        </template>
+      </InfiniteScroll>
       <div v-else class="flex flex-wrap mt-6">
         <Loader v-for="(loader, index) in 6" :key="index" class="mr-3 mb-3" />
-      </div>
-
-      <div v-if="!$fetchState.pending">
-        <button
-          class="bg-black rounded px-4 py-2 hover:bg-gray-700"
-          @click="fetchMoreRealms"
-        >
-          {{ loading ? 'loading' : 'Load More Realms' }}
-        </button>
       </div>
     </div>
   </section>
@@ -63,16 +66,18 @@
 <script>
 import { defineComponent, ref, useFetch } from '@nuxtjs/composition-api'
 import axios from 'axios'
+import InfiniteScroll from '../../components/atoms/InfiniteScroll'
 import { useFormatting } from '~/composables/useFormatting'
 
 export default defineComponent({
+  components: { InfiniteScroll },
   setup(props, context) {
     const { shortenHash } = useFormatting()
 
     const adventurer = ref(null)
     const usersGold = ref(null)
     const search = ref()
-    const openSeaData = ref()
+    const openSeaData = ref([])
     const loading = ref()
     const orderBy = ref()
     const offset = ref(0)

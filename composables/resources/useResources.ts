@@ -67,7 +67,7 @@ export function useResources() {
       // loading.resources = true
       balance.value = await getResourceBalance(
         account,
-        activeNetwork.value.id,
+        useL2Network.value.id,
         resourceId
       )
       console.log(balance.value)

@@ -20,14 +20,22 @@
     </div>
 
     <div v-if="!$fetchState.pending" class="mt-8">
-      <div class="flex flex-wrap">
+      <InfiniteScroll
+        class="flex flex-wrap"
+        :content-change-key="manas.length"
+        @fetchNextBlock="fetchMore"
+      >
         <div v-for="(mana, index) in manas" :key="index" class="w-80">
           <ManaCard :mana="mana" />
         </div>
-      </div>
-      <BButton :loading="loading" type="primary" @click.native="fetchMore"
-        >Load more</BButton
-      >
+        <template v-if="loading">
+          <Loader
+            v-for="(loader, index) in 4"
+            :key="'dummy' + index"
+            class="mr-3 mb-3"
+          />
+        </template>
+      </InfiniteScroll>
     </div>
     <div v-else class="mt-8">
       <Loader />
@@ -43,8 +51,10 @@ import {
   useContext,
   useFetch,
 } from '@nuxtjs/composition-api'
+import InfiniteScroll from '../../components/atoms/InfiniteScroll'
 
 export default defineComponent({
+  components: { InfiniteScroll },
   setup(props, context) {
     const { $graphql } = useContext()
     const search = ref()

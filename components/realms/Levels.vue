@@ -1,5 +1,5 @@
 <template>
-  <div v-if="cities.value" class="my-2 text-xl">
+  <div v-if="cities" class="my-2 text-xl">
     <div class="my-2">
       Cities: {{ cities.value }} / 21
       <div class="bg-gray-200 bg-white w-full rounded bg-opacity-75">
