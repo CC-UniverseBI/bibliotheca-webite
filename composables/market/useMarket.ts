@@ -3,12 +3,14 @@ import { ethers } from 'ethers'
 import { useWeb3 } from '@instadapp/vue-web3'
 import { useNetwork, activeNetwork } from '../web3/useNetwork'
 import { useResources } from '../resources/useResources'
+import { useBigNumber } from '../web3/useBigNumber'
 import {
   getAddLiquidityData,
   getBuyTokenData,
   getRemoveLiquidityData,
   getSellTokenData,
 } from './encoders'
+import { useNotification } from '~/composables/useNotification'
 
 // ABI
 import TheLordsTokenAbi from '~/abi/TheLordsToken.json'
@@ -25,14 +27,15 @@ const { BigNumber } = ethers
 const selectedResources = ref([])
 const lordsPrice = ref(null)
 export function useMarket() {
+  const { plus } = useBigNumber()
+  const { showError } = useNotification()
   const { allUsersResources, resourceListOrdered } = useResources()
   const error = reactive({
-    resources: null,
+    market: null,
   })
 
   const loading = reactive({
-    resources: false,
-    fetchingResources: false,
+    market: false,
   })
   const result = reactive({ resources: null })
   const output = ref()
@@ -96,25 +99,25 @@ export function useMarket() {
 
   const fetchResourceReserve = async (resourceId) => {
     try {
-      error.resources = null
-      // loading.resources = true
+      error.market = null
+      // loading.market = true
       return await getResourceReserve(activeNetwork.value.id, resourceId)
     } catch (e) {
       console.log(e)
-      error.resources = e.message
+      error.market = e.message
     } finally {
-      // loading.resources = false
+      // loading.market = false
     }
   }
 
   const fetchLiquidityTokenSupply = async (resourceId) => {
     try {
-      error.resources = null
+      error.market = null
       // loading.resources = true
       return await getLiquidityTokenSupply(activeNetwork.value.id, resourceId)
     } catch (e) {
       console.log(e)
-      error.resources = e.message
+      error.market = e.message
     } finally {
       // loading.resources = false
     }
@@ -126,12 +129,12 @@ export function useMarket() {
 
   const fetchCurrencyReserves = async (resourceIds) => {
     try {
-      error.resources = null
+      error.market = null
       // loading.resources = true
       return await getCurrencyReserves(activeNetwork.value.id, resourceIds)
     } catch (e) {
       console.log(e)
-      error.resources = e.message
+      error.market = e.message
     } finally {
       // loading.resources = false
     }
@@ -143,14 +146,14 @@ export function useMarket() {
     getSellPrice = true
   ) => {
     try {
-      error.resources = null
+      error.market = null
       // loading.resources = true
       return (
         await fetchBulkResourcePrices([resourceId], [amount], getSellPrice)
       )[0]
     } catch (e) {
       console.log(e)
-      error.resources = e.message
+      error.market = e.message
     } finally {
       // loading.resources = false
     }
@@ -162,7 +165,7 @@ export function useMarket() {
     getSellPrice = true
   ) => {
     try {
-      error.resources = null
+      error.market = null
       // loading.resources = true
       const prices = await getPrices(
         activeNetwork.value.id,
@@ -173,7 +176,7 @@ export function useMarket() {
       return prices
     } catch (e) {
       console.log(e)
-      error.resources = e.message
+      error.market = e.message
     } finally {
       // loading.resources = false
     }
@@ -181,12 +184,12 @@ export function useMarket() {
 
   const fetchLiquidityBalance = async (resourceId) => {
     try {
-      error.resources = null
+      error.market = null
       // loading.resources = true
       return await getLiquidityBalance(activeNetwork.value.id, resourceId)
     } catch (e) {
       console.log(e)
-      error.resources = e.message
+      error.market = e.message
     } finally {
       // loading.resources = false
     }
@@ -194,8 +197,7 @@ export function useMarket() {
 
   const buyTokens = async (resourceIds, resourceAmounts) => {
     try {
-      error.resources = null
-      // loading.resources = true
+      loading.market = true
       return await sendBulkBuyResources(
         activeNetwork.value.id,
         resourceIds,
@@ -203,46 +205,43 @@ export function useMarket() {
       )
     } catch (e) {
       console.log(e)
-      error.resources = e.message
+      await showError(e.data.message)
     } finally {
-      // loading.resources = false
+      loading.market = false
     }
   }
   const sellTokens = async (resourceIds, resourceAmounts) => {
+    console.log(resourceIds)
     try {
-      error.resources = null
-      // loading.resources = true
+      loading.market = true
       return await sendBulkSellResources(
         activeNetwork.value.id,
         resourceIds,
         resourceAmounts
       )
     } catch (e) {
-      console.log(e)
-      error.resources = e.message
+      await showError(e.data.message)
     } finally {
-      // loading.resources = false
+      loading.market = false
     }
   }
   const addLiquidity = async (resourceIds, resourceAmounts) => {
     try {
-      error.resources = null
-      // loading.resources = true
+      loading.market = true
       return await sendAddLiquidity(
         activeNetwork.value.id,
         resourceIds,
         resourceAmounts
       )
     } catch (e) {
-      console.log(e)
-      error.resources = e.message
+      await showError(e.data.message)
     } finally {
-      // loading.resources = false
+      loading.market = false
     }
   }
   const removeLiquidity = async (resourceIds, poolTokenAmounts) => {
     try {
-      error.resources = null
+      error.market = null
       // loading.resources = true
       return await sendRemoveLiquidity(
         activeNetwork.value.id,
@@ -251,9 +250,9 @@ export function useMarket() {
       )
     } catch (e) {
       console.log(e)
-      error.resources = e.message
+      // await showError(e.data.message)
     } finally {
-      // loading.resources = false
+      loading.market = false
     }
   }
 
@@ -261,10 +260,10 @@ export function useMarket() {
     const i = selectedResources.value.map((e) => e.id).indexOf(resource.id)
     if (i === -1) {
       selectedResources.value.push(resource.row)
-      // updateLordsPrice()
+      updateLordsPrice()
     } else {
       selectedResources.value.splice(i, 1)
-      // updateLordsPrice()
+      if (selectedResources.value.length) updateLordsPrice()
     }
   }
 
@@ -281,8 +280,9 @@ export function useMarket() {
     const ids = filtered.map((e) => e.id)
     const amounts = filtered.map((e) => e.amount)
     const prices = await fetchBulkResourcePrices(ids, amounts)
-
-    const total = prices.reduce((a, b) => parseInt(a) + parseInt(b))
+    console.log(prices)
+    const total = prices.reduce((a, b) => a.add(b))
+    console.log(total)
     lordsPrice.value = parseInt(ethers.utils.formatEther(total)).toFixed(2)
   }
   return {

@@ -2,19 +2,17 @@ import { reactive, ref, Ref } from '@nuxtjs/composition-api'
 import { ethers } from 'ethers'
 import { useNetwork, activeNetwork } from '../web3/useNetwork'
 import { useWeb3 } from '../web3'
-import { ageDistributions } from '../lordsTokenDistribution'
+
 // ABI
 import { useNotification } from '~/composables/useNotification'
-import ResourceConstructionFacetAbi from '~/abi/ResourceConstructionFacet.json'
+
 import LordsClaimingFacetAbi from '~/abi/LordsClaimingFacet.json'
 import LordsTokenAbi from '~/abi/TheLordsToken.json'
-import SRealmTokenAbi from '~/abi/SRealmToken.json'
-import StakingFacetAbi from '~/abi/StakingFacet.json'
+
 // ADDRESS CONSTS
-import erc1155Tokens from '~/constant/erc1155Tokens'
+
 import contractAddress from '~/constant/contractAddress'
 import erc20Tokens from '~/constant/erc20Tokens'
-import erc721Tokens from '~/constant/erc721Tokens'
 
 import GoldAbi from '~/abi/gold.json'
 export function useLords() {

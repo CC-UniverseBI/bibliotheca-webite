@@ -68,7 +68,7 @@
           </div>
           <div
             :class="{ 'flex-col-reverse': buy }"
-            class="w-2/3 flex flex-col transition duration-300"
+            class="w-3/3 flex flex-col transition duration-300"
           >
             <ResourceSelect
               v-for="(resource, index) in selectedResources"
@@ -116,6 +116,7 @@
             <BButton
               class="w-full"
               type="primary"
+              :loading="loading.market"
               @click.native="onSwapSubmit"
               >{{ buy ? 'Buy' : 'Sell' }}</BButton
             >
@@ -197,70 +198,16 @@
             </div>
             <div class="w-1/3"></div>
             <div class="w-full mt-8">
-              <BButton class="w-full" type="primary">{{
-                add ? 'Add Liquidity' : 'Remove Liquidity'
-              }}</BButton>
+              <BButton
+                :loading="loading.market"
+                class="w-full"
+                type="primary"
+                @click="onLiquiditySubmit"
+                >{{ add ? 'Add Liquidity' : 'Remove Liquidity' }}</BButton
+              >
             </div>
           </div>
         </MarketCard>
-        <!-- <div class="flex flex-wrap sm:space-x-3 my-3">
-          <BButton
-            v-for="(data, index) in orderTypes"
-            :key="index"
-            type="primary"
-            :class="{
-              'bg-black text-red-300': data.data === selectedOrderType,
-            }"
-            class="
-              px-2
-              py-2
-              hover:bg-black
-              rounded
-              capitalize
-              hover:text-red-300
-            "
-            @click="setOrderType(data)"
-          >
-            {{ data.name }}
-          </BButton>
-        </div> -->
-        <!-- <form>
-          <table class="table-fixed w-full">
-            <thead>
-              <tr class="text-xl text-left">
-                <th class="w-2/6">Resource</th>
-                <th class="w-1/6">Rate</th>
-                <th class="w-2/6">Amount</th>
-                <th class="w-1/6"></th>
-              </tr>
-            </thead>
-            <tbody>
-              <ResourceOrderRow
-                v-for="(resource, index) in selectedResources"
-                :key="index"
-                class="even:bg-gray-900 rounded-lg"
-                :resource="resource"
-                @x-click="onArrowClick(resource)"
-                @amount-changed="onAmountChanged(resource, $event.target.value)"
-              />
-            </tbody>
-          </table>
-          <br />
-          <span class="text-3xl">LORDS: ~{{ lordsPrice }} 👑 </span>
-          <div class="mt-12 text-center">
-            <div class="my-4 flex justify-around">
-              <div class="flex">
-                <BButton
-                  class="bg-gray-900 text-2xl"
-                  type="primary"
-                  @click.prevent="onOrderSubmit()"
-                >
-                  {{ selectedOrderType.name }}
-                </BButton>
-              </div>
-            </div>
-          </div>
-        </form> -->
       </div>
     </div>
   </div>
@@ -300,6 +247,7 @@ export default defineComponent({
       removeLiquidity,
       selectedResources,
       lordsPrice,
+      loading,
     } = useMarket()
 
     const menu = [
@@ -366,9 +314,11 @@ export default defineComponent({
       const resourceIds = withAmounts.map((e) => e.id)
       const resourceAmounts = withAmounts.map((e) => e.amount)
       if (add.value) {
-        await addLiquidity(resourceIds, resourceAmounts, resourceAmounts)
+        console.log('add')
+        await addLiquidity(resourceIds, resourceAmounts)
       } else {
-        await removeLiquidity(resourceIds, resourceAmounts, resourceAmounts)
+        console.log('remove')
+        await removeLiquidity(resourceIds, resourceAmounts)
       }
     }
 
@@ -407,6 +357,7 @@ export default defineComponent({
       menu,
       buy,
       add,
+      loading,
     }
   },
 })

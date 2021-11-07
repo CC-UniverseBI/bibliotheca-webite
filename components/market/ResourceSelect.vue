@@ -58,7 +58,7 @@ export default defineComponent({
   },
   setup(props) {
     const { addToMarket, onAmountChanged } = useMarket()
-    const amount = ref()
+    const amount = ref(0)
 
     const selectMax = (max) => {
       amount.value = max
