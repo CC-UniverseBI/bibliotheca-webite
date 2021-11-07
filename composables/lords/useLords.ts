@@ -69,12 +69,16 @@ export function useLords() {
     try {
       error.lords = null
       loading.lords = true
+      console.log(account)
       lordsBalance.value = await getLordsBalance(
         account,
         activeNetwork.value.id
       )
     } catch (e) {
-      await showError(e.data.message)
+      console.log(e)
+      if (e.data) {
+        await showError(e.data.message)
+      }
     } finally {
       loading.lords = false
     }
@@ -160,7 +164,8 @@ async function getLordsBalance(owner, network) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)
   const signer = provider.getSigner()
 
-  const lordsTokensAddress = erc20Tokens[network].getTokenByKey('lords').address
+  const lordsTokensAddress =
+    erc20Tokens[network].getTokenByKey('LordsToken').address
   console.log(lordsTokensAddress)
   const lordsTokens = new ethers.Contract(
     lordsTokensAddress,
@@ -170,7 +175,7 @@ async function getLordsBalance(owner, network) {
 
   const lords = await lordsTokens.balanceOf(owner)
 
-  return ethers.utils.formatEther(lords)
+  return parseInt(ethers.utils.formatEther(lords)).toFixed(2)
 }
 async function getGoldBalance(owner, network) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)

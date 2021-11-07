@@ -182,7 +182,7 @@ async function getResourceBalance(owner, network, resourceId) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)
   console.log(network)
   const resourcesAddress =
-    erc1155Tokens[network].getTokenByKey('realm-resources').address
+    erc1155Tokens[network].getTokenByKey('resourceTokens').address
   const signer = provider.getSigner()
   const resources = new ethers.Contract(
     resourcesAddress,

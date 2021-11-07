@@ -11,7 +11,7 @@
         Balance: {{ resource.balance }}
         <button
           class="text-red-500 font-body font-semibold"
-          @click="$emit('Max Balance', resource.balance)"
+          @click="selectMax(resource.balance)"
         >
           (MAX)
         </button>
@@ -20,6 +20,7 @@
     <div class="flex flex-col justify-between w-1/3">
       <div class="text-2xl mt-2 flex ml-auto">
         <input
+          v-model="amount"
           min="0"
           class="
             text-right
@@ -30,7 +31,7 @@
           "
           type="number"
           placeholder="0"
-          @change.prevent="$emit('amount-changed', $event)"
+          @change.prevent="onAmountChanged(resource, amount)"
         />
       </div>
       <div class="text-sm ml-auto">
@@ -46,7 +47,7 @@
   </div>
 </template>
 <script>
-import { defineComponent } from '@vue/composition-api'
+import { defineComponent, ref } from '@vue/composition-api'
 import { useMarket } from '~/composables/market/useMarket'
 export default defineComponent({
   props: {
@@ -55,10 +56,19 @@ export default defineComponent({
       required: true,
     },
   },
-  setup() {
-    const { addToMarket } = useMarket()
+  setup(props) {
+    const { addToMarket, onAmountChanged } = useMarket()
+    const amount = ref()
+
+    const selectMax = (max) => {
+      amount.value = max
+      onAmountChanged(props.resource, amount.value)
+    }
     return {
       addToMarket,
+      onAmountChanged,
+      amount,
+      selectMax,
     }
   },
 })

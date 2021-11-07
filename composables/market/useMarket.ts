@@ -23,6 +23,7 @@ import erc20Tokens from '~/constant/erc20Tokens'
 
 const { BigNumber } = ethers
 const selectedResources = ref([])
+const lordsPrice = ref(null)
 export function useMarket() {
   const { allUsersResources, resourceListOrdered } = useResources()
   const error = reactive({
@@ -257,10 +258,7 @@ export function useMarket() {
   }
 
   const addToMarket = (resource) => {
-    console.log(resource)
     const i = selectedResources.value.map((e) => e.id).indexOf(resource.id)
-    console.log('id')
-    console.log(i)
     if (i === -1) {
       selectedResources.value.push(resource.row)
       // updateLordsPrice()
@@ -270,9 +268,26 @@ export function useMarket() {
     }
   }
 
+  const onAmountChanged = (resource, amount) => {
+    console.log(amount)
+    const i = selectedResources.value.map((e) => e.id).indexOf(resource.id)
+    selectedResources.value[i].amount = amount
+    updateLordsPrice()
+  }
+
+  const updateLordsPrice = async () => {
+    const filtered = selectedResources.value.filter((e) => e.amount > 0)
+
+    const ids = filtered.map((e) => e.id)
+    const amounts = filtered.map((e) => e.amount)
+    const prices = await fetchBulkResourcePrices(ids, amounts)
+
+    const total = prices.reduce((a, b) => parseInt(a) + parseInt(b))
+    lordsPrice.value = parseInt(ethers.utils.formatEther(total)).toFixed(2)
+  }
   return {
     addToMarket,
-    selectedResources,
+    onAmountChanged,
     fetchUserTokenValues,
     fetchAllTokenPrices,
     fetchCurrencyReserve,
@@ -286,12 +301,15 @@ export function useMarket() {
     sellTokens,
     addLiquidity,
     removeLiquidity,
+    updateLordsPrice,
+    selectedResources,
     error,
     loading,
     result,
     output,
     allUserTokenValues,
     allTokenPrices,
+    lordsPrice,
   }
 }
 
@@ -442,7 +460,7 @@ async function sendBulkSellResources(
     resourceAmounts
   )
 
-  await validateAndApproveERC1155(network, 'erc1155Tokens', exAddr)
+  await validateAndApproveERC1155(network, 'resourceExchange', exAddr)
 
   const data = getSellTokenData(
     await signer.getAddress(),
@@ -487,7 +505,7 @@ async function sendAddLiquidity(
     currencyAmounts.push(maxCurrency)
   }
 
-  await validateAndApproveERC1155(network, 'erc1155Tokens', exAddr)
+  await validateAndApproveERC1155(network, 'resourceTokens', exAddr)
   await validateAndApproveERC20(
     network,
     'LordsToken',

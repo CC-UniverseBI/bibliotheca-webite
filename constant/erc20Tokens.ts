@@ -23,7 +23,7 @@ export default {
   ]),
   arbitrumRinkeby: createTokenUtils([
     {
-      key: 'lords',
+      key: 'LordsToken',
       type: 'token',
       symbol: 'LORDS',
       decimals: 18,

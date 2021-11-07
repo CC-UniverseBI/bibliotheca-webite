@@ -107,15 +107,18 @@
                   <span>👑 LORDS:</span>
                   <span>~{{ lordsPrice }}</span>
                 </div>
-                <div>Balance:</div>
+                <div>Balance: {{ lordsBalance }}</div>
               </div>
             </div>
           </div>
           <div class="w-1/3"></div>
           <div class="w-full mt-8">
-            <BButton class="w-full" type="primary">{{
-              buy ? 'Sell' : 'Buy'
-            }}</BButton>
+            <BButton
+              class="w-full"
+              type="primary"
+              @click.native="onSwapSubmit"
+              >{{ buy ? 'Buy' : 'Sell' }}</BButton
+            >
           </div>
         </div>
       </MarketCard>
@@ -136,7 +139,7 @@
             </div>
 
             <div
-              :class="{ 'flex-col-reverse': buy }"
+              :class="{ 'flex-col-reverse': add }"
               class="w-full flex flex-col transition duration-300"
             >
               <div
@@ -174,10 +177,10 @@
                     hover:bg-yellow-300
                     flex
                   "
-                  @click="buy = !buy"
+                  @click="add = !add"
                 >
                   <ArrowUp class="mx-2" />
-                  {{ buy ? 'Add Liquidity' : 'Remove Liquidity' }}
+                  {{ add ? 'Add Liquidity' : 'Remove Liquidity' }}
                   <ArrowDown class="mx-2" />
                 </button>
               </div>
@@ -188,14 +191,14 @@
                     <span>👑 LORDS:</span>
                     <span>~{{ lordsPrice }}</span>
                   </div>
-                  <div>Balance:</div>
+                  <div>Balance: {{ lordsBalance }}</div>
                 </div>
               </div>
             </div>
             <div class="w-1/3"></div>
             <div class="w-full mt-8">
               <BButton class="w-full" type="primary">{{
-                buy ? 'Sell' : 'Buy'
+                add ? 'Add Liquidity' : 'Remove Liquidity'
               }}</BButton>
             </div>
           </div>
@@ -281,7 +284,7 @@ export default defineComponent({
   setup(props, context) {
     const { allUsersResources } = useResources()
     const { goldPrice } = usePrice()
-    const { slug } = context.root.$route.params
+    const { address } = context.root.$route.params
     const {
       getAdventurersLords,
       lordsBalance,
@@ -295,8 +298,8 @@ export default defineComponent({
       sellTokens,
       addLiquidity,
       removeLiquidity,
-      fetchBulkResourcePrices,
       selectedResources,
+      lordsPrice,
     } = useMarket()
 
     const menu = [
@@ -315,6 +318,7 @@ export default defineComponent({
     }
 
     const buy = ref(false)
+    const add = ref(false)
     const orderTypes = [
       {
         data: 'buy',
@@ -334,7 +338,7 @@ export default defineComponent({
       },
     ]
     const selectedOrderType = ref(orderTypes[0])
-    const lordsPrice = ref(0)
+
     function setOrderType(orderType) {
       selectedOrderType.value = orderType
     }
@@ -348,49 +352,42 @@ export default defineComponent({
     })
 
     useFetch(async () => {
-      await getAdventurersLords(slug)
+      await getAdventurersLords(address)
     })
 
-    function onXClick(resource) {
-      const i = selectedResources.value.indexOf(resource)
-      selectedResources.value.splice(i, 1)
-      updateLordsPrice()
-    }
-    function onAmountChanged(resource, amount) {
-      const i = selectedResources.value.indexOf(resource)
-      selectedResources.value[i].amount = amount
-      updateLordsPrice()
-    }
-    async function updateLordsPrice() {
-      const filtered = selectedResources.value.filter((e) => e.amount > 0)
-      console.log(filtered)
-      const ids = filtered.map((e) => e.id)
-      const amounts = filtered.map((e) => e.amount)
-      const prices = await fetchBulkResourcePrices(ids, amounts)
-      const total = prices.reduce((a, b) => a.add(b))
-      lordsPrice.value = total
-    }
-    async function onOrderSubmit() {
+    // function onXClick(resource) {
+    //   const i = selectedResources.value.indexOf(resource)
+    //   selectedResources.value.splice(i, 1)
+    //   updateLordsPrice()
+    // }
+
+    const onLiquiditySubmit = async () => {
       const withAmounts = selectedResources.value.filter((e) => e.amount > 0)
       const resourceIds = withAmounts.map((e) => e.id)
       const resourceAmounts = withAmounts.map((e) => e.amount)
-      switch (selectedOrderType.value.data) {
-        case 'buy':
-          await buyTokens(resourceIds, resourceAmounts)
-          break
-        case 'sell':
-          await sellTokens(resourceIds, resourceAmounts)
-          break
-        case 'add_liquidity':
-          await addLiquidity(resourceIds, resourceAmounts, resourceAmounts)
-          break
-        case 'remove_liquidity':
-          await removeLiquidity(resourceIds, resourceAmounts, resourceAmounts)
-          break
+      if (add.value) {
+        await addLiquidity(resourceIds, resourceAmounts, resourceAmounts)
+      } else {
+        await removeLiquidity(resourceIds, resourceAmounts, resourceAmounts)
+      }
+    }
+
+    const onSwapSubmit = async () => {
+      const withAmounts = selectedResources.value.filter((e) => e.amount > 0)
+      const resourceIds = withAmounts.map((e) => e.id)
+      const resourceAmounts = withAmounts.map((e) => e.amount)
+      if (buy.value) {
+        console.log('buy')
+        await buyTokens(resourceIds, resourceAmounts)
+      } else {
+        console.log('sell')
+        await sellTokens(resourceIds, resourceAmounts)
       }
     }
 
     return {
+      onLiquiditySubmit,
+      onSwapSubmit,
       getAdventurersLords,
       lordsBalance,
       lordsPrice,
@@ -404,13 +401,12 @@ export default defineComponent({
       selectedOrderType,
       setOrderType,
       selectedResources,
-      onXClick,
-      onAmountChanged,
-      onOrderSubmit,
+      // onXClick,
       setActiveMenu,
       selectedMenu,
       menu,
       buy,
+      add,
     }
   },
 })
