@@ -260,7 +260,7 @@ export function useMarket() {
   const addToMarket = (resource) => {
     const i = selectedResources.value.map((e) => e.id).indexOf(resource.id)
     if (i === -1) {
-      selectedResources.value.push(resource.row)
+      selectedResources.value.push(resource)
       updateLordsPrice()
     } else {
       selectedResources.value.splice(i, 1)
