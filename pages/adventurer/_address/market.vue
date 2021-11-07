@@ -1,31 +1,6 @@
 <template>
   <div class="container flex">
-    <!-- <div class="bg-grey p-6 rounded-2xl w-3/5 shadow-2xl">
-      <h2 class="uppercase text-red-400 text-center">Resource Market</h2>
-      <br />
-      <table class="table-fixed w-full">
-        <thead>
-          <tr class="text-xl text-left">
-            <th class="w-2/6">Resource</th>
-            <th class="w-1/6">Rate</th>
-            <th class="w-1/6">Pool</th>
-            <th class="w-1/6">Your Share</th>
-            <th class="w-1/6"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <LiquidityInfoRow
-            v-for="(resource, index) in sortedResources"
-            :key="index"
-            class="even:bg-gray-900 rounded-lg"
-            :resource="resource"
-            @arrow-click="onArrowClick(resource)"
-          />
-        </tbody>
-      </table>
-    </div> -->
     <MarketTable :resources="sortedResources" />
-
     <div class="w-2/5 flex flex-col">
       <div
         v-if="selectedMenu"
@@ -71,8 +46,8 @@
             class="w-3/3 flex flex-col transition duration-300"
           >
             <ResourceSelect
-              v-for="(resource, index) in selectedResources"
-              :key="index"
+              v-for="resource in selectedResources"
+              :key="resource.id"
               class="transition duration-300"
               :resource="resource"
               @x-click="onArrowClick(resource)"
@@ -202,7 +177,7 @@
                 :loading="loading.market"
                 class="w-full"
                 type="primary"
-                @click="onLiquiditySubmit"
+                @click.native="onLiquiditySubmit"
                 >{{ add ? 'Add Liquidity' : 'Remove Liquidity' }}</BButton
               >
             </div>
@@ -313,6 +288,8 @@ export default defineComponent({
       const withAmounts = selectedResources.value.filter((e) => e.amount > 0)
       const resourceIds = withAmounts.map((e) => e.id)
       const resourceAmounts = withAmounts.map((e) => e.amount)
+      console.log(resourceAmounts)
+      console.log(resourceIds)
       if (add.value) {
         console.log('add')
         await addLiquidity(resourceIds, resourceAmounts)

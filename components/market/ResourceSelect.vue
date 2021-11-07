@@ -27,13 +27,14 @@
             appearance-none
             bg-transparent
             w-full
-            focus:border-none
+            focus:outline-none focus:border-none
           "
           type="number"
           placeholder="0"
           @change.prevent="onAmountChanged(resource, amount)"
         />
       </div>
+      <span class="text-right text-gray-500">rate: {{ calculatedRate }}</span>
       <div class="text-sm ml-auto">
         <button
           class="hover:bg-gray-800 rounded px-2"
@@ -47,7 +48,8 @@
   </div>
 </template>
 <script>
-import { defineComponent, ref } from '@vue/composition-api'
+import { computed, defineComponent, ref, watch } from '@vue/composition-api'
+import { ethers } from 'ethers'
 import { useMarket } from '~/composables/market/useMarket'
 export default defineComponent({
   props: {
@@ -57,18 +59,39 @@ export default defineComponent({
     },
   },
   setup(props) {
-    const { addToMarket, onAmountChanged } = useMarket()
+    const { addToMarket, onAmountChanged, fetchResourcePrice } = useMarket()
     const amount = ref(0)
+
+    const resourcePrice = ref()
 
     const selectMax = (max) => {
       amount.value = max
       onAmountChanged(props.resource, amount.value)
     }
+
+    const fetchRate = async () => {
+      resourcePrice.value = parseInt(
+        ethers.utils.formatEther(
+          await fetchResourcePrice(props.resource.id, amount.value)
+        )
+      ).toFixed(2)
+    }
+
+    watch(amount, async () => {
+      await fetchRate()
+    })
+
+    const calculatedRate = computed(() => {
+      return (resourcePrice.value / amount.value).toFixed(2)
+    })
+
     return {
       addToMarket,
       onAmountChanged,
       amount,
       selectMax,
+      resourcePrice,
+      calculatedRate,
     }
   },
 })

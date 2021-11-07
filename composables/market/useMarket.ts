@@ -145,6 +145,7 @@ export function useMarket() {
     amount = 1,
     getSellPrice = true
   ) => {
+    console.log('price')
     try {
       error.market = null
       // loading.resources = true
@@ -271,6 +272,7 @@ export function useMarket() {
     console.log(amount)
     const i = selectedResources.value.map((e) => e.id).indexOf(resource.id)
     selectedResources.value[i].amount = amount
+
     updateLordsPrice()
   }
 
