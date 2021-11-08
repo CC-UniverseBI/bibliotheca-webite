@@ -19,7 +19,6 @@ import ResourceExchangeAbi from '~/abi/NiftyswapExchange20.json'
 
 // ADDRESS CONSTS
 
-import resourceTokens from '~/constant/erc1155Tokens'
 import erc1155Tokens from '~/constant/erc1155Tokens'
 import erc20Tokens from '~/constant/erc20Tokens'
 
@@ -235,7 +234,8 @@ export function useMarket() {
         resourceAmounts
       )
     } catch (e) {
-      await showError(e.data.message)
+      console.log(e)
+      // await showError(e.data)
     } finally {
       loading.market = false
     }
@@ -251,7 +251,7 @@ export function useMarket() {
       )
     } catch (e) {
       console.log(e)
-      // await showError(e.data.message)
+      // await showError(e.data)
     } finally {
       loading.market = false
     }
@@ -260,7 +260,7 @@ export function useMarket() {
   const addToMarket = (resource) => {
     const i = selectedResources.value.map((e) => e.id).indexOf(resource.id)
     if (i === -1) {
-      selectedResources.value.push(resource.row)
+      selectedResources.value.push(resource)
       updateLordsPrice()
     } else {
       selectedResources.value.splice(i, 1)
@@ -319,15 +319,10 @@ export function useMarket() {
 
 async function getCurrencyReserves(network, resourceIds) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const tokensArr = erc1155Tokens[network].allTokens
+  const exAddr = erc1155Tokens[network].allTokens[1].address
   const signer = provider.getSigner()
-  const tokensAddrArr = tokensArr.map((a) => a.address)
-  const exchange = new ethers.Contract(
-    tokensAddrArr[1],
-    ResourceExchangeAbi.abi,
-    signer
-  )
-
+  const exchange = new ethers.Contract(exAddr, ResourceExchangeAbi.abi, signer)
+  console.log(resourceIds)
   const reserves = await exchange.getCurrencyReserves(resourceIds)
   return reserves
 }
@@ -358,8 +353,8 @@ async function getLiquidityTokenSupply(network, resourceId) {
     signer
   )
 
-  const supply = await exchange.getTotalSupply([resourceId])
-  return parseInt(ethers.utils.formatEther(supply[0])).toFixed(2)
+  const supply = await exchange.getTotalSupply(resourceId)
+  return supply
 }
 
 async function getLiquidityBalance(network, resourceId) {
@@ -376,7 +371,7 @@ async function getLiquidityBalance(network, resourceId) {
   const liquidityBal = await exchange.balanceOf(await signer.getAddress(), [
     resourceId,
   ])
-  return parseInt(ethers.utils.formatEther(liquidityBal)).toFixed(2)
+  return liquidityBal
 }
 
 async function getPrices(network, resourceIds, amounts, getSellPrice) {
@@ -498,16 +493,30 @@ async function sendAddLiquidity(
   const resourceAddr = erc1155Tokens[network].allTokens[0].address
 
   const currencyAmounts = []
+  const currency = await getCurrencyReserves(network, resourceIds)
+
   for (let i = 0; i < resourceIds.length; i++) {
-    const currency = await getCurrencyReserves(network, resourceIds[i])
-    const tokens = await getResourceReserve(network, resourceIds[i])
-    const maxCurrency = currency.gt(0)
-      ? currency.mul(resourceAmounts[i]).div(tokens.sub(resourceAmounts[i]))
-      : BigNumber.from(10).pow(18).mul(resourceIds[i]).mul(resourceAmounts[i])
+    const token = await getResourceReserve(network, resourceIds[i])
+
+    const decimalsToken = ethers.utils.parseUnits(token.toString(), 'ether')
+
+    console.log(currency[i].toString())
+    console.log(resourceAmounts[i].toString())
+    console.log(decimalsToken)
+    const maxCurrency = currency[i].gt(0)
+      ? currency[i]
+          .mul(resourceAmounts[i])
+          .div(decimalsToken.sub(resourceAmounts[i]))
+      : 1000000000000000
     currencyAmounts.push(maxCurrency)
   }
 
-  await validateAndApproveERC1155(network, 'resourceTokens', exAddr)
+  console.log(
+    currencyAmounts.reduce((a, b) => a.add(b)),
+    'currency amounts'
+  )
+
+  await validateAndApproveERC1155(network, 'resourceExchange', exAddr)
   await validateAndApproveERC20(
     network,
     'LordsToken',
@@ -544,12 +553,16 @@ async function sendRemoveLiquidity(
 
   const currencyAmounts = []
   const resourceAmounts = []
+
+  const supply = await getLiquidityTokenSupply(network, resourceIds)
+  const currency = await getCurrencyReserves(network, resourceIds)
+
   for (let i = 0; i < resourceIds.length; i++) {
-    const supply = await getLiquidityTokenSupply(network, resourceIds[i])
-    const currency = await getCurrencyReserves(network, resourceIds[i])
-    const tokens = await getResourceReserve(network, resourceIds[i])
-    const minCurrency = currency.mul(poolTokenAmounts[i]).div(supply)
-    const minTokens = tokens.mul(poolTokenAmounts[i]).div(supply)
+    const token = await getResourceReserve(network, resourceIds[i])
+    const minCurrency = currency[i].mul(poolTokenAmounts[i]).div(supply[i])
+
+    const minTokens = token.mul(poolTokenAmounts[i]).div(supply[i])
+
     currencyAmounts.push(minCurrency)
     resourceAmounts.push(minTokens)
   }
@@ -582,6 +595,8 @@ async function validateAndApproveERC20(network, key, spender, amount) {
   const erc20 = new ethers.Contract(address, TheLordsTokenAbi.abi, signer)
 
   const balance = await erc20.balanceOf(await signer.getAddress())
+  console.log(balance)
+  console.log(amount)
   if (balance.lt(amount)) throw new Error('ERC20: INSUFFICIENT BALANCE')
 
   const allowance = await erc20.allowance(await signer.getAddress(), spender)
@@ -592,7 +607,7 @@ async function validateAndApproveERC1155(network, key, spender) {
   const provider = new ethers.providers.Web3Provider(window.ethereum)
   const signer = provider.getSigner()
 
-  const address = resourceTokens[network].getTokenByKey(key).address
+  const address = erc1155Tokens[network].getTokenByKey(key).address
   const erc1155 = new ethers.Contract(address, ResourceTokensAbi.abi, signer)
 
   const isAllowed = await erc1155.isApprovedForAll(

@@ -28,8 +28,8 @@
 <script>
 import { useFetch, defineComponent, ref } from '@nuxtjs/composition-api'
 // import { BigNumber } from '@ethersproject/bignumber'
+import { ethers } from 'ethers'
 import { useMarket } from '~/composables/market/useMarket'
-
 // import ArrowRight from '~/assets/img/arrow-right.svg?inline'
 export default defineComponent({
   // components: {
@@ -59,9 +59,17 @@ export default defineComponent({
 
     useFetch(async () => {
       lordsReserve.value = await fetchCurrencyReserve(props.resource.id)
-      resourceReserve.value = await fetchResourceReserve(props.resource.id)
-      lbalance.value = await fetchLiquidityBalance(props.resource.id)
-      lsupply.value = await fetchLiquidityTokenSupply(props.resource.id)
+      resourceReserve.value = parseInt(
+        ethers.utils.formatEther(await fetchResourceReserve(props.resource.id))
+      ).toFixed(2)
+      lbalance.value = parseInt(
+        ethers.utils.formatEther(await fetchLiquidityBalance(props.resource.id))
+      ).toFixed(2)
+      lsupply.value = parseInt(
+        ethers.utils.formatEther(
+          await fetchLiquidityTokenSupply(props.resource.id)
+        )
+      ).toFixed(2)
     })
 
     return {

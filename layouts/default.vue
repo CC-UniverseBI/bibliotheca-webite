@@ -30,6 +30,7 @@ export default defineComponent({
   components: {
     Book,
   },
+  fetchOnServer: false,
   setup() {
     const { fetchUsersBalance, allUsersResources } = useResources()
     const { account } = useWeb3()

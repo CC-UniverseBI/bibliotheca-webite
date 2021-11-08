@@ -1,7 +1,11 @@
 <template>
   <div class="container flex">
-    <MarketTable :resources="sortedResources" />
-    <div class="w-2/5 flex flex-col">
+    <MarketTable
+      v-if="sortedResources"
+      class="w-1/2"
+      :resources="sortedResources"
+    />
+    <div class="w-1/2 flex flex-col">
       <div
         v-if="selectedMenu"
         class="
@@ -188,15 +192,15 @@
   </div>
 </template>
 <script>
-import { useFetch, defineComponent, ref } from '@nuxtjs/composition-api'
+import { defineComponent, ref, onMounted } from '@nuxtjs/composition-api'
 // import { resources } from '@/composables/utils/resourceColours'
+import { ethers } from 'ethers'
 import { useLords } from '~/composables/lords/useLords'
 import { useMarket } from '~/composables/market/useMarket'
 import { usePrice } from '~/composables'
 import { useResources } from '~/composables/resources/useResources'
 import ArrowUp from '~/assets/img/arrow-up.svg?inline'
 import ArrowDown from '~/assets/img/arrow-down.svg?inline'
-
 export default defineComponent({
   components: {
     ArrowUp,
@@ -274,7 +278,7 @@ export default defineComponent({
       return b.value - a.value
     })
 
-    useFetch(async () => {
+    onMounted(async () => {
       await getAdventurersLords(address)
     })
 
@@ -287,14 +291,12 @@ export default defineComponent({
     const onLiquiditySubmit = async () => {
       const withAmounts = selectedResources.value.filter((e) => e.amount > 0)
       const resourceIds = withAmounts.map((e) => e.id)
-      const resourceAmounts = withAmounts.map((e) => e.amount)
-      console.log(resourceAmounts)
-      console.log(resourceIds)
+      const resourceAmounts = withAmounts.map((e) =>
+        ethers.utils.parseUnits(e.amount, 'ether')
+      )
       if (add.value) {
-        console.log('add')
         await addLiquidity(resourceIds, resourceAmounts)
       } else {
-        console.log('remove')
         await removeLiquidity(resourceIds, resourceAmounts)
       }
     }
@@ -304,10 +306,8 @@ export default defineComponent({
       const resourceIds = withAmounts.map((e) => e.id)
       const resourceAmounts = withAmounts.map((e) => e.amount)
       if (buy.value) {
-        console.log('buy')
         await buyTokens(resourceIds, resourceAmounts)
       } else {
-        console.log('sell')
         await sellTokens(resourceIds, resourceAmounts)
       }
     }

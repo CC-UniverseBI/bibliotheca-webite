@@ -1,13 +1,31 @@
 <template>
-  <vue-good-table
+  <table class="table-fixed">
+    <thead>
+      <tr class="text-xl text-left">
+        <th class="w-1/2">Resource</th>
+        <th class="w-1/4">Balance</th>
+        <th class="w-1/4 text-center">Add</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ResourceRow
+        v-for="(resource, index) in rows"
+        :key="index"
+        class="even:bg-gray-900 rounded-lg"
+        :resource="resource"
+      />
+    </tbody>
+  </table>
+  <!-- <vue-good-table
     style-class="bg-black text-xl p-4 rounded"
     :columns="columns"
     :rows="rows"
     @on-row-click="addToMarket"
-  />
+  /> -->
 </template>
 <script>
-import { defineComponent, ref, useFetch } from '@nuxtjs/composition-api'
+import { defineComponent, onMounted, ref } from '@nuxtjs/composition-api'
+// import { ethers } from 'ethers'
 import { useResources } from '~/composables/resources/useResources'
 import { useMarket } from '~/composables/market/useMarket'
 const data = {
@@ -32,23 +50,22 @@ const data = {
   ],
 }
 export default defineComponent({
-  fetchOnServer: false,
   props: {
     resources: {
       type: Array,
       required: true,
     },
   },
-
+  fetchOnServer: false,
   setup(props, context) {
     const { columns } = data
     const { resources } = props
-    const { allUsersResources, fetchUsersBalance } = useResources()
+    const { allUsersResources } = useResources()
     const {
       fetchUserTokenValues,
       fetchAllTokenPrices,
-      allUserTokenValues,
-      allTokenPrices,
+      // allUserTokenValues,
+      // allTokenPrices,
       addToMarket,
     } = useMarket()
     const viewTypes = [
@@ -71,19 +88,22 @@ export default defineComponent({
     const filteredResources = resources.filter((d) => {
       return d.value > 1
     })
-    useFetch(async () => {
-      await fetchAllTokenPrices()
+    onMounted(async () => {
       await fetchUserTokenValues()
-      await fetchUsersBalance()
+      await fetchAllTokenPrices()
       switch (selectedViewType.value) {
         default:
           rows.value = filteredResources.map((e, i) => {
             return {
               id: e.id,
-              name: e.trait,
-              price: allTokenPrices.value[i].price,
+              trait: e.trait,
+              // price: parseInt(
+              //   ethers.utils.formatEther(allTokenPrices.value[i].price)
+              // ).toFixed(2),
               balance: allUsersResources.value[i].balance,
-              value: allUserTokenValues.value[i].value,
+              // value: parseInt(
+              //   ethers.utils.formatEther(allUserTokenValues.value[i].value)
+              // ).toFixed(2),
               colourClass: e.colourClass,
             }
           })

@@ -5,7 +5,7 @@
         :class="resource.colourClass"
         class="p-3 rounded-xl font-display text-xl bg-opacity-75 border"
       >
-        {{ resource.name }}
+        {{ resource.trait }}
       </div>
       <div class="mt-2 text-sm text-gray-200 px-2">
         Balance: {{ resource.balance }}
