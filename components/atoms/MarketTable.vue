@@ -20,7 +20,11 @@
     style-class="bg-black text-xl p-4 rounded"
     :columns="columns"
     :rows="rows"
-    @on-row-click="addToMarket"
+    :sort-options="{
+      enabled: true,
+      initialSortBy: { field: 'name', type: 'asc' },
+    }"
+    @on-row-click="onRowClick"
   /> -->
 </template>
 <script>
@@ -111,11 +115,16 @@ export default defineComponent({
       }
     })
 
+    const onRowClick = (e) => {
+      addToMarket(e.row)
+    }
+
     return {
       balance,
       rows,
       columns,
       addToMarket,
+      onRowClick,
     }
   },
 })
