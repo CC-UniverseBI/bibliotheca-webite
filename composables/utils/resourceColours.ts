@@ -424,4 +424,11 @@ export const resources = [
     value: 1,
     balance: 0,
   },
+  {
+    trait: 'Lords',
+    colour: '#78350f',
+    colourClass: 'bg-yellow-900 border-yellow-900',
+    id: 0,
+    balance: 0,
+  },
 ]

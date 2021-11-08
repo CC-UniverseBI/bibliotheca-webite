@@ -44,6 +44,9 @@ export function useNetwork() {
   const checkForNetworkMismatch = () => {
     if (networkMismatch.value) {
       showNetworksMismatchDialog()
+      return true
+    } else {
+      return false
     }
   }
   const partnerNetwork = computed(() =>
@@ -129,7 +132,7 @@ export function useNetwork() {
                 decimals: 18,
               },
               rpcUrls: ['https://rinkeby.arbitrum.io/rpc'],
-              blockExplorerUrls: ['https://polygonscan.com/'],
+              blockExplorerUrls: ['testnet.arbiscan.io/'],
             }
             await window.ethereum.request({
               method: 'wallet_addEthereumChain',

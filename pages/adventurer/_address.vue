@@ -9,7 +9,7 @@
     <div class="flex">
       <nav class="space-x-4 mb-8 bg-gray-900 px-3 py-5 rounded-2xl">
         <NuxtLink
-          v-for="(link, index) in displayedLinks"
+          v-for="(link, index) in menuLinks"
           :key="index"
           class="
             text-xl
@@ -31,12 +31,7 @@
   </div>
 </template>
 <script>
-import {
-  defineComponent,
-  onMounted,
-  ref,
-  computed,
-} from '@nuxtjs/composition-api'
+import { defineComponent, onMounted, ref } from '@nuxtjs/composition-api'
 import { useFormatting } from '~/composables/useFormatting'
 import { useConnect } from '~/composables/web3/useConnect'
 export default defineComponent({
@@ -68,24 +63,24 @@ export default defineComponent({
         slug: 'raid-results',
       },
     ])
-    const displayedLinks = computed(() => {
-      /* if (isAddressPage.value) {
+    /* const displayedLinks = computed(() => {
+       if (isAddressPage.value) {
         return menuLinks.value.concat({
           title: 'Realms available to Settle',
           slug: 'settling',
         })
-      } else */ return menuLinks.value
+      } else  return menuLinks.value
     })
 
     if (isAddressPage) {
       menuLinks.value.push()
-    }
+    } */
     onMounted(async () => {
       await returnEns(address)
     })
     return {
       address,
-      displayedLinks,
+      menuLinks,
       ensName,
       shortenHash,
       isAddressPage,

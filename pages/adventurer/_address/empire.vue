@@ -107,7 +107,7 @@ export default defineComponent({
       useL2Network,
     } = useNetwork()
     // const { open } = useWeb3Modal()
-    const { account } = useWeb3()
+    const { account, active } = useWeb3()
 
     const {
       stakeRealm,
@@ -132,9 +132,11 @@ export default defineComponent({
         }
       }
 
-      await getWorldAge()
       await getAdventurer(address, 'l2')
-      await getTimeToNextAge()
+      if (active.value) {
+        await getWorldAge()
+        await getTimeToNextAge()
+      }
     })
 
     const popFromArray = (value) => {

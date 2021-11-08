@@ -137,7 +137,9 @@ export default defineComponent({
       return militaryUnits.find((a) => a.id === parseInt(props.unitId))
     })
     const findResources = (resource) => {
-      return allUsersResources.value.find((a) => a.id === parseInt(resource))
+      return allUsersResources.value.resources.find(
+        (a) => a.id === parseInt(resource)
+      )
     }
     const qty = ref(1)
 

@@ -144,6 +144,10 @@ export default {
         endpoint:
           'https://api.thegraph.com/subgraphs/name/redbeardeth/arb-bridge-rinkeby',
       },
+      arbitrumRinkebyResources: {
+        endpoint:
+          'https://api.thegraph.com/subgraphs/id/QmP5Fkg7A3T6sKBUrS8KJAV915dcFQ5KRMFMjZpWaVxURo',
+      },
     },
     options: {},
     useFetchPolyfill: true,

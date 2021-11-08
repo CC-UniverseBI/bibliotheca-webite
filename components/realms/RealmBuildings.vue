@@ -126,7 +126,9 @@ export default defineComponent({
       return allBuildings.find((a) => a.id === parseInt(props.buildingId))
     })
     const findResources = (resource) => {
-      return allUsersResources.value.find((a) => a.id === parseInt(resource))
+      return allUsersResources.value.resources.find(
+        (a) => a.id === parseInt(resource)
+      )
     }
     const getConstraint = computed(() => {
       return props.realmTraits.find((a) => a.name === findBuilding.value.trait)

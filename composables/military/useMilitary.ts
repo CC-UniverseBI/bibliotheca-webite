@@ -33,7 +33,7 @@ export function useMilitary() {
       error.buildRaiding = null
       loading.buildRaiding = true
       return await buildRaidingArmy(
-        activeNetwork.value.id,
+        useL2Network.value.id,
         realmId,
         unitId,
         quantity,
@@ -57,7 +57,7 @@ export function useMilitary() {
     try {
       error.buildRaiding = null
       loading.fetching = true
-      raidingArmy.value = await getRaidingArmy(useL2Network.value.id, realmId)
+      raidingArmy.value = await getRaidingArmy(useL2Network.value, realmId)
 
       offence.value = raidingArmy.value[0] * 250 + raidingArmy.value[2] * 100
     } catch (e) {
@@ -72,10 +72,7 @@ export function useMilitary() {
     try {
       error.buildRaiding = null
       loading.fetching = true
-      defensiveArmy.value = await getDefensiveArmy(
-        useL2Network.value.id,
-        realmId
-      )
+      defensiveArmy.value = await getDefensiveArmy(useL2Network.value, realmId)
     } catch (e) {
       console.log(e)
       error.buildRaiding = e.message
@@ -89,7 +86,7 @@ export function useMilitary() {
     try {
       error.buildRaiding = null
       loading.fetching = true
-      unitCost.value = await getUnitCost(useL2Network.value.id, unitId)
+      unitCost.value = await getUnitCost(useL2Network.value, unitId)
     } catch (e) {
       console.log(e)
       error.buildRaiding = e.message
@@ -121,8 +118,10 @@ async function buildRaidingArmy(
   resourceIds,
   resourceValues
 ) {
+  const { useL2Network } = useNetwork()
+
   const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const diamondAddress = contractAddress[activeNetwork.value.id].realmsDiamond
+  const diamondAddress = contractAddress[useL2Network.value.id].realmsDiamond
   const signer = provider.getSigner()
 
   const armyTrainingFacet = new ethers.Contract(
@@ -155,42 +154,39 @@ async function buildRaidingArmy(
 }
 
 async function getRaidingArmy(network, realmId) {
-  const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const diamondAddress = contractAddress[network].realmsDiamond
-  const signer = provider.getSigner()
+  const provider = new ethers.providers.JsonRpcProvider(network.url)
+  const diamondAddress = contractAddress[network.id].realmsDiamond
 
   const armyTrainingFacet = new ethers.Contract(
     diamondAddress,
     ArmyTrainingFacet.abi,
-    signer
+    provider
   )
 
   return await armyTrainingFacet.getRaidingArmy(realmId)
 }
 
 async function getDefensiveArmy(network, realmId) {
-  const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const diamondAddress = contractAddress[network].realmsDiamond
-  const signer = provider.getSigner()
+  const provider = new ethers.providers.JsonRpcProvider(network.url)
+  const diamondAddress = contractAddress[network.id].realmsDiamond
 
   const armyTrainingFacet = new ethers.Contract(
     diamondAddress,
     ArmyTrainingFacet.abi,
-    signer
+    provider
   )
 
   return await armyTrainingFacet.getDefensiveArmy(realmId)
 }
 
 async function getUnitCost(network, unitId) {
-  const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const diamondAddress = contractAddress[network].realmsDiamond
-  const signer = provider.getSigner()
+  const provider = new ethers.providers.JsonRpcProvider(network.url)
+  const diamondAddress = contractAddress[network.id].realmsDiamond
 
   const armyTrainingFacet = new ethers.Contract(
     diamondAddress,
     ArmyTrainingFacet.abi,
-    signer
+    provider
   )
 
   return await armyTrainingFacet.getUnitCost(unitId)

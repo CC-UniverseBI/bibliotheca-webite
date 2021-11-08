@@ -36,27 +36,46 @@
         >
       </div>
 
-      <div class="flex flex-wrap sm:space-x-3 my-3">
-        <span class="pr-4 self-center">Order By:</span>
-        <BButton
-          v-for="(data, index) in orderByData"
-          :key="index"
-          type="primary"
-          :class="{ 'bg-black text-red-300': data.data === orderBy }"
-          class="
-            px-2
-            py-2
-            hover:bg-black
-            rounded
-            capitalize
-            hover:text-red-300
-            mb-2
-            mr-2
-          "
-          @click="setOrderBy(data)"
-        >
-          {{ data.name }}
-        </BButton>
+      <div class="flex flex-wrap sm:space-x-3 my-3 justify-between">
+        <div class="flex flex-grow">
+          <span class="pr-4 self-center">Order By:</span>
+          <BButton
+            v-for="(data, index) in orderByData"
+            :key="index"
+            type="primary"
+            :class="{ 'bg-black text-red-300': data.data === orderBy }"
+            class="
+              px-2
+              py-2
+              hover:bg-black
+              rounded
+              capitalize
+              hover:text-red-300
+              mb-2
+              mr-2
+            "
+            @click="setOrderBy(data)"
+          >
+            {{ data.name }}
+          </BButton>
+        </div>
+        <div class="">
+          <BButton
+            type="primary"
+            class="
+              px-2
+              py-2
+              hover:bg-black
+              rounded
+              capitalize
+              hover:text-red-300
+              mb-2
+              mr-2
+            "
+            @click="filtersOpen = !filtersOpen"
+            >Bulk Actions +</BButton
+          >
+        </div>
       </div>
 
       <div v-if="$fetchState.pending || loading" class="flex flex-wrap mt-6">

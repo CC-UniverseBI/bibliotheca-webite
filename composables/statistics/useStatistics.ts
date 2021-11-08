@@ -9,8 +9,8 @@ import GetterFacetAbi from '~/abi/GetterFacet.json'
 import contractAddress from '~/constant/contractAddress'
 
 export function useStatistics() {
-  const { useL2Network } = useNetwork()
-  const { account } = useWeb3()
+  const { useL2Network, networkMismatch } = useNetwork()
+  const { account, active } = useWeb3()
   const error = reactive({
     stake: null,
   })
@@ -25,7 +25,12 @@ export function useStatistics() {
     try {
       error.stake = null
       loading.stake = true
-      happiness.value = await getRealmHappiness(useL2Network.value.id, realmId)
+      if (active.value && !networkMismatch.value) {
+        happiness.value = await getRealmHappiness(
+          useL2Network.value.id,
+          realmId
+        )
+      }
     } catch (e) {
       console.log(e)
       error.stake = e.message
@@ -38,10 +43,12 @@ export function useStatistics() {
     try {
       error.stake = null
       loading.stake = true
-      realmStatistics.value = await getAllStatistics(
-        useL2Network.value.id,
-        realmId
-      )
+      if (active.value && !networkMismatch.value) {
+        realmStatistics.value = await getAllStatistics(
+          useL2Network.value.id,
+          realmId
+        )
+      }
     } catch (e) {
       console.log(e)
       error.stake = e.message

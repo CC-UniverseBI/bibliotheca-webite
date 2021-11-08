@@ -9,7 +9,7 @@ import contractAddress from '~/constant/contractAddress'
 
 export function useConstruction() {
   const { account } = useWeb3()
-
+  const { useL2Network } = useNetwork()
   const { showError } = useNotification()
   const error = reactive({
     building: null,
@@ -58,7 +58,7 @@ export function useConstruction() {
       loading.building = true
       buildings.value = await getBuilding(
         account.value,
-        activeNetwork.value.id,
+        useL2Network.value,
         realmId
       )
     } catch (e) {
@@ -77,7 +77,7 @@ export function useConstruction() {
       loading.costs = true
       costs.value = await getBuildingCosts(
         account.value,
-        activeNetwork.value.id,
+        useL2Network.value,
         buildingId
       )
     } catch (e) {
@@ -94,7 +94,7 @@ export function useConstruction() {
       loading.costs = true
       stats.value = await getAllBuildingStats(
         account.value,
-        activeNetwork.value.id,
+        useL2Network.value,
         buildingId
       )
     } catch (e) {
@@ -118,13 +118,12 @@ export function useConstruction() {
   }
 }
 async function getBuilding(owner, network, realmId) {
-  const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const diamondAddress = contractAddress[network].realmsDiamond
-  const signer = provider.getSigner()
+  const provider = new ethers.providers.JsonRpcProvider(network.url)
+  const diamondAddress = contractAddress[network.id].realmsDiamond
   const constructionFacet = new ethers.Contract(
     diamondAddress,
     TraitConstructionFacetAbi.abi,
-    signer
+    provider
   )
 
   return await constructionFacet.getBuildings(realmId)
@@ -157,25 +156,23 @@ async function construct(
   return construct
 }
 async function getBuildingCosts(owner, network, buildingId) {
-  const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const diamondAddress = contractAddress[network].realmsDiamond
-  const signer = provider.getSigner()
+  const provider = new ethers.providers.JsonRpcProvider(network.url)
+  const diamondAddress = contractAddress[network.id].realmsDiamond
   const constructionFacet = new ethers.Contract(
     diamondAddress,
     TraitConstructionFacetAbi.abi,
-    signer
+    provider
   )
 
   return await constructionFacet.getBuildingCosts(buildingId)
 }
 async function getAllBuildingStats(owner, network, buildingId) {
-  const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const diamondAddress = contractAddress[network].realmsDiamond
-  const signer = provider.getSigner()
+  const provider = new ethers.providers.JsonRpcProvider(network.url)
+  const diamondAddress = contractAddress[network.id].realmsDiamond
   const constructionFacet = new ethers.Contract(
     diamondAddress,
     TraitConstructionFacetAbi.abi,
-    signer
+    provider
   )
 
   return await constructionFacet.getAllBuildingStats(buildingId)

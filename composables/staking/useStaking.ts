@@ -1,7 +1,7 @@
 import { reactive, ref, Ref } from '@nuxtjs/composition-api'
 import { ethers } from 'ethers'
 import { useWeb3 } from '@instadapp/vue-web3'
-import { activeNetwork } from '../web3/useNetwork'
+import { activeNetwork, useNetwork } from '../web3/useNetwork'
 import { useBigNumber } from '../web3/useBigNumber'
 import { useNotification } from '~/composables/useNotification'
 import { useRealms } from '~/composables/web3/useRealms'
@@ -14,6 +14,7 @@ import erc721tokens from '~/constant/erc721Tokens'
 
 export function useStaking() {
   const { account } = useWeb3()
+  const { useL2Network } = useNetwork()
   const error = reactive({
     stake: null,
   })
@@ -44,7 +45,7 @@ export function useStaking() {
     try {
       error.stake = null
       loading.stake = true
-      balance.value = await getBalance(activeNetwork.value.id, realmId)
+      balance.value = await getBalance(useL2Network.value, realmId)
     } catch (e) {
       await showError(e.message)
       error.stake = e.message
@@ -58,6 +59,8 @@ export function useStaking() {
       error.stake = null
       loading.stake = true
       claimBalance.value = await claim(activeNetwork.value.id, realmId)
+      const body = 'Resources claimed from Realm #' + realmId
+      showSuccess('Transaction Complete', body)
     } catch (e) {
       await showError(e.message)
       error.stake = e.message
@@ -71,6 +74,7 @@ export function useStaking() {
       error.stake = null
       loading.stake = true
       claimBalance.value = await claimAll(activeNetwork.value.id)
+      showSuccess('Transaction Complete', 'All resources claimed from vault')
     } catch (e) {
       await showError(e.message)
       error.stake = e.message
@@ -82,7 +86,7 @@ export function useStaking() {
     try {
       error.stake = null
       loading.stake = true
-      return await getResourceIds(activeNetwork.value.id, realmId)
+      return await getResourceIds(useL2Network.value, realmId)
     } catch (e) {
       await showError(e.message)
       error.stake = e.message
@@ -108,7 +112,7 @@ export function useStaking() {
     try {
       error.stake = null
       loading.stake = true
-      return await getAllTraits(activeNetwork.value.id, realmId)
+      return await getAllTraits(useL2Network.value, realmId)
     } catch (e) {
       console.log(e)
       error.stake = e.message
@@ -202,14 +206,13 @@ async function setApprovalForAllSRealms(owner, network) {
 }
 
 async function getBalance(network, realmId) {
-  const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const diamondAddress = contractAddress[network].realmsDiamond
-  const signer = provider.getSigner()
+  const provider = new ethers.providers.JsonRpcProvider(network.url)
+  const diamondAddress = contractAddress[network.id].realmsDiamond
 
   const getterFacet = new ethers.Contract(
     diamondAddress,
     GetterFacet.abi,
-    signer
+    provider
   )
   const day = await getterFacet.getVestingTime(realmId)
   const month = await getterFacet.get30DayVestingTime(realmId)
@@ -260,28 +263,26 @@ async function claimAll(network) {
   return withdraw
 }
 async function getResourceIds(network, realmId) {
-  const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const diamondAddress = contractAddress[network].realmsDiamond
-  const signer = provider.getSigner()
+  const provider = new ethers.providers.JsonRpcProvider(network.url)
+  const diamondAddress = contractAddress[network.id].realmsDiamond
 
   const resourceStakingFacet = new ethers.Contract(
     diamondAddress,
     StakingFacetAbi.abi,
-    signer
+    provider
   )
 
   return await resourceStakingFacet.getResourceIds(realmId)
 }
 
 async function getAllTraits(network, realmId) {
-  const provider = new ethers.providers.Web3Provider(window.ethereum)
-  const diamondAddress = contractAddress[network].realmsDiamond
-  const signer = provider.getSigner()
+  const provider = new ethers.providers.JsonRpcProvider(network.url)
+  const diamondAddress = contractAddress[network.id].realmsDiamond
 
   const resourceStakingFacet = new ethers.Contract(
     diamondAddress,
     StakingFacetAbi.abi,
-    signer
+    provider
   )
 
   return await resourceStakingFacet.getAllTraits(realmId)

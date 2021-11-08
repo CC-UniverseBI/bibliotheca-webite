@@ -71,7 +71,7 @@ export default defineComponent({
     const offset = ref(1)
     const query = ref(gql`
       query bagsQuery($offset: Int!) {
-        bags(first: 100, skip: $offset) {
+        bags(first: 16, skip: $offset) {
           id
           head
           neck

@@ -33,7 +33,7 @@
             <th class="w-1/4">Production p/day</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody v-if="sortedResources">
           <ResourceRow
             v-for="(resource, index) in sortedResources"
             :key="index"
@@ -41,45 +41,67 @@
             :resource="resource"
           />
         </tbody>
+        <tbody v-else>
+          <span><LoadingDots class="w-8 h-2" /></span>
+        </tbody>
       </table>
     </div>
   </div>
 </template>
 <script>
-import { defineComponent, computed, useFetch } from '@nuxtjs/composition-api'
-import { resources } from '@/composables/utils/resourceColours'
+import {
+  defineComponent,
+  computed,
+  useFetch,
+  onMounted,
+} from '@nuxtjs/composition-api'
 import { useLords } from '~/composables/lords/useLords'
 import { usePrice } from '~/composables'
+import LoadingDots from '~/assets/img/threeDots.svg?inline'
+
+import { useResources } from '~/composables/resources/useResources'
 export default defineComponent({
   fetchOnServer: false,
+  components: {
+    LoadingDots,
+  },
   setup(props, context) {
     const { goldPrice } = usePrice()
     const { address } = context.root.$route.params
-    const {
-      getAdventurersLords,
-      lordsBalance,
-      worldAge,
-      error,
-      goldBalance,
-      getAdventurersGold,
-    } = useLords()
-    const filteredResources = resources.filter((d) => {
-      return d.value > 1
+    const { worldAge, error, goldBalance, getAdventurersGold } = useLords()
+    const { fetchUsersBalance, resourceBalance, lordsBalance } = useResources()
+    const filteredResources = computed(() => {
+      if (resourceBalance.value) {
+        return resourceBalance.value.filter((d) => {
+          return d.value > 1
+        })
+      } else {
+        return []
+      }
     })
     const lordsBalanceFormatted = computed(() => {
       if (lordsBalance.value) {
         return parseFloat(lordsBalance.value)?.toFixed(2)
       }
     })
-    const sortedResources = filteredResources.sort((a, b) => {
-      return b.value - a.value
+    const sortedResources = computed(() => {
+      return filteredResources.value.sort((a, b) => {
+        return b.value - a.value
+      })
+    })
+    onMounted(async () => {
+      if (!resourceBalance.value) {
+        await fetch()
+      }
     })
     useFetch(async () => {
-      await getAdventurersLords(address)
+      console.log('fetching ' + address)
+      await fetchUsersBalance(address)
       // await getAdventurersGold(address)
     })
     return {
-      getAdventurersLords,
+      filteredResources,
+      resourceBalance,
       lordsBalance,
       lordsBalanceFormatted,
       worldAge,

@@ -85,6 +85,19 @@ const getResourceListQuery = gql`
     }
   }
 `
+const getResourceBalancesQuery = gql`
+  query getResourceBalancesQuery($address: String) {
+    accounts(where: { id: $address }) {
+      balances {
+        token {
+          identifier
+        }
+        value
+      }
+    }
+  }
+`
+
 const getl1Adventurer = gql`
   ${WalletFragment}
   ${RealmFragment}
@@ -257,4 +270,5 @@ export {
   getWithdrawalsQuery,
   messageHasExecutedQuery,
   getResourceListQuery,
+  getResourceBalancesQuery,
 }

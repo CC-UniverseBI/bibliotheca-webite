@@ -122,13 +122,15 @@ export default defineComponent({
     })
 
     const findResources = computed(() => {
-      return allUsersResources.value.find(
+      return allUsersResources.value.resources.find(
         (a) => a.id === parseInt(resourceId.value)
       )
     })
 
     const findCostResources = (id) => {
-      return allUsersResources.value.find((a) => a.id === parseInt(id))
+      return allUsersResources.value.resources.find(
+        (a) => a.id === parseInt(id)
+      )
     }
 
     return {

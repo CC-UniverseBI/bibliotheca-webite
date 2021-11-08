@@ -540,6 +540,7 @@ export function useBridge() {
   }
 
   return {
+    getL2Signer,
     initBridge,
     getL2Realms,
     depositRealm,

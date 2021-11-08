@@ -11,9 +11,9 @@
     <SideBar class="fixed sm:relative w-80 min-h-screen" />
     <div class="w-full">
       <AccountButton />
+      <Modal />
 
       <Nuxt keep-alive class="p-3 sm:p-8" />
-      <Modal />
     </div>
   </div>
 </template>
@@ -39,6 +39,7 @@ export default defineComponent({
 
     watch(account, () => {
       addRaidResultListener()
+      console.log('fetching logged in user resources')
       fetchUsersBalance()
     })
 

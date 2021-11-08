@@ -258,7 +258,7 @@ export default defineComponent({
       result,
       withdraw,
     } = useStaking()
-    const { account } = useWeb3()
+    const { account, active: web3Active } = useWeb3()
     const {
       constructBuilding,
       getBuildings,
@@ -296,11 +296,13 @@ export default defineComponent({
     }
 
     useFetch(async () => {
-      await getRealmsResourceBalance(props.realm.id)
-      // const response = await fetchRealmMetaData(props.realm.id)
-      // metaData.value = response.data
-      await getBuildings(props.realm.id)
-      await fetchRaiding(props.realm.id)
+      if (web3Active.value) {
+        await getRealmsResourceBalance(props.realm.id)
+        // const response = await fetchRealmMetaData(props.realm.id)
+        // metaData.value = response.data
+        await getBuildings(props.realm.id)
+        await fetchRaiding(props.realm.id)
+      }
     })
 
     // const fetchRealmMetaData = async (id) => {
