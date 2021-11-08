@@ -303,12 +303,14 @@ export default defineComponent({
     const onLiquiditySubmit = async () => {
       const withAmounts = selectedResources.value.filter((e) => e.amount > 0)
       const resourceIds = withAmounts.map((e) => e.id)
-      const resourceAmounts = withAmounts.map((e) =>
-        ethers.utils.parseUnits(e.amount, 'ether')
-      )
+
       if (add.value) {
+        const resourceAmounts = withAmounts.map((e) => e.amount)
         await addLiquidity(resourceIds, resourceAmounts)
       } else {
+        const resourceAmounts = withAmounts.map((e) =>
+          ethers.utils.parseUnits(e.amount, 'ether')
+        )
         await removeLiquidity(resourceIds, resourceAmounts)
       }
     }

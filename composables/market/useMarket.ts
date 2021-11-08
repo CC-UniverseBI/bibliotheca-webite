@@ -501,25 +501,15 @@ async function sendAddLiquidity(
 
   for (let i = 0; i < resourceIds.length; i++) {
     const token = await getResourceReserve(network, resourceIds[i])
-
+    console.log(token)
     const decimalsToken = ethers.utils.parseUnits(token.toString(), 'ether')
 
-    console.log(currency[i].toString())
-    console.log(resourceAmounts[i].toString())
-    console.log(decimalsToken)
     const maxCurrency = currency[i].gt(0)
-      ? currency[i]
-          .mul(resourceAmounts[i])
-          .div(decimalsToken.sub(resourceAmounts[i]))
+      ? currency[i].mul(resourceAmounts[i]).div(token.sub(resourceAmounts[i]))
       : BigNumber.from(1 ** 18)
 
     currencyAmounts.push(maxCurrency)
   }
-
-  console.log(
-    currencyAmounts.reduce((a, b) => a.add(b)),
-    'currency amounts'
-  )
 
   await validateAndApproveERC1155(network, 'resourceExchange', exAddr)
   await validateAndApproveERC20(
@@ -536,7 +526,6 @@ async function sendAddLiquidity(
     ResourceTokensAbi.abi,
     signer
   )
-  console.log(data)
   return await resources.safeBatchTransferFrom(
     await signer.getAddress(),
     exAddr,
