@@ -506,8 +506,7 @@ async function sendAddLiquidity(
 
     const maxCurrency = currency[i].gt(0)
       ? currency[i].mul(resourceAmounts[i]).div(token.sub(resourceAmounts[i]))
-      : BigNumber.from(1 ** 18)
-
+      : BigNumber.from(10).pow(18).mul(resourceAmounts[i])
     currencyAmounts.push(maxCurrency)
   }
 
