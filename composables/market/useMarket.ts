@@ -264,7 +264,7 @@ export function useMarket() {
       updateLordsPrice()
     } else {
       selectedResources.value.splice(i, 1)
-      if (selectedResources.value.length) updateLordsPrice()
+      updateLordsPrice()
     }
   }
 
@@ -281,11 +281,15 @@ export function useMarket() {
 
     const ids = filtered.map((e) => e.id)
     const amounts = filtered.map((e) => e.amount)
-    const prices = await fetchBulkResourcePrices(ids, amounts)
-    console.log(prices)
-    const total = prices.reduce((a, b) => a.add(b))
-    console.log(total)
-    lordsPrice.value = parseInt(ethers.utils.formatEther(total)).toFixed(2)
+    if (ids.length) {
+      const prices = await fetchBulkResourcePrices(ids, amounts)
+
+      const total = prices.reduce((a, b) => a.add(b))
+
+      lordsPrice.value = parseInt(ethers.utils.formatEther(total)).toFixed(2)
+    } else {
+      lordsPrice.value = 0
+    }
   }
   return {
     addToMarket,
@@ -507,7 +511,8 @@ async function sendAddLiquidity(
       ? currency[i]
           .mul(resourceAmounts[i])
           .div(decimalsToken.sub(resourceAmounts[i]))
-      : 1000000000000000
+      : BigNumber.from(1 ** 18)
+
     currencyAmounts.push(maxCurrency)
   }
 
@@ -523,7 +528,7 @@ async function sendAddLiquidity(
     exAddr,
     currencyAmounts.reduce((a, b) => a.add(b))
   )
-
+  console.log(currencyAmounts)
   const data = getAddLiquidityData(currencyAmounts, deadline)
 
   const resources = new ethers.Contract(
@@ -531,6 +536,7 @@ async function sendAddLiquidity(
     ResourceTokensAbi.abi,
     signer
   )
+  console.log(data)
   return await resources.safeBatchTransferFrom(
     await signer.getAddress(),
     exAddr,

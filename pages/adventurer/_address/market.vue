@@ -45,18 +45,30 @@
           <div v-if="!selectedResources.length" class="w-full text-2xl mb-4">
             Select Resources
           </div>
+
           <div
             :class="{ 'flex-col-reverse': buy }"
-            class="w-3/3 flex flex-col transition duration-300"
+            class="w-3/3 flex flex-col transition-all duration-300"
           >
-            <ResourceSelect
+            <h4 v-if="!buy" class="text-gray-600">Swap From:</h4>
+            <div
               v-for="resource in selectedResources"
               :key="resource.id"
-              class="transition duration-300"
-              :resource="resource"
-              @x-click="onArrowClick(resource)"
-              @amount-changed="onAmountChanged(resource, $event.target.value)"
-            />
+              class="flex space-x-4"
+            >
+              <ResourceSelect
+                class="transition-all duration-300 w-1/2 ease-in-out"
+                :resource="resource"
+                @x-click="onArrowClick(resource)"
+                @amount-changed="onAmountChanged(resource, $event.target.value)"
+              />
+              <AdventurersLiquidity
+                class="w-1/2"
+                :resource="resource"
+                @arrow-click="onArrowClick(resource)"
+              />
+            </div>
+            <h4 v-if="buy" class="text-gray-600">Swap To:</h4>
             <div class="flex my-4">
               <button
                 class="
@@ -74,17 +86,17 @@
                 "
                 @click="buy = !buy"
               >
-                <ArrowUp class="mx-2" />
-                {{ buy ? 'Swap to' : 'Swap from' }}
-                <ArrowDown class="mx-2" />
+                <ArrowUp class="mx-1" />
+
+                <ArrowDown class="mx-1" />
               </button>
             </div>
             <div>
-              <h4 class="text-gray-600">Total Lords For Trade</h4>
+              <h4 class="text-gray-600">Swap {{ buy ? 'From:' : 'To:' }}</h4>
               <div class="bg-gray-1000 p-4 rounded-2xl">
                 <div class="text-2xl flex justify-between">
-                  <span>👑 LORDS:</span>
-                  <span>~{{ lordsPrice }}</span>
+                  <span class="self-start">👑 LORDS:</span>
+                  <span class="self-end">~{{ lordsPrice }}</span>
                 </div>
                 <div>Balance: {{ lordsBalance }}</div>
               </div>
@@ -160,7 +172,7 @@
                   @click="add = !add"
                 >
                   <ArrowUp class="mx-2" />
-                  {{ add ? 'Add Liquidity' : 'Remove Liquidity' }}
+                  {{ add ? 'Remove Liquidity' : 'Add Liquidity' }}
                   <ArrowDown class="mx-2" />
                 </button>
               </div>

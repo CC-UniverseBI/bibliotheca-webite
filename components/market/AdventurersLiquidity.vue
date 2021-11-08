@@ -10,13 +10,14 @@
       {{ lordsReserve }}👑 <br />
       {{ resourceReserve }}
     </div> -->
+    <span v-if="!hasLiquidity" class="text-red-600 text-sm">NO LIQUIDITY</span>
     <div class="text-base font-semibold">
       <!-- {{ lordsReserve }} <br /> -->
-      {{ lbalance }} /
-      {{ lsupply }}
+      {{ lordsReserveSupply }} /
+      {{ liquidityTokenSupply }}
     </div>
     <div class="text-base">
-      Share: {{ ((100 * lbalance) / lsupply).toFixed(1) }} %
+      Share: {{ ((100 * lbalance) / liquidityTokenSupply).toFixed(1) }} %
     </div>
     <!-- <div>
       <button type="button" @click="$emit('arrow-click')">
@@ -26,7 +27,12 @@
   </div>
 </template>
 <script>
-import { useFetch, defineComponent, ref } from '@nuxtjs/composition-api'
+import {
+  useFetch,
+  defineComponent,
+  ref,
+  computed,
+} from '@nuxtjs/composition-api'
 // import { BigNumber } from '@ethersproject/bignumber'
 import { ethers } from 'ethers'
 import { useMarket } from '~/composables/market/useMarket'
@@ -65,14 +71,32 @@ export default defineComponent({
       lbalance.value = parseInt(
         ethers.utils.formatEther(await fetchLiquidityBalance(props.resource.id))
       ).toFixed(2)
-      lsupply.value = parseInt(
-        ethers.utils.formatEther(
-          await fetchLiquidityTokenSupply(props.resource.id)
-        )
-      ).toFixed(2)
+      lsupply.value = await fetchLiquidityTokenSupply([props.resource.id])
+    })
+
+    const liquidityTokenSupply = computed(() => {
+      return lsupply.value
+        ? parseInt(ethers.utils.formatEther(lsupply.value[0])).toFixed(2)
+        : null
+    })
+
+    const lordsReserveSupply = computed(() => {
+      return lordsReserve.value
+        ? parseInt(ethers.utils.formatEther(lordsReserve.value[0])).toFixed(2)
+        : null
+    })
+
+    const hasLiquidity = computed(() => {
+      return (
+        parseInt(lordsReserveSupply.value) !== 0.0 &&
+        parseInt(liquidityTokenSupply.value) !== 0.0
+      )
     })
 
     return {
+      hasLiquidity,
+      liquidityTokenSupply,
+      lordsReserveSupply,
       lordsReserve,
       resourceReserve,
       lbalance,
